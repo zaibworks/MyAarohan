@@ -296,6 +296,31 @@ export default function StudentDashboard() {
             </Pressable>
           </View>
         )}
+
+        <View className="mt-5 mb-5 flex-row items-center rounded-xl border border-[#E2E5E9] bg-white px-3.5 py-3.5">
+          <View className="h-10 w-10 items-center justify-center rounded-full bg-[#EAF1F7]">
+            <Text className="text-[17px]">🎓</Text>
+          </View>
+
+          <View className="ml-3 flex-1 pr-2">
+            <Text className="text-[13px] font-semibold text-[#16202A]">
+              1 mentorship session available
+            </Text>
+
+            <Text className="mt-1 text-[11px] text-[#6B7684]">
+              Get personalised guidance from a counsellor
+            </Text>
+          </View>
+
+          <Pressable
+            onPress={() => console.log("View plans")}
+            className="rounded-[9px] bg-[#1A3A5C] px-3 py-2"
+          >
+            <Text className="text-[11px] font-semibold text-white">
+              View plans
+            </Text>
+          </Pressable>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );

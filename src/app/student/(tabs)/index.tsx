@@ -1,13 +1,10 @@
+import { useNavigation } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import {
-  ClipboardCheck,
   GraduationCap,
-  Home,
   LibraryBig,
   Menu,
-  MessageCircle,
   MessagesSquare,
-  User,
 } from "lucide-react-native";
 import { useState } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
@@ -17,9 +14,8 @@ export default function StudentDashboard() {
   const [activeTab, setActiveTab] = useState<"assessments" | "quickActions">(
     "assessments",
   );
-  const [activeBottomTab, setActiveBottomTab] = useState<
-    "dashboard" | "assessments" | "ai" | "profile"
-  >("dashboard");
+
+  const navigate = useNavigation() as any;
 
   return (
     <SafeAreaView className="flex-1 bg-[#F4F6F8]">
@@ -30,7 +26,10 @@ export default function StudentDashboard() {
         <View className="h-[62px] flex-row items-center justify-between px-4">
           {/* Left */}
           <View className="flex-row items-center gap-3">
-            <Pressable className="h-9 w-9 items-center justify-center rounded-[10px] border border-[#E6E9ED] bg-white">
+            <Pressable
+              onPress={() => navigate.openDrawer()}
+              className="h-9 w-9 items-center justify-center rounded-[10px] border border-[#E6E9ED] bg-white"
+            >
               <Menu size={18} color="#16202A" strokeWidth={2} />
             </Pressable>
           </View>
@@ -329,99 +328,6 @@ export default function StudentDashboard() {
           </Pressable>
         </View>
       </ScrollView>
-
-      {/* Bottom Navigation  */}
-      <View className="border-t border-[#E6E9ED] bg-white">
-        <View className="flex-row items-center justify-around px-2 py-2">
-          {/* Dashboard */}
-          <Pressable
-            onPress={() => setActiveBottomTab("dashboard")}
-            className="flex-1 items-center py-1"
-          >
-            <Home
-              size={20}
-              color={activeBottomTab === "dashboard" ? "#1A3A5C" : "#9AA4AF"}
-              strokeWidth={2}
-            />
-
-            <Text
-              className={
-                activeBottomTab === "dashboard"
-                  ? "mt-1 text-[10px] font-semibold text-[#1A3A5C]"
-                  : "mt-1 text-[10px] text-[#9AA4AF]"
-              }
-            >
-              Dashboard
-            </Text>
-          </Pressable>
-
-          {/* Assessments */}
-          <Pressable
-            onPress={() => setActiveBottomTab("assessments")}
-            className="flex-1 items-center py-1"
-          >
-            <ClipboardCheck
-              size={20}
-              color={activeBottomTab === "assessments" ? "#1A3A5C" : "#9AA4AF"}
-              strokeWidth={2}
-            />
-
-            <Text
-              className={
-                activeBottomTab === "assessments"
-                  ? "mt-1 text-[10px] font-semibold text-[#1A3A5C]"
-                  : "mt-1 text-[10px] text-[#9AA4AF]"
-              }
-            >
-              Assessments
-            </Text>
-          </Pressable>
-
-          {/* AI Chat */}
-          <Pressable
-            onPress={() => setActiveBottomTab("ai")}
-            className="flex-1 items-center py-1"
-          >
-            <MessageCircle
-              size={20}
-              color={activeBottomTab === "ai" ? "#1A3A5C" : "#9AA4AF"}
-              strokeWidth={2}
-            />
-
-            <Text
-              className={
-                activeBottomTab === "ai"
-                  ? "mt-1 text-[10px] font-semibold text-[#1A3A5C]"
-                  : "mt-1 text-[10px] text-[#9AA4AF]"
-              }
-            >
-              AI Chat
-            </Text>
-          </Pressable>
-
-          {/* Profile */}
-          <Pressable
-            onPress={() => setActiveBottomTab("profile")}
-            className="flex-1 items-center py-1"
-          >
-            <User
-              size={20}
-              color={activeBottomTab === "profile" ? "#1A3A5C" : "#9AA4AF"}
-              strokeWidth={2}
-            />
-
-            <Text
-              className={
-                activeBottomTab === "profile"
-                  ? "mt-1 text-[10px] font-semibold text-[#2f3030]"
-                  : "mt-1 text-[10px] text-[#9AA4AF]"
-              }
-            >
-              Profile
-            </Text>
-          </Pressable>
-        </View>
-      </View>
     </SafeAreaView>
   );
 }

@@ -338,7 +338,7 @@ export default function AI() {
 
               {message.type === "user" && (
                 <View className="order-2 mt-[2px] h-[30px] w-[30px] items-center justify-center rounded-full bg-[#1a3a5c]">
-                  <Text className="text-[11px] font-bold text-white">J</Text>
+                  <Text className="text-[11px] font-bold text-white">Z</Text>
                 </View>
               )}
             </View>
@@ -400,7 +400,7 @@ export default function AI() {
             onPress={sendMessage}
             disabled={!input.trim()}
             className={`h-[35px] w-[35px] items-center justify-center rounded-[10px] ${
-              input.trim() ? "bg-[#087ca3]" : "bg-[#087ca3]/45"
+              input.trim() ? "bg-[#1A3A5C]" : "bg-[#1A3A5C]/45"
             }`}
           >
             <Send size={17} color="#ffffff" strokeWidth={2} />

@@ -36,7 +36,7 @@ export default function StudentDashboard() {
 
           {/* Avatar */}
           <View className="h-[34px] w-[34px] items-center justify-center rounded-full bg-[#1A3A5C]">
-            <Text className="text-[14px] font-semibold text-white">J</Text>
+            <Text className="text-[14px] font-semibold text-white">Z</Text>
           </View>
         </View>
       </View>
@@ -50,7 +50,7 @@ export default function StudentDashboard() {
         {/* greeting  */}
 
         <Text className="text-[19px] font-bold text-[#16202A]">
-          Hi, John 👋
+          Hi, Zaib 👋
         </Text>
 
         <Text className="mt-[2px] text-[12.5px] text-[#6B7684]">

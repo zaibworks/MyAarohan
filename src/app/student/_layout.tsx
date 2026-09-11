@@ -1,13 +1,12 @@
 import { useRouter } from "expo-router";
 import Drawer from "expo-router/drawer";
 import {
-   BarChart3,
-   BookOpen,
-   CalendarDays,
-   CreditCard,
-   LogOut,
-   Settings,
-   Sparkles,
+  BarChart3,
+  BookOpen,
+  CalendarDays,
+  CreditCard,
+  LogOut,
+  Settings
 } from "lucide-react-native";
 import { Pressable, Text, View } from "react-native";
 
@@ -15,22 +14,22 @@ function CustomDrawer({ navigation }: any) {
   const menuItems = [
     {
       label: "Results",
+      route: "results",
       icon: BarChart3,
     },
     {
       label: "Counselling Sessions",
+      route: "counselling",
       icon: CalendarDays,
     },
     {
-      label: "AARO AI",
-      icon: Sparkles,
-    },
-    {
       label: "Career Encyclopedia",
+      route: "career-encyclopedia",
       icon: BookOpen,
     },
     {
       label: "Plans",
+      route: "plans",
       icon: CreditCard,
     },
   ];
@@ -66,8 +65,8 @@ function CustomDrawer({ navigation }: any) {
 
           return (
             <Pressable
-              key={item.label}
-              onPress={() => navigation.navigate(item.label)}
+              key={item.route}
+              onPress={() => navigation.navigate(item.route)}
               className="mb-1 flex-row items-center rounded-xl px-3 py-3.5"
             >
               <Icon size={20} color="#5F6B76" />

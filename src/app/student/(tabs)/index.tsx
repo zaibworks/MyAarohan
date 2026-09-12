@@ -1,12 +1,11 @@
 import { useNavigation, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import {
+  CircleAlert,
   GraduationCap,
   LibraryBig,
   Menu,
-  MessagesSquare,
-  Sparkle,
-  CircleAlert
+  MessagesSquare
 } from "lucide-react-native";
 import { useState } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
@@ -39,7 +38,7 @@ export default function StudentDashboard() {
 
           {/* Avatar */}
           <Pressable
-            onPress={() => router.push('/student/profile')}
+            onPress={() => router.push("/student/(tabs)/profile")}
             className="h-[34px] w-[34px] items-center justify-center rounded-full bg-[#1A3A5C]"
           >
             <Text className="text-[14px] font-semibold text-white">Z</Text>
@@ -79,7 +78,7 @@ export default function StudentDashboard() {
 
           <Pressable
             className="mt-4 self-start rounded-[10px] bg-white px-4 py-2.5"
-            onPress={() =>router.push(`/student/results/` as any)}
+            onPress={() => router.push(`/student/results/` as any)}
           >
             <Text className="text-[12px] font-semibold text-[#1A3A5C]">
               View report
@@ -91,14 +90,13 @@ export default function StudentDashboard() {
           {/* Profile */}
           <View className="flex-1 px-3 py-3">
             <View className="flex-row justify-between">
-            <Text className="text-[10px] text-[#6B7684]">Profile</Text>
-                 <CircleAlert size={13} color="red"/>
+              <Text className="text-[10px] text-[#6B7684]">Profile</Text>
+              <CircleAlert size={13} color="red" />
             </View>
 
             <Text className="mt-1 text-[12px] font-semibold text-[#16202A]">
               76% complete
             </Text>
-            
           </View>
 
           {/* Divider */}
@@ -246,7 +244,7 @@ export default function StudentDashboard() {
             {/* Career Encyclopedia */}
             <Pressable
               className="mt-3 flex-row items-center rounded-xl border border-[#E6E9ED] bg-white px-3.5 py-3.5"
-             onPress={()=>router.push('/student/career-encyclopedia')}
+              onPress={() => router.push("/student/career-encyclopedia")}
             >
               <View className="h-10 w-10 items-center justify-center rounded-[10px] bg-[#EAF1F7]">
                 <LibraryBig size={19} />
@@ -268,7 +266,7 @@ export default function StudentDashboard() {
             {/* Student Support */}
             <Pressable
               className="mt-2.5 flex-row items-center rounded-xl border border-[#E6E9ED] bg-white px-3.5 py-3.5"
-              onPress={()=>router.push('/student/student-support')}
+              onPress={() => router.push("/student/student-support")}
             >
               <View className="h-10 w-10 items-center justify-center rounded-[10px] bg-[#EAF1F7]">
                 <MessagesSquare size={19} strokeWidth={3} />
@@ -289,15 +287,14 @@ export default function StudentDashboard() {
 
             {/* Counselling Sessions */}
             <Pressable
-            onPress={()=>router.push('/student/counselling')}
+              onPress={() => router.push("/student/counselling")}
               className="mt-2.5 flex-row items-center rounded-xl border border-[#E6E9ED] bg-white px-3.5 py-3.5"
             >
               <View className="h-10 w-10 items-center justify-center rounded-[10px] bg-[#EAF1F7]">
                 <GraduationCap />
               </View>
 
-              <View 
-              className="ml-3 flex-1">
+              <View className="ml-3 flex-1">
                 <Text className="text-[13px] font-semibold text-[#16202A]">
                   Counselling Sessions
                 </Text>

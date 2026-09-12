@@ -90,7 +90,13 @@ const Register = () => {
     return null;
   };
 
+    const finishRegistration=()=>{
+    setErrorMessage("")
+    router.replace('/auth/register/complete')
+  }
+
   const handleNext = () => {
+
     setErrorMessage("");
     const error = validateStep();
 
@@ -103,6 +109,7 @@ const Register = () => {
       setCurrentStep(currentStep + 1);
       return;
     }
+   
 
     handleRegistration();
   };
@@ -110,6 +117,7 @@ const Register = () => {
   const handleRegistration = () => {
     console.log("Registration data:", formData);
   };
+
   return (
     <View className="flex-1 bg-white">
       {/* Top Bar  */}
@@ -472,7 +480,7 @@ const Register = () => {
       <View className="px-6 pb-5 pt-3">
         <Pressable
           onPress={
-            currentStep === 3 ? () => router.replace("/auth/login") : handleNext
+            currentStep === 3 ? () => router.replace("/auth/register/complete") : handleNext
           }
           className="h-[52px] w-full flex-row items-center justify-center gap-2 rounded-xl bg-[#1A3A5C]"
         >

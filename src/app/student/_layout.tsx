@@ -90,7 +90,8 @@ function CustomDrawer({ navigation }: any) {
       </View>
 
       {/* Logout */}
-      <Pressable className="mb-7 flex-row items-center rounded-xl  px-3 pt-5">
+      <Pressable onPress={()=>router.replace('/auth/login')}
+      className="mb-7 flex-row items-center rounded-xl  px-3 pt-5">
         <LogOut size={20} color="#D9534F" />
 
         <Text className="ml-4 text-[15px] font-medium text-[#D9534F]">

@@ -1,10 +1,10 @@
 import { router } from "expo-router";
 import {
-    ArrowRight,
-    Check,
-    Circle,
-    Sparkles,
-    UserRound,
+  ArrowRight,
+  Check,
+  Circle,
+  Sparkles,
+  UserRound,
 } from "lucide-react-native";
 import { Pressable, ScrollView, Text, View } from "react-native";
 
@@ -143,7 +143,7 @@ export default function RegistrationComplete() {
           <Pressable
             onPress={() => {
               // Replace this with your detailed profile setup route
-              router.push("/student/(tabs)/profile");
+              router.push("/student/profile-setup");
             }}
             className="flex-row items-center justify-center rounded-xl bg-[#1A3A5C] py-3.5"
           >

@@ -88,7 +88,7 @@ export default function StudentDashboard() {
 
         <View className="mt-4 flex-row overflow-hidden rounded-xl border border-[#E6E9ED] bg-white">
           {/* Profile */}
-          <View className="flex-1 px-3 py-3">
+          <Pressable onPress={()=>router.push("/student/profile-setup")} className="flex-1 px-3 py-3">
             <View className="flex-row justify-between">
               <Text className="text-[10px] text-[#6B7684]">Profile</Text>
               <CircleAlert size={13} color="red" />
@@ -97,7 +97,7 @@ export default function StudentDashboard() {
             <Text className="mt-1 text-[12px] font-semibold text-[#16202A]">
               76% complete
             </Text>
-          </View>
+          </Pressable>
 
           {/* Divider */}
           <View className="my-3 w-[1px] bg-[#E6E9ED]" />

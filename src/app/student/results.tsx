@@ -119,10 +119,10 @@ export default function Results() {
 
   const navigate = useNavigation() as any;
   return (
-    <View className="flex-1 bg-[#F4F6F8] pt-10">
+    <View className="flex-1 bg-[#F4F6F8]">
       {/* Existing app top bar goes here */}
 
-      <View className="border-b border-[#E6E9ED] bg-white">
+      <View className="border-b border-[#E6E9ED] bg-white pt-10">
         <View className="h-[62px] flex-row items-center justify-between px-4">
           {/* Left */}
           <View className="flex-row items-center gap-3">

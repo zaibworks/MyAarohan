@@ -20,11 +20,11 @@ export default function StudentDashboard() {
   const router = useRouter();
 
   return (
-    <SafeAreaView className="flex-1 bg-[#F4F6F8]">
+    <View className="flex-1 bg-[#F4F6F8]">
       <StatusBar style="dark" />
 
       {/* Header */}
-      <View className="border-b border-[#E6E9ED] bg-white">
+      <View className="border-b border-[#E6E9ED] bg-white pt-10">
         <View className="h-[62px] flex-row items-center justify-between px-4">
           {/* Left */}
           <View className="flex-row items-center gap-3">
@@ -53,16 +53,7 @@ export default function StudentDashboard() {
         showsVerticalScrollIndicator={false}
       >
         {/* greeting  */}
-
-        <Text className="text-[19px] font-bold text-[#16202A]">
-          Hi, Zaib 👋
-        </Text>
-
-        <Text className="mt-[2px] text-[12.5px] text-[#6B7684]">
-          Here's where things stand
-        </Text>
-
-        <View className="mt-5 overflow-hidden rounded-2xl bg-[#1A3A5C] px-4 py-5">
+        <View className="mt-0 overflow-hidden rounded-2xl bg-[#1A3A5C] px-4 py-5">
           <Text className="text-[10px] font-semibold uppercase tracking-[1px] text-white/70">
             Next up
           </Text>
@@ -325,7 +316,7 @@ export default function StudentDashboard() {
           </View>
 
           <Pressable
-            onPress={() => console.log("View plans")}
+            onPress={() => router.push('/student/plans')}
             className="rounded-[9px] bg-[#1A3A5C] px-3 py-2"
           >
             <Text className="text-[11px] font-semibold text-white">
@@ -334,6 +325,6 @@ export default function StudentDashboard() {
           </Pressable>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }

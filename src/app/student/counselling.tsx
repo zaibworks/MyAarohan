@@ -1,20 +1,18 @@
-import { router } from "expo-router";
+import { router, useNavigation } from "expo-router";
 import {
-  ArrowLeft,
   Calendar,
   CalendarDays,
   CalendarPlus,
   ChevronRight,
   Headphones,
-  HelpCircle,
   History,
+  Menu,
   Plus,
   ShieldCheck,
   Ticket,
 } from "lucide-react-native";
 import { useState } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 type SessionType = "mentorship" | "expert";
 type ActionType = "book" | "sessions";
@@ -73,23 +71,32 @@ export default function Mentorship() {
   const handleTime = (time: string) => {
     setSelectedTime(time);
   };
+  const navigate = useNavigation() as any;
 
   return (
-    <SafeAreaView className="flex-1 bg-[#F4F6F8]">
+    <View className="flex-1 bg-[#F4F6F8]">
       {/* Top Bar */}
-      <View className="h-[56px] flex-row items-center gap-2.5 border-b border-[#E6E9ED] bg-white px-[14px]">
-        <Pressable
-          onPress={() => router.back()}
-          className="h-9 w-9 items-center justify-center rounded-[10px] border border-[#E6E9ED] bg-white"
-        >
-          <ArrowLeft size={19} color="#16202A" strokeWidth={2} />
-        </Pressable>
 
-        <Text className="text-[16px] font-bold tracking-[0.1px] text-[#16202A]">
-          Mentorship
-        </Text>
+      <View className="border-b border-[#E6E9ED] bg-white pt-10">
+        <View className="h-[62px] flex-row items-center justify-between px-4">
+          {/* Left */}
+          <View className="flex-row items-center gap-3">
+            <Pressable
+              onPress={() => navigate.openDrawer()}
+              className="h-9 w-9 items-center justify-center rounded-[10px] border border-[#E6E9ED] bg-white"
+            >
+              <Menu size={18} color="#16202A" strokeWidth={2} />
+            </Pressable>
+          </View>
 
-        <View className="flex-1" />
+          {/* Avatar */}
+          <Pressable
+            onPress={() => router.push("/student/profile")}
+            className="h-[34px] w-[34px] items-center justify-center rounded-full bg-[#1A3A5C]"
+          >
+            <Text className="text-[14px] font-semibold text-white">Z</Text>
+          </Pressable>
+        </View>
       </View>
 
       {/* Scrollable Content */}
@@ -102,6 +109,12 @@ export default function Mentorship() {
           paddingBottom: 24,
         }}
       >
+        <View className="bg-[#F4F6F8] pr-4 pb-3 pt-5">
+          <Text className="text-[24px] font-bold tracking-[-0.4px] text-[#16202A]">
+            Mentorship
+          </Text>
+        </View>
+
         {/* Intro */}
         <View className="mb-[14px]">
           <Text className="mb-1.5 text-[17px] font-bold leading-[22px] text-[#16202A]">
@@ -425,6 +438,6 @@ export default function Mentorship() {
           </View>
         )}
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }

@@ -49,9 +49,9 @@ export default function Assessments() {
     },
   ];
   return (
-    <SafeAreaView className="flex-1 bg-[#F4F6F8]">
+    <View className="flex-1 bg-[#F4F6F8]">
 
-       <View className="border-b border-[#E6E9ED] bg-white">
+       <View className="border-b border-[#E6E9ED] bg-white pt-10">
         <View className="h-[62px] flex-row items-center justify-between px-4">
           {/* Left */}
           <View className="flex-row items-center gap-3">
@@ -230,6 +230,6 @@ export default function Assessments() {
           </Text>
         </ScrollView>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }

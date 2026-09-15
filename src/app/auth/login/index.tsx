@@ -6,6 +6,7 @@ import {
   LockKeyhole,
 } from "lucide-react-native";
 import { Pressable, Text, TextInput, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Login = () => {
   const router = useRouter();
@@ -15,7 +16,8 @@ const Login = () => {
   };
 
   return (
-    <View className="flex-1 bg-white pb-4">
+    <SafeAreaView edges={["bottom"]} 
+    className="flex-1 bg-white">
       {/* Top Bar */}
       <View className="pl-9 pt-16">
         <Pressable className="h-[34px] w-[34px] items-center justify-center rounded-[10px] border border-[#E2E5E9] bg-white">
@@ -120,7 +122,7 @@ const Login = () => {
       </View>
 
       {/* Footer */}
-      <View className="px-[26px] pb-[22px] pt-3">
+      <View className="px-[26px] pt-3">
         {/* Login Button */}
         <Pressable
           onPress={handleLogin}
@@ -144,7 +146,7 @@ const Login = () => {
           </Pressable>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

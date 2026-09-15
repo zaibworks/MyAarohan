@@ -45,7 +45,7 @@ const Login = () => {
         {/* Phone Number Field */}
         <View className="mb-4">
           <Text className="mb-[7px] text-[12.5px] font-semibold text-[#6B7684]">
-            Phone number
+            Phone
           </Text>
 
           <View className="h-[50px] flex-row overflow-hidden rounded-xl border border-[#E2E5E9]">
@@ -67,36 +67,18 @@ const Login = () => {
           </View>
         </View>
 
-        {/* Date of Birth */}
+        {/* Password */}
         <View className="mb-4">
           <Text className="mb-[7px] text-[12.5px] font-semibold text-[#6B7684]">
-            Date of birth
+            Password
           </Text>
 
           {/* DD / MM / YYYY */}
-          <View className="flex-row gap-2">
+          <View className="flex-row">
             <TextInput
-              placeholder="DD"
+              placeholder="Enter your password"
               placeholderTextColor="#9AA4AF"
-              keyboardType="number-pad"
-              maxLength={2}
-              className="h-[50px] flex-[0.9] rounded-xl border border-[#E2E5E9] px-2 text-center text-[14px] text-[#16202A]"
-            />
-
-            <TextInput
-              placeholder="MM"
-              placeholderTextColor="#9AA4AF"
-              keyboardType="number-pad"
-              maxLength={2}
-              className="h-[50px] flex-[0.9] rounded-xl border border-[#E2E5E9] px-2 text-center text-[14px] text-[#16202A]"
-            />
-
-            <TextInput
-              placeholder="YYYY"
-              placeholderTextColor="#9AA4AF"
-              keyboardType="number-pad"
-              maxLength={4}
-              className="h-[50px] flex-[1.4] rounded-xl border border-[#E2E5E9] px-2 text-center text-[14px] text-[#16202A]"
+              className="h-[50px] pl-8 flex-1 rounded-xl border border-[#E2E5E9] px-2 text-[14px] text-[#16202A]"
             />
           </View>
 
@@ -105,7 +87,7 @@ const Login = () => {
             <LockKeyhole size={15} color="#1A3A5C" strokeWidth={2} />
 
             <Text className="flex-1 text-[11px] leading-4 text-[#6B7684]">
-              Your date of birth acts as your password for secure login.
+             If you are Signing In for the first time, your date of birth acts as your password for secure login.
             </Text>
           </View>
         </View>

@@ -1,3 +1,4 @@
+import * as NavigationBar from "expo-navigation-bar";
 import { useRouter } from "expo-router";
 import { Brain, ChevronRight, Radar, Users } from "lucide-react-native";
 import { useRef, useState } from "react";
@@ -10,6 +11,8 @@ import {
   Text,
   View,
 } from "react-native";
+import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
+NavigationBar.setStyle("dark");
 
 const { width } = Dimensions.get("window");
 
@@ -39,6 +42,7 @@ const slides = [
 
 const Onboarding = () => {
   const router = useRouter();
+  const insets = useSafeAreaInsets();
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -79,7 +83,7 @@ const Onboarding = () => {
   };
 
   return (
-    <View className="flex-1 bg-white">
+    <SafeAreaView edges={["bottom"]} className="flex-1 bg-white">
       {/* Top Navigation */}
       <View className="items-end px-8 pt-10">
         <Pressable onPress={handleSkip} className="px-0.5 py-1.5">
@@ -137,7 +141,7 @@ const Onboarding = () => {
       />
 
       {/* Bottom Section */}
-      <View className="px-5 pb-[26px]">
+      <View className="px-5">
         {/* Pagination Dots */}
         <View className="mb-5 flex-row items-center justify-center gap-1.5">
           {slides.map((_, index) => {
@@ -158,7 +162,7 @@ const Onboarding = () => {
         {/* Primary Button */}
         <Pressable
           onPress={handleNext}
-          className="h-[52px] w-full  flex-row items-center justify-center rounded-2xl bg-[#1A3A5C] active:opacity-80"
+          className="h-[52px] w-full flex-row items-center justify-center rounded-2xl bg-[#1A3A5C] active:opacity-80"
         >
           <Text className="mr-2 text-[14.5px] font-bold text-white">
             {isLastSlide ? "Get started" : "Next"}
@@ -167,7 +171,7 @@ const Onboarding = () => {
           <ChevronRight size={17} color="#FFFFFF" strokeWidth={2.5} />
         </Pressable>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

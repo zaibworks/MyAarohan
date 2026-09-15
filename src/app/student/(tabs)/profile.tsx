@@ -192,7 +192,7 @@ export default function Profile() {
               numberOfLines={1}
               className="flex-1 text-right text-[13px] font-semibold text-[#16202A]"
             >
-             zaibfr4@gmail.com
+              zaibfr4@gmail.com
             </Text>
           </View>
         </View>
@@ -242,7 +242,7 @@ export default function Profile() {
 
         {/* Account & Security */}
         <Pressable
-          onPress={() => router.push("/student/settings")}
+          onPress={() => router.push("/auth/change-password")}
           className="flex-row items-center px-[18px] py-3.5"
         >
           {/* Icon */}

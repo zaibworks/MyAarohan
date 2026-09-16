@@ -21,6 +21,7 @@ import {
 } from "lucide-react-native";
 import { useMemo, useState } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type Dimension = {
   name: string;
@@ -150,7 +151,8 @@ export default function DetailedResult() {
   const router = useRouter();
 
   return (
-    <View className="flex-1 bg-[#F4F6F8]">
+    <SafeAreaView edges={['bottom']}
+    className="flex-1 bg-[#F4F6F8]">
 
       <View className="border-b border-[#E6E9ED] bg-white pt-10">
         <View className="h-[62px] flex-row items-center justify-between px-4">
@@ -761,6 +763,6 @@ export default function DetailedResult() {
           </Text>
         </View>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }

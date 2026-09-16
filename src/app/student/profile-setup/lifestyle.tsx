@@ -2,23 +2,12 @@ import { router } from "expo-router";
 import {
   ArrowLeft,
   Check,
-  ChevronDown,
   Info,
-  Search,
-  Users,
-  Wifi,
-  BookOpen,
-  Briefcase,
-  Home,
+  Search
 } from "lucide-react-native";
 import { useState } from "react";
-import {
-  Pressable,
-  ScrollView,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type Option = {
   label: string;
@@ -105,9 +94,7 @@ export default function LifestyleScreen() {
   const [parentEducation, setParentEducation] = useState("");
 
   const [activitySearch, setActivitySearch] = useState("");
-  const [selectedActivities, setSelectedActivities] = useState<string[]>(
-    []
-  );
+  const [selectedActivities, setSelectedActivities] = useState<string[]>([]);
 
   const progress =
     currentStep === 1
@@ -154,13 +141,13 @@ export default function LifestyleScreen() {
   };
 
   const filteredActivities = activities.filter((activity) =>
-    activity.toLowerCase().includes(activitySearch.toLowerCase())
+    activity.toLowerCase().includes(activitySearch.toLowerCase()),
   );
 
   const renderOption = (
     option: Option,
     selectedValue: string,
-    onSelect: (value: string) => void
+    onSelect: (value: string) => void,
   ) => {
     const selected = selectedValue === option.value;
 
@@ -186,9 +173,7 @@ export default function LifestyleScreen() {
 
         <Text
           className={`flex-1 text-[14px] ${
-            selected
-              ? "font-medium text-[#1A3A5C]"
-              : "text-[#16202A]"
+            selected ? "font-medium text-[#1A3A5C]" : "text-[#16202A]"
           }`}
         >
           {option.label}
@@ -242,8 +227,7 @@ export default function LifestyleScreen() {
         </Text>
 
         <Text className="mt-1.5 text-[14px] leading-5 text-[#6B7684]">
-          Tell us a little about your academic direction and career
-          confidence.
+          Tell us a little about your academic direction and career confidence.
         </Text>
       </View>
 
@@ -265,9 +249,7 @@ export default function LifestyleScreen() {
         Stream for Grades 11–12
       </Text>
 
-      {streamOptions.map((option) =>
-        renderOption(option, stream, setStream)
-      )}
+      {streamOptions.map((option) => renderOption(option, stream, setStream))}
 
       <View className="mt-4">
         <Text className="mb-2.5 text-[14px] font-semibold text-[#16202A]">
@@ -275,11 +257,7 @@ export default function LifestyleScreen() {
         </Text>
 
         {certaintyOptions.map((option) =>
-          renderOption(
-            option,
-            careerCertainty,
-            setCareerCertainty
-          )
+          renderOption(option, careerCertainty, setCareerCertainty),
         )}
       </View>
     </>
@@ -302,11 +280,7 @@ export default function LifestyleScreen() {
       </Text>
 
       {learningOptions.map((option) =>
-        renderOption(
-          option,
-          learningStyle,
-          setLearningStyle
-        )
+        renderOption(option, learningStyle, setLearningStyle),
       )}
 
       <View className="mt-4">
@@ -315,7 +289,7 @@ export default function LifestyleScreen() {
         </Text>
 
         {workStyleOptions.map((option) =>
-          renderOption(option, workStyle, setWorkStyle)
+          renderOption(option, workStyle, setWorkStyle),
         )}
       </View>
     </>
@@ -353,11 +327,7 @@ export default function LifestyleScreen() {
         </Text>
 
         {accessOptions.map((option) =>
-          renderOption(
-            option,
-            internetAccess,
-            setInternetAccess
-          )
+          renderOption(option, internetAccess, setInternetAccess),
         )}
       </View>
     </>
@@ -380,11 +350,7 @@ export default function LifestyleScreen() {
       </Text>
 
       {firstGenerationOptions.map((option) =>
-        renderOption(
-          option,
-          firstGeneration,
-          setFirstGeneration
-        )
+        renderOption(option, firstGeneration, setFirstGeneration),
       )}
 
       <View className="mt-4">
@@ -393,11 +359,7 @@ export default function LifestyleScreen() {
         </Text>
 
         {parentEducationOptions.map((option) =>
-          renderOption(
-            option,
-            parentEducation,
-            setParentEducation
-          )
+          renderOption(option, parentEducation, setParentEducation),
         )}
       </View>
     </>
@@ -447,9 +409,7 @@ export default function LifestyleScreen() {
             >
               <Text
                 className={`text-[13px] ${
-                  selected
-                    ? "font-medium text-white"
-                    : "text-[#16202A]"
+                  selected ? "font-medium text-white" : "text-[#16202A]"
                 }`}
               >
                 {activity}
@@ -462,7 +422,7 @@ export default function LifestyleScreen() {
   );
 
   return (
-    <View className="flex-1 bg-[#F4F6F8]">
+    <SafeAreaView edges={["bottom"]} className="flex-1 bg-[#F4F6F8]">
       {renderHeader()}
 
       <ScrollView
@@ -484,10 +444,7 @@ export default function LifestyleScreen() {
 
       <View className="border-t border-[#E2E5E9] bg-[#F4F6F8] px-4 py-4">
         <View className="flex-row items-center justify-between">
-          <Pressable
-            onPress={handleSaveDraft}
-            className="px-2 py-3"
-          >
+          <Pressable onPress={handleSaveDraft} className="px-2 py-3">
             <Text className="text-[14px] font-medium text-[#6B7684]">
               Save draft
             </Text>
@@ -503,6 +460,6 @@ export default function LifestyleScreen() {
           </Pressable>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }

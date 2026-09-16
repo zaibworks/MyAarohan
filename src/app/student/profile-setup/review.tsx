@@ -13,6 +13,7 @@ import {
     FileWarning
 } from "lucide-react-native";
 import { Pressable, ScrollView, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type ReviewRowProps = {
   label: string;
@@ -108,7 +109,8 @@ export default function ReviewScreen() {
   };
 
   return (
-    <View className="flex-1 bg-[#F4F6F8]">
+    <SafeAreaView edges={["bottom"]}
+    className="flex-1 bg-[#F4F6F8]">
       {/* Top Bar */}
       <View className="border-b border-[#E2E5E9] bg-white pt-10">
         <View className="h-14 flex-row items-center px-4">
@@ -366,6 +368,6 @@ export default function ReviewScreen() {
           </Pressable>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }

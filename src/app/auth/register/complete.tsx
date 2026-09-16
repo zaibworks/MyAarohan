@@ -7,17 +7,19 @@ import {
   UserRound,
 } from "lucide-react-native";
 import { Pressable, ScrollView, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function RegistrationComplete() {
   return (
-    <View className="flex-1 bg-[#F4F6F8]">
+    <SafeAreaView edges={["bottom"]}
+    className="flex-1 bg-[#F4F6F8]">
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           flexGrow: 1,
           paddingHorizontal: 20,
           paddingTop: 40,
-          paddingBottom: 26,
+          paddingBottom: 8,
         }}
       >
         {/* Success Illustration */}
@@ -172,6 +174,6 @@ export default function RegistrationComplete() {
           </Pressable>
         </View>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }

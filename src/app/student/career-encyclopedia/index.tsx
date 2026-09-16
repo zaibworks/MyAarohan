@@ -2,6 +2,7 @@ import { router, useNavigation } from "expo-router";
 import { Menu, Search, X } from "lucide-react-native";
 import { useMemo, useState } from "react";
 import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import CareerCard from "@/component/careerEncylo/CareerCard";
 import CategoryChips from "@/component/careerEncylo/CategoryChips";
@@ -128,7 +129,8 @@ export default function CareerEncyclopedia() {
   };
 
   return (
-    <View className="flex-1 bg-[#F4F6F8]">
+    <SafeAreaView edges={['bottom']}
+    className="flex-1 bg-[#F4F6F8]">
       {/* TODO: Existing MyAarohan TopBar goes here */}
 
       <View className="border-b border-[#E6E9ED] bg-white pt-10">
@@ -265,6 +267,6 @@ export default function CareerEncyclopedia() {
           )}
         </View>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }

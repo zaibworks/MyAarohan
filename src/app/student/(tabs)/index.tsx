@@ -63,7 +63,7 @@ export default function StudentDashboard() {
           </Text>
 
           <Text className="mt-2 text-[12.5px] leading-[19px] text-white/75">
-            All 3 assessments are complete. View your personalised career report
+            Your assessments is completed. View your personalised career report
             now.
           </Text>
 

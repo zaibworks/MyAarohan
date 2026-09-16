@@ -15,6 +15,7 @@ import {
   Trash2,
   X,
 } from "lucide-react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const primary = "#1A3A5C";
 
@@ -139,7 +140,8 @@ export default function AcademicScreen() {
   };
 
   return (
-    <View className="flex-1 bg-[#F4F6F8]">
+    <SafeAreaView edges={["bottom"]}
+    className="flex-1 bg-[#F4F6F8]">
       {/* Top Bar */}
       <View className="border-b border-[#E2E5E9] bg-white px-4 pb-3 pt-10">
         <View className="flex-row items-center">
@@ -455,6 +457,6 @@ export default function AcademicScreen() {
           </View>
         </View>
       </Modal>
-    </View>
+    </SafeAreaView>
   );
 }

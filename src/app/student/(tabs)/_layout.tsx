@@ -6,6 +6,7 @@ import {
   UserRound
 } from "lucide-react-native";
 import { Pressable, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const tabs = [
   {
@@ -32,7 +33,8 @@ const tabs = [
 
 function CustomTabBar({ state, navigation }: any) {
   return (
-    <View className="flex-row items-center justify-around bg-white border-t border-[#E2E5E9] px-4 py-3 pb-5">
+    <SafeAreaView edges={['bottom']}
+    className="flex-row items-center justify-around bg-white border-t border-[#E2E5E9] px-4 py-3 pb-5">
       {tabs.map((tab, index) => {
         const Icon = tab.icon;
         const isActive = state.index === index;
@@ -57,7 +59,7 @@ function CustomTabBar({ state, navigation }: any) {
           </Pressable>
         );
       })}
-    </View>
+    </SafeAreaView>
   );
 }
 

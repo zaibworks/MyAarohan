@@ -21,6 +21,7 @@ import {
   TextInput,
   View,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type Category = {
   id: string;
@@ -178,7 +179,8 @@ export default function StudentSupport() {
   };
 
   return (
-    <View className="flex-1 bg-[#F4F6F8]">
+    <SafeAreaView edges={['bottom']}
+    className="flex-1 bg-[#F4F6F8]">
       {/* Top Bar */}
       <View className="flex-row items-center gap-3 bg-[#F4F6F8] px-4 pb-2 pt-10">
         <Pressable
@@ -368,6 +370,6 @@ export default function StudentSupport() {
           <Send size={16} color="#FFFFFF" strokeWidth={2} />
         </Pressable>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }

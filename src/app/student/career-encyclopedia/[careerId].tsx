@@ -28,6 +28,7 @@ import {
 ;
 import SectionCard from "@/component/careerEncylo/SectionCard";
 import InstituteCard from "@/component/careerEncylo/InstituteCard";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const careerDetails: Record<string, any> = {
   "art-dealer": {
@@ -293,10 +294,11 @@ export default function CareerDetail() {
   };
 
   return (
-    <View className="flex-1 bg-[#F4F6F8]">
+    <SafeAreaView edges={['bottom']}
+    className="flex-1 bg-[#F4F6F8]">
       {/* TODO: Existing MyAarohan TopBar goes here */}
 
-      <View className="flex-row items-center border-b border-[#E2E5E9] bg-white px-4 py-3">
+      <View className="flex-row items-center border-b border-[#E2E5E9] bg-white px-4 py-3 pt-10">
         <Pressable
           onPress={() => router.back()}
           className="h-9 w-9 items-center justify-center rounded-[11px] border border-[#E2E5E9] bg-white"
@@ -946,10 +948,6 @@ export default function CareerDetail() {
               <Text className="text-[17px] font-extrabold text-[#16202A]">
                 Career progression
               </Text>
-
-              <Text className="text-[11px] font-extrabold text-[#1A3A5C]">
-                Swipe →
-              </Text>
             </View>
 
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -986,10 +984,10 @@ export default function CareerDetail() {
 
           {/* AI */}
 
-          <View className="mb-4 mt-6 rounded-[18px] border border-[#DED5EC] bg-[#FBF9FE] p-3.5">
+          <View className="mb-4 mt-6 rounded-[18px] border border-[#d5deec] bg-[#f9fbfe] p-3.5">
             <View className="flex-row items-center">
-              <View className="h-[39px] w-[39px] items-center justify-center rounded-xl bg-[#F2ECFA]">
-                <Sparkles size={20} color="#7350A8" />
+              <View className="h-[39px] w-[39px] items-center justify-center rounded-xl bg-[#ecf5fa]">
+                <Sparkles size={20} color="#1A3A5C" />
               </View>
 
               <View className="ml-2.5 flex-1">
@@ -997,13 +995,13 @@ export default function CareerDetail() {
                   AI Career Assistant
                 </Text>
 
-                <Text className="mt-0.5 text-[9px] font-extrabold text-[#7350A8]">
+                <Text className="mt-0.5 text-[9px] font-extrabold text-[#1A3A5C]">
                   Powered by M.A.R.C.O.S — AARO AI
                 </Text>
               </View>
             </View>
 
-            <Text className="mt-2 text-[10.5px] leading-[16px] text-[#6B7684]">
+            <Text className="mt-2 text-[10.5px] leading-[16px] text-[#706b84]">
               Ask anything about this career — exams, skills, salary,
               education, institutes or your next step. The assistant already
               knows you are exploring{" "}
@@ -1025,7 +1023,7 @@ export default function CareerDetail() {
                   onPress={() => setAiInput(suggestion)}
                   className="mr-1.5 rounded-[9px] border border-[#E2DCEE] bg-white px-2 py-1.5"
                 >
-                  <Text className="text-[9px] font-bold text-[#6A5584]">
+                  <Text className="text-[9px] font-bold text-[#424071]">
                     {suggestion}
                   </Text>
                 </Pressable>
@@ -1044,7 +1042,7 @@ export default function CareerDetail() {
 
               <Pressable
                 onPress={askAI}
-                className="h-[31px] w-[31px] items-center justify-center rounded-[9px] bg-[#7350A8]"
+                className="h-[31px] w-[31px] items-center justify-center rounded-[9px] bg-[#1A3A5C]"
               >
                 <Send size={15} color="white" />
               </Pressable>
@@ -1060,6 +1058,6 @@ export default function CareerDetail() {
           </View>
         </View>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }

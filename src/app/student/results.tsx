@@ -19,6 +19,7 @@ import {
 } from "lucide-react-native";
 import { useState } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type FilterType = "all" | "aptitude" | "personality";
 
@@ -119,7 +120,8 @@ export default function Results() {
 
   const navigate = useNavigation() as any;
   return (
-    <View className="flex-1 bg-[#F4F6F8]">
+    <SafeAreaView edges={['bottom']}
+    className="flex-1 bg-[#F4F6F8]">
       {/* Existing app top bar goes here */}
 
       <View className="border-b border-[#E6E9ED] bg-white pt-10">
@@ -478,6 +480,6 @@ export default function Results() {
           </View>
         </View>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }

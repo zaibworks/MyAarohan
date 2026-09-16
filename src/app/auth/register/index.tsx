@@ -8,6 +8,7 @@ import {
 } from "lucide-react-native";
 import React, { useState } from "react";
 import { Modal, Pressable, Text, TextInput, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Register = () => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -119,7 +120,8 @@ const Register = () => {
   };
 
   return (
-    <View className="flex-1 bg-white">
+    <SafeAreaView edges={["bottom"]}
+    className="flex-1 bg-white">
       {/* Top Bar  */}
       <View className="flex-row items-center gap-3 px-9 pt-16">
         <Pressable
@@ -558,7 +560,7 @@ const Register = () => {
           </Pressable>
         </Pressable>
       </Modal>
-    </View>
+    </SafeAreaView>
   );
 };
 

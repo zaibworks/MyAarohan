@@ -10,6 +10,7 @@ import { Pressable, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "expo-router";
 import { useRouter } from "expo-router";
+import Navbar from "@/component/Navbar";
 
 export default function Assessments() {
   const credit = 1;
@@ -50,28 +51,7 @@ export default function Assessments() {
   ];
   return (
     <View className="flex-1 bg-[#F4F6F8]">
-
-       <View className="border-b border-[#E6E9ED] bg-white pt-10">
-        <View className="h-[62px] flex-row items-center justify-between px-4">
-          {/* Left */}
-          <View className="flex-row items-center gap-3">
-            <Pressable
-              onPress={() => navigate.openDrawer()}
-              className="h-9 w-9 items-center justify-center rounded-[10px] border border-[#E6E9ED] bg-white"
-            >
-              <Menu size={18} color="#16202A" strokeWidth={2} />
-            </Pressable>
-          </View>
-
-          {/* Avatar */}
-          <Pressable
-                     onPress={() => router.push("/student/profile")}
-                     className="h-[34px] w-[34px] items-center justify-center rounded-full bg-[#1A3A5C]"
-                   >
-                     <Text className="text-[14px] font-semibold text-white">Z</Text>
-                   </Pressable>
-        </View>
-      </View>
+        <Navbar/>
       <View className="flex-1 px-[18px] pt-4 pb-6">
         {/* Page Header */}
         <View className="mb-4">

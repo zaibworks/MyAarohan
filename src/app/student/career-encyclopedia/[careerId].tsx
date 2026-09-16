@@ -1050,7 +1050,7 @@ export default function CareerDetail() {
 
             {aiReply ? (
               <View className="mt-2 rounded-[11px] border border-[#E4DEED] bg-white p-2.5">
-                <Text className="text-[10px] leading-[15px] text-[#5E536A]">
+                <Text className="text-[10px] leading-[15px] text-[#53666a]">
                   {aiReply}
                 </Text>
               </View>

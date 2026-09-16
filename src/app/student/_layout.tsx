@@ -1,27 +1,10 @@
 import { useRouter } from "expo-router";
 import Drawer from "expo-router/drawer";
-import {
-  BarChart3,
-  BookOpen,
-  CalendarDays,
-  CreditCard,
-  LogOut,
-  Settings
-} from "lucide-react-native";
+import { BookOpen, CreditCard, LogOut, Settings } from "lucide-react-native";
 import { Pressable, Text, View } from "react-native";
 
 function CustomDrawer({ navigation }: any) {
   const menuItems = [
-    {
-      label: "Results",
-      route: "results",
-      icon: BarChart3,
-    },
-    {
-      label: "Counselling Sessions",
-      route: "counselling",
-      icon: CalendarDays,
-    },
     {
       label: "Career Encyclopedia",
       route: "career-encyclopedia",
@@ -90,8 +73,10 @@ function CustomDrawer({ navigation }: any) {
       </View>
 
       {/* Logout */}
-      <Pressable onPress={()=>router.replace('/auth/login')}
-      className="mb-7 flex-row items-center rounded-xl  px-3 pt-5">
+      <Pressable
+        onPress={() => router.replace("/auth/login")}
+        className="mb-7 flex-row items-center rounded-xl  px-3 pt-5"
+      >
         <LogOut size={20} color="#D9534F" />
 
         <Text className="ml-4 text-[15px] font-medium text-[#D9534F]">
@@ -102,7 +87,7 @@ function CustomDrawer({ navigation }: any) {
   );
 }
 
-export default function StudetnLayout() {
+export default function StudentLayout() {
   return (
     <Drawer
       screenOptions={{
@@ -115,8 +100,6 @@ export default function StudetnLayout() {
       drawerContent={(props) => <CustomDrawer {...props} />}
     >
       <Drawer.Screen name="(tabs)" options={{ title: "Home" }} />
-      <Drawer.Screen name="results" options={{ title: "Results" }} />
-      <Drawer.Screen name="counselling" options={{ title: "Counsellling" }} />
       <Drawer.Screen
         name="career-encyclopedia"
         options={{ title: "Career Encyclopedia " }}

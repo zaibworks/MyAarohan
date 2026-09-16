@@ -5,11 +5,11 @@ import {
   GraduationCap,
   LibraryBig,
   Menu,
-  MessagesSquare
+  MessagesSquare,
 } from "lucide-react-native";
 import { useState } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import Navbar from "@/component/Navbar";
 
 export default function StudentDashboard() {
   const [activeTab, setActiveTab] = useState<"assessments" | "quickActions">(
@@ -23,28 +23,8 @@ export default function StudentDashboard() {
     <View className="flex-1 bg-[#F4F6F8]">
       <StatusBar style="dark" />
 
-      {/* Header */}
-      <View className="border-b border-[#E6E9ED] bg-white pt-10">
-        <View className="h-[62px] flex-row items-center justify-between px-4">
-          {/* Left */}
-          <View className="flex-row items-center gap-3">
-            <Pressable
-              onPress={() => navigate.openDrawer()}
-              className="h-9 w-9 items-center justify-center rounded-[10px] border border-[#E6E9ED] bg-white"
-            >
-              <Menu size={18} color="#16202A" strokeWidth={2} />
-            </Pressable>
-          </View>
+  <Navbar/>
 
-          {/* Avatar */}
-          <Pressable
-            onPress={() => router.push("/student/(tabs)/profile")}
-            className="h-[34px] w-[34px] items-center justify-center rounded-full bg-[#1A3A5C]"
-          >
-            <Text className="text-[14px] font-semibold text-white">Z</Text>
-          </Pressable>
-        </View>
-      </View>
 
       {/* Content */}
       <ScrollView
@@ -79,7 +59,10 @@ export default function StudentDashboard() {
 
         <View className="mt-4 flex-row overflow-hidden rounded-xl border border-[#E6E9ED] bg-white">
           {/* Profile */}
-          <Pressable onPress={()=>router.push("/student/profile-setup")} className="flex-1 px-3 py-3">
+          <Pressable
+            onPress={() => router.push("/student/profile-setup")}
+            className="flex-1 px-3 py-3"
+          >
             <View className="flex-row justify-between">
               <Text className="text-[10px] text-[#6B7684]">Profile</Text>
               <CircleAlert size={13} color="red" />
@@ -316,7 +299,7 @@ export default function StudentDashboard() {
           </View>
 
           <Pressable
-            onPress={() => router.push('/student/plans')}
+            onPress={() => router.push("/student/plans")}
             className="rounded-[9px] bg-[#1A3A5C] px-3 py-2"
           >
             <Text className="text-[11px] font-semibold text-white">

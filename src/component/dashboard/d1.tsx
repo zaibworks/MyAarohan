@@ -31,17 +31,17 @@ export default function StudentDashboard() {
             </Text>
 
             <Text className="mt-2 text-[22px] font-bold leading-8 text-white">
-              Start your career journey
+              You're ready to discover your career direction
             </Text>
 
             <Text className="mt-2 max-w-[310px] text-[13px] leading-5 text-[#DCE8F2]">
-              Choose a plan to get access to assessments and personalised
-              counselling.
+              Your profile is complete. Start your 360° assessment to unlock
+              personalised insights.
             </Text>
 
             <Pressable className="mt-5 self-start flex-row items-center rounded-xl bg-white px-4 py-3">
               <Text className="text-[14px] font-bold text-[#1A3A5C]">
-                View Plans
+                Start Assessment
               </Text>
 
               <ChevronRight
@@ -62,8 +62,8 @@ export default function StudentDashboard() {
                 Assessments
               </Text>
 
-              <Text className="mt-1 text-[13px] font-bold text-[#870000]">
-                0 left
+              <Text className="mt-1 text-[13px] font-bold text-[#1A3A5C]">
+                1 left
               </Text>
             </View>
 
@@ -76,8 +76,8 @@ export default function StudentDashboard() {
                 Mentorship
               </Text>
 
-              <Text className="mt-1 text-[13px] font-bold text-[#870000]">
-                0 session
+              <Text className="mt-1 text-[13px] font-bold text-[#1A3A5C]">
+                1 session
               </Text>
             </View>
 
@@ -93,15 +93,14 @@ export default function StudentDashboard() {
                 Counselling
               </Text>
 
-              <Text className="mt-1 text-[13px] font-bold text-[#870000]">
-                0 session
+              <Text className="mt-1 text-[13px] font-bold text-[#1A3A5C]">
+                1 session
               </Text>
             </View>
           </View>
         </View>
-
         {/* ───────────── Assessment + Counselling ───────────── */}
-        <View className="mt-7 flex-row">
+        <View className="flex-row mt-7">
           {/* Assessment */}
           <Pressable className="mr-2 flex-1 rounded-[18px] border border-[#E2E5E9] bg-white p-4 pb-8">
             <View className="flex-row items-start justify-between">
@@ -113,9 +112,9 @@ export default function StudentDashboard() {
                 />
               </View>
 
-              <View className="rounded-full bg-[#F0F2F4] px-2.5 py-1">
-                <Text className="text-[10px] font-bold text-[#6B7684]">
-                  Locked
+              <View className="rounded-full bg-[#EAF1F7] px-2.5 py-1">
+                <Text className="text-[10px] font-bold text-[#1A3A5C]">
+                  1 AVAILABLE
                 </Text>
               </View>
             </View>
@@ -128,13 +127,9 @@ export default function StudentDashboard() {
               360° Career Assessment
             </Text>
 
-            <Text className="mt-4 text-[11px] font-medium text-[#8A949E]">
-              Get access with a plan
-            </Text>
-
-            <Pressable className="mt-3 flex-row items-center">
+            <Pressable className="mt-4 flex-row items-center">
               <Text className="text-[12px] font-bold text-[#1A3A5C]">
-                View plans
+                Start assessment
               </Text>
 
               <ChevronRight
@@ -156,9 +151,9 @@ export default function StudentDashboard() {
                 />
               </View>
 
-              <View className="rounded-full bg-[#F0F2F4] px-2.5 py-1">
-                <Text className="text-[10px] font-bold text-[#6B7684]">
-                  Locked
+              <View className="rounded-full bg-[#EAF1F7] px-2.5 py-1">
+                <Text className="text-[10px] font-bold text-[#1A3A5C]">
+                  1 AVAILABLE
                 </Text>
               </View>
             </View>
@@ -171,13 +166,9 @@ export default function StudentDashboard() {
               Get personalised career guidance
             </Text>
 
-            <Text className="mt-4 text-[11px] font-medium text-[#8A949E]">
-              Get access with a plan
-            </Text>
-
-            <Pressable className="mt-3 flex-row items-center">
+            <Pressable className="mt-4 flex-row items-center">
               <Text className="text-[12px] font-bold text-[#1A3A5C]">
-                View plans
+                Book session
               </Text>
 
               <ChevronRight

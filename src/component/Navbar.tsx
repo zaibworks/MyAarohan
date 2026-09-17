@@ -21,7 +21,7 @@ const Navbar = () => {
 
         {/* Avatar */}
         <Pressable
-          onPress={() => router.push("/student/profile")}
+          onPress={() => router.push("/student/(tabs)/profile")}
           className="h-[34px] w-[34px] items-center justify-center rounded-full bg-[#1A3A5C]"
         >
           <Text className="text-[14px] font-semibold text-white">Z</Text>

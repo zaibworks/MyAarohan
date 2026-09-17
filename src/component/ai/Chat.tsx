@@ -189,14 +189,18 @@ export default function AI() {
           </View>
         </View>
 
-        {/* New chat */}
+        {/* Voice Session */}
 
-        <Pressable
-          onPress={startNewChat}
-          className="h-9 w-9 items-center justify-center rounded-[11px] border border-[#e1e7eb] bg-white"
-        >
-          <PenLine size={16} color="#16202a" strokeWidth={2} />
-        </Pressable>
+         <Pressable
+  onPress={openVoiceSession}
+  className="h-10 flex-row items-center justify-center rounded-full border border-[#E2E5E9] bg-white px-3"
+>
+  <Mic size={16} color="#607080" strokeWidth={2} />
+
+  <Text className="ml-1.5 text-[11px] font-semibold text-[#1A3A5C]">
+    Voice
+  </Text>
+</Pressable>
       </View>
 
       {/* =========================
@@ -241,37 +245,6 @@ export default function AI() {
             {/* =========================
                 TEXT / VOICE OPTIONS
             ========================== */}
-
-            <View className="mt-[22px] w-full flex-row items-center rounded-[15px] border border-[#dfe7ed] bg-white p-[4px]">
-              {/* Text Chat */}
-
-              <View className="flex-1">
-                <View className="flex-row items-center justify-center rounded-[11px] bg-[#eaf3f8] px-3 py-[10px]">
-                  <MessageCircle
-                    size={16}
-                    color="#1A3A5C"
-                    strokeWidth={2}
-                  />
-
-                  <Text className="ml-[7px] text-[12px] font-semibold text-[#1A3A5C]">
-                    Text chat
-                  </Text>
-                </View>
-              </View>
-
-              {/* Voice Session */}
-
-              <Pressable
-                onPress={openVoiceSession}
-                className="flex-1 flex-row items-center justify-center rounded-[11px] px-3 py-[10px]"
-              >
-                <Mic size={16} color="#607080" strokeWidth={2} />
-
-                <Text className="ml-[7px] text-[12px] font-semibold text-[#607080]">
-                  Voice session
-                </Text>
-              </Pressable>
-            </View>
           </View>
         )}
 

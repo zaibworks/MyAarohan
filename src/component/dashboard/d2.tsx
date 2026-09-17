@@ -62,7 +62,7 @@ export default function StudentDashboard() {
                 Assessments
               </Text>
 
-              <Text className="mt-1 text-[13px] font-bold text-[#870000]">
+              <Text className="mt-1 text-[13px] font-bold text-[#1A3A5C]">
                 0 left
               </Text>
             </View>
@@ -76,7 +76,7 @@ export default function StudentDashboard() {
                 Mentorship
               </Text>
 
-              <Text className="mt-1 text-[13px] font-bold text-[#870000]">
+              <Text className="mt-1 text-[13px] font-bold text-[#1A3A5C]">
                 0 session
               </Text>
             </View>
@@ -93,7 +93,7 @@ export default function StudentDashboard() {
                 Counselling
               </Text>
 
-              <Text className="mt-1 text-[13px] font-bold text-[#870000]">
+              <Text className="mt-1 text-[13px] font-bold text-[#1A3A5C]">
                 0 session
               </Text>
             </View>
@@ -115,7 +115,7 @@ export default function StudentDashboard() {
 
               <View className="rounded-full bg-[#F0F2F4] px-2.5 py-1">
                 <Text className="text-[10px] font-bold text-[#6B7684]">
-                  Locked
+                  PLAN REQUIRED
                 </Text>
               </View>
             </View>
@@ -158,7 +158,7 @@ export default function StudentDashboard() {
 
               <View className="rounded-full bg-[#F0F2F4] px-2.5 py-1">
                 <Text className="text-[10px] font-bold text-[#6B7684]">
-                  Locked
+                  PLAN REQUIRED
                 </Text>
               </View>
             </View>

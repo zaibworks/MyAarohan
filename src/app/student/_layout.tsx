@@ -1,20 +1,62 @@
 import { useRouter } from "expo-router";
 import Drawer from "expo-router/drawer";
-import { BookOpen, CreditCard, LogOut, Settings } from "lucide-react-native";
+import 
+{ 
+  BookOpen, 
+  CreditCard, 
+  LogOut, 
+  Settings,
+  BarChart3,
+  CalendarDays,
+  ClipboardCheck,
+  House,
+  Sparkles,
+} from "lucide-react-native";
 import { Pressable, Text, View } from "react-native";
 
 function CustomDrawer({ navigation }: any) {
   const menuItems = [
     {
+      label: "Home",
+      route: "home",
+      icon: House,
+    },
+     {
+      label: "Results",
+      route: "results",
+      icon: BarChart3,
+    },
+    {
+      label: "Assessments",
+      route: "assessments",
+      icon: ClipboardCheck,
+    },
+     {
+    name: "counselling",
+    label: "Counselling",
+    icon: CalendarDays,
+  },
+     {
+    name: "ai",
+    label: "Aaro Ai",
+    icon: Sparkles,
+  },
+      {
       label: "Career Encyclopedia",
       route: "career-encyclopedia",
       icon: BookOpen,
     },
     {
+      label: "Student Support",
+      route: "student-support",
+      icon: CreditCard,
+    },
+     {
       label: "Plans",
       route: "plans",
       icon: CreditCard,
     },
+    
   ];
 
   const router = useRouter();
@@ -99,15 +141,13 @@ export default function StudentLayout() {
       }}
       drawerContent={(props) => <CustomDrawer {...props} />}
     >
-      <Drawer.Screen name="(tabs)" options={{ title: "Home" }} />
-      <Drawer.Screen
-        name="career-encyclopedia"
-        options={{ title: "Career Encyclopedia " }}
-      />
-      <Drawer.Screen
-        name="student-support"
-        options={{ title: "Student Support" }}
-      />
+      <Drawer.Screen name="home" options={{ title: "Home" }} />
+      <Drawer.Screen name="results" options={{ title: "Results" }} />
+      <Drawer.Screen name="assessments" options={{ title: "Assessments" }} />
+      <Drawer.Screen name="counselling" options={{ title: "Counselling" }} />
+      <Drawer.Screen name="ai" options={{ title: "Aaro Ai" }} />
+      <Drawer.Screen name="career-encyclopedia" options={{ title: "Career Encyclopedia "}}/>
+      <Drawer.Screen name="student-support"options={{ title: "Student Support" }}/>
       <Drawer.Screen name="plans" options={{ title: "Plans" }} />
     </Drawer>
   );

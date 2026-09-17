@@ -142,7 +142,7 @@ export default function AI() {
   };
 
   const openVoiceSession = () => {
-    router.push("/student/aaro-ai");
+    router.push("/student/(tabs)/ai/Voice");
   };
 
   return (
@@ -521,24 +521,6 @@ export default function AI() {
                 </Pressable>
               ))}
             </ScrollView>
-
-            {/* Drawer bottom */}
-
-            <View className="border-t border-[#e1e7eb] p-[10px]">
-              <Pressable
-                onPress={() => {
-                  setDrawerOpen(false);
-                  router.push("/student/settings");
-                }}
-                className="w-full flex-row items-center gap-[10px] rounded-[10px] p-[11px]"
-              >
-                <Settings size={17} color="#607080" strokeWidth={2} />
-
-                <Text className="text-[12.5px] text-[#16202a]">
-                  Settings
-                </Text>
-              </Pressable>
-            </View>
           </View>
         </>
       )}

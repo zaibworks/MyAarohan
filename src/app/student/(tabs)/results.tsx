@@ -1,3 +1,4 @@
+import Navbar from "@/component/Navbar";
 import { router, useNavigation } from "expo-router";
 import {
   ArrowRight,
@@ -5,13 +6,11 @@ import {
   Brain,
   CalendarDays,
   CheckCircle2,
-  ChevronRight,
   ClipboardCheck,
   Clock3,
   FileText,
   Filter,
   Lightbulb,
-  Menu,
   Sparkles,
   Target,
   TrendingUp,
@@ -19,8 +18,6 @@ import {
 } from "lucide-react-native";
 import { useState } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import Navbar from "@/component/Navbar";
 
 type FilterType = "all" | "aptitude" | "personality";
 
@@ -121,11 +118,10 @@ export default function Results() {
 
   const navigate = useNavigation() as any;
   return (
-    <View
-    className="flex-1 bg-[#F4F6F8]">
+    <View className="flex-1 bg-[#F4F6F8]">
       {/* Existing app top bar goes here */}
 
-       <Navbar/>
+      <Navbar />
 
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -212,7 +208,7 @@ export default function Results() {
             <View className="flex-1 items-end">
               <Pressable
                 onPress={() =>
-                  router.push(`/student/results/${latestResult.id}` as any)
+                  router.push(`/student/result/${latestResult.id}` as any)
                 }
                 className="flex-row items-center rounded-xl bg-[#1A3A5C] px-3.5 py-2.5"
               >
@@ -320,9 +316,7 @@ export default function Results() {
           {filteredResults.map((result, index) => (
             <Pressable
               key={result.id}
-              onPress={() =>
-                router.push(`/student/results/${result.id}` as any)
-              }
+              onPress={() => router.push(`/student/result/${result.id}` as any)}
               className="mb-3.5 rounded-2xl border border-[#E6E9ED] bg-white p-4"
             >
               {/* Card Top */}
@@ -407,7 +401,6 @@ export default function Results() {
                     {result.scoreLabel}
                   </Text>
                 </View>
-
               </View>
             </Pressable>
           ))}

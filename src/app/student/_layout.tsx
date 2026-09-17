@@ -1,73 +1,83 @@
-import { useRouter } from "expo-router";
+import { useRouter,Href } from "expo-router";
 import Drawer from "expo-router/drawer";
-import 
-{ 
-  BookOpen, 
-  CreditCard, 
-  LogOut, 
-  Settings,
+import {
   BarChart3,
+  BookOpen,
   CalendarDays,
   ClipboardCheck,
+  CreditCard,
   House,
+  LogOut,
   Sparkles,
+  MessagesSquare
 } from "lucide-react-native";
 import { Pressable, Text, View } from "react-native";
 
-function CustomDrawer({ navigation }: any) {
-  const menuItems = [
+type MenuItem = {
+  label: string;
+  name: Href;
+  icon: React.ComponentType<{
+    size?: number;
+    color?: string;
+  }>;
+};
+
+function CustomDrawer() {
+  const router = useRouter();
+
+  const menuItems: MenuItem[] = [
     {
       label: "Home",
-      route: "home",
+      name: "/student",
       icon: House,
     },
-     {
+    {
       label: "Results",
-      route: "results",
+      name: "/student/results",
       icon: BarChart3,
     },
     {
       label: "Assessments",
-      route: "assessments",
+      name: "/student/assessments",
       icon: ClipboardCheck,
     },
-     {
-    name: "counselling",
-    label: "Counselling",
-    icon: CalendarDays,
-  },
-     {
-    name: "ai",
-    label: "Aaro Ai",
-    icon: Sparkles,
-  },
-      {
+    {
+      label: "Counselling",
+      name: "/student/counselling",
+      icon: CalendarDays,
+    },
+    {
+      label: "Aaro Ai",
+      name: "/student/ai",
+      icon: Sparkles,
+    },
+    {
       label: "Career Encyclopedia",
-      route: "career-encyclopedia",
+      name: "/student/career-encyclopedia",
       icon: BookOpen,
     },
     {
       label: "Student Support",
-      route: "student-support",
-      icon: CreditCard,
+      name: "/student/student-support",
+      icon: MessagesSquare,
     },
-     {
+    {
       label: "Plans",
-      route: "plans",
+      name: "/student/plans",
       icon: CreditCard,
     },
-    
   ];
 
-  const router = useRouter();
   return (
     <View className="flex-1 bg-white px-5 pt-14 pb-2">
       {/* Header */}
-      <View className="mb-4 flex-row items-center justify-between  pb-4 border-b border-[#EEF1F4]">
+      <View className="mb-4 flex-row items-center justify-between border-b border-[#EEF1F4] pb-4">
         <View className="flex-row items-center">
           {/* Avatar */}
           <View className="mr-3 h-12 w-12 items-center justify-center rounded-full bg-[#E8EEF5]">
-            <Text className="text-lg font-semibold text-[#1A3A5C]">Z</Text>
+            <Text className="text-lg font-semibold text-[#1A3A5C]">
+              Z
+            </Text>
           </View>
 
           {/* Student Info */}
@@ -90,8 +100,8 @@ function CustomDrawer({ navigation }: any) {
 
           return (
             <Pressable
-              key={item.route}
-              onPress={() => navigation.navigate(item.route)}
+              key={item.name.toString()}
+              onPress={() => router.push(item.name)}
               className="mb-1 flex-row items-center rounded-xl px-3 py-3.5"
             >
               <Icon size={20} color="#5F6B76" />
@@ -102,22 +112,12 @@ function CustomDrawer({ navigation }: any) {
             </Pressable>
           );
         })}
-        <Pressable
-          className="mb-1 flex-row items-center rounded-xl py-3.5 border-t border-[#EEF1F4] px-3 pt-5 "
-          onPress={() => router.push("/student/settings")}
-        >
-          <Settings size={20} color="#5F6B76" />
-
-          <Text className="ml-4 text-[15px] font-medium text-[#34404B]">
-            Settings
-          </Text>
-        </Pressable>
       </View>
 
       {/* Logout */}
       <Pressable
         onPress={() => router.replace("/auth/login")}
-        className="mb-7 flex-row items-center rounded-xl  px-3 pt-5"
+        className="mb-7 flex-row items-center rounded-xl px-3 pt-5"
       >
         <LogOut size={20} color="#D9534F" />
 
@@ -139,16 +139,14 @@ export default function StudentLayout() {
           width: 300,
         },
       }}
-      drawerContent={(props) => <CustomDrawer {...props} />}
+      drawerContent={() => <CustomDrawer />}
     >
-      <Drawer.Screen name="home" options={{ title: "Home" }} />
-      <Drawer.Screen name="results" options={{ title: "Results" }} />
-      <Drawer.Screen name="assessments" options={{ title: "Assessments" }} />
-      <Drawer.Screen name="counselling" options={{ title: "Counselling" }} />
-      <Drawer.Screen name="ai" options={{ title: "Aaro Ai" }} />
-      <Drawer.Screen name="career-encyclopedia" options={{ title: "Career Encyclopedia "}}/>
-      <Drawer.Screen name="student-support"options={{ title: "Student Support" }}/>
-      <Drawer.Screen name="plans" options={{ title: "Plans" }} />
+      <Drawer.Screen
+        name="(tabs)"
+        options={{
+          title: "Home",
+        }}
+      />
     </Drawer>
   );
 }

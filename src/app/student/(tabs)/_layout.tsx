@@ -1,4 +1,4 @@
-import { Tabs } from "expo-router";
+import { Href, Tabs, usePathname, useRouter } from "expo-router";
 import {
   BarChart3,
   CalendarDays,
@@ -9,35 +9,54 @@ import {
 import { Pressable, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const tabs = [
+type tabsType = {
+  name: String;
+  route: Href;
+  label: string;
+  icon: React.ComponentType<{
+    strokeWidth: number;
+    size?: number;
+    color?: string;
+  }>;
+};
+
+const tabs: tabsType[] = [
   {
     name: "index",
+    route: "/student",
     label: "Home",
     icon: House,
   },
   {
     name: "assessments",
+    route: "/student/assessments",
     label: "Assessment",
     icon: ClipboardCheck,
   },
   {
     name: "ai",
-    label: "Aaro Ai",
+    route: "/student/ai",
+    label: "AARO AI",
     icon: Sparkles,
   },
   {
     name: "results",
+    route: "/student/results",
     label: "Result",
     icon: BarChart3,
   },
   {
     name: "counselling",
+    route: "/student/counselling",
     label: "Counselling",
     icon: CalendarDays,
   },
 ];
 
-function CustomTabBar({ state, navigation }: any) {
+function CustomTabBar({ state }: any) {
+  const router = useRouter();
+  const pathname = usePathname();
+
   return (
     <SafeAreaView
       edges={["bottom"]}
@@ -45,21 +64,24 @@ function CustomTabBar({ state, navigation }: any) {
     >
       {tabs.map((tab, index) => {
         const Icon = tab.icon;
-        const isActive = state.index === index;
+        const isActive =
+          tab.name === "ai"
+            ? pathname.startsWith("/student/ai")
+            : state.index === index;
         const isAI = tab.name === "ai";
 
         return (
           <Pressable
-            key={tab.name}
-            onPress={() => navigation.navigate(tab.name)}
+            key={tab.name.toString()}
+            onPress={() => router.push(tab.route)}
             className="flex-col items-center justify-center"
           >
             {isAI ? (
               <>
                 {/* Special AI Button */}
                 <View
-                  className={`h-[42px] w-[42px] items-center justify-center rounded-full ${
-                    isActive ? "bg-[#1A3A5C]" : "bg-[#EAF1F7]"
+                  className={`h-[44px] w-[44px] items-center justify-center rounded-full ${
+                    isActive ? "bg-[#1A3A5C] border-2 border-[#91c4f6] " : "bg-[#EAF1F7] border-none"
                   }`}
                 >
                   <Icon

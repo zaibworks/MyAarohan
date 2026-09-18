@@ -81,7 +81,9 @@ function CustomTabBar({ state }: any) {
                 {/* Special AI Button */}
                 <View
                   className={`h-[44px] w-[44px] items-center justify-center rounded-full ${
-                    isActive ? "bg-[#1A3A5C] border-2 border-[#91c4f6] " : "bg-[#EAF1F7] border-none"
+                    isActive
+                      ? "bg-[#1A3A5C] border-2 border-[#91c4f6] "
+                      : "bg-[#EAF1F7] border-none"
                   }`}
                 >
                   <Icon
@@ -133,6 +135,7 @@ export default function TabsLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
+        animation: "fade",
         tabBarStyle: {
           display: "none",
         },

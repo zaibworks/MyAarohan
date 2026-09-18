@@ -7,13 +7,10 @@ import {
   Clock3,
   Copy,
   Menu,
-  MessageCircle,
   Mic,
   Paperclip,
-  PenLine,
   Plus,
   Send,
-  Settings,
   ThumbsUp,
   X,
 } from "lucide-react-native";
@@ -191,16 +188,16 @@ export default function AI() {
 
         {/* Voice Session */}
 
-         <Pressable
-  onPress={openVoiceSession}
-  className="h-10 flex-row items-center justify-center rounded-full border border-[#E2E5E9] bg-white px-3"
->
-  <Mic size={16} color="#607080" strokeWidth={2} />
+        <Pressable
+          onPress={openVoiceSession}
+          className="h-10 flex-row items-center justify-center rounded-full border border-[#E2E5E9] bg-white px-3"
+        >
+          <Mic size={16} color="#607080" strokeWidth={2} />
 
-  <Text className="ml-1.5 text-[11px] font-semibold text-[#1A3A5C]">
-    Voice
-  </Text>
-</Pressable>
+          <Text className="ml-1.5 text-[11px] font-semibold text-[#1A3A5C]">
+            Voice
+          </Text>
+        </Pressable>
       </View>
 
       {/* =========================
@@ -281,11 +278,7 @@ export default function AI() {
                     {suggestion.text}
                   </Text>
 
-                  <ChevronRight
-                    size={15}
-                    color="#97a3ad"
-                    strokeWidth={2}
-                  />
+                  <ChevronRight size={15} color="#97a3ad" strokeWidth={2} />
                 </Pressable>
               );
             })}
@@ -358,11 +351,7 @@ export default function AI() {
                     </Pressable>
 
                     <Pressable className="h-[28px] w-[28px] items-center justify-center rounded-[8px] border border-[#e1e7eb] bg-white">
-                      <ArrowRight
-                        size={14}
-                        color="#97a3ad"
-                        strokeWidth={2}
-                      />
+                      <ArrowRight size={14} color="#97a3ad" strokeWidth={2} />
                     </Pressable>
                   </View>
                 )}

@@ -179,10 +179,10 @@ export default function StudentSupport() {
   };
 
   return (
-    <SafeAreaView edges={['bottom']}
-    className="flex-1 bg-[#F4F6F8]">
+    <View 
+    className="flex-1 bg-[#F4F6F8] ">
       {/* Top Bar */}
-      <View className="flex-row items-center gap-3 bg-[#F4F6F8] px-4 pb-2 pt-10">
+      <View className="flex-row items-center gap-3 bg-[#F4F6F8] px-4 pb-2 pt-14">
         <Pressable
           onPress={() => router.back()}
           className="h-[34px] w-[34px] items-center justify-center rounded-[10px] border border-[#E2E5E9] bg-white"
@@ -370,6 +370,6 @@ export default function StudentSupport() {
           <Send size={16} color="#FFFFFF" strokeWidth={2} />
         </Pressable>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }

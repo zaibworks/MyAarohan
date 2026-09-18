@@ -5,7 +5,7 @@ export default function CareerEncyclopediaLayout() {
     <Stack
       screenOptions={{
         headerShown: false,
-        animation: "slide_from_right",
+        animation: "fade_from_bottom",
       }}
     />
   );

@@ -22,7 +22,7 @@ type MenuItem = {
   }>;
 };
 
-function CustomDrawer() {
+function CustomDrawer({navigation}:any) {
   const router = useRouter();
 
   const menuItems: MenuItem[] = [
@@ -134,18 +134,15 @@ export default function StudentLayout() {
     <Drawer
       screenOptions={{
         headerShown: false,
+        drawerStatusBarAnimation:'slide',
         drawerStyle: {
           display: "none",
           width: 300,
         },
       }}
-      drawerContent={() => <CustomDrawer />}
+      drawerContent={(props) => <CustomDrawer {...props}  />}
     >
-      <Drawer.Screen
-        name="(tabs)"
-        options={{
-          title: "Home",
-        }}
+      <Drawer.Screen name="(tabs)" options={{title: "Home"}}
       />
     </Drawer>
   );

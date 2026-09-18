@@ -10,7 +10,6 @@ import {
 } from "lucide-react-native";
 import { useEffect, useState } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function AaroVoice() {
   const SESSION_DURATION = 10 * 60;
@@ -58,10 +57,10 @@ export default function AaroVoice() {
   const router = useRouter();
 
   return (
-    <SafeAreaView className="flex-1 bg-[#F7F9FA]">
+    <View className="flex-1 bg-[#F7F9FA]">
       <View className="flex-1">
         {/* Header */}
-        <View className="flex-row items-center justify-between border-b border-[#E2E5E9] bg-white px-5 py-3.5">
+        <View className="flex-row items-center justify-between border-b border-[#E2E5E9] bg-white px-5 py-3.5 pt-14">
           <Pressable
             onPress={() => router.back()}
             className="h-10 w-10 items-center justify-center rounded-full"
@@ -87,20 +86,16 @@ export default function AaroVoice() {
             </View>
           </View>
 
-        <Pressable
-  onPress={() => router.push("/student/ai")}
-  className="h-10 flex-row items-center justify-center rounded-full border border-[#E2E5E9] bg-white px-3"
->
-  <MessageCircle
-    size={16}
-    color="#1A3A5C"
-    strokeWidth={2}
-  />
+          <Pressable
+            onPress={() => router.push("/student/ai")}
+            className="h-10 flex-row items-center justify-center rounded-full border border-[#E2E5E9] bg-white px-3"
+          >
+            <MessageCircle size={16} color="#1A3A5C" strokeWidth={2} />
 
-  <Text className="ml-1.5 text-[11px] font-semibold text-[#1A3A5C]">
-    Text
-  </Text>
-</Pressable>
+            <Text className="ml-1.5 text-[11px] font-semibold text-[#1A3A5C]">
+              Text
+            </Text>
+          </Pressable>
         </View>
 
         <ScrollView
@@ -240,6 +235,6 @@ export default function AaroVoice() {
           </View>
         </ScrollView>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }

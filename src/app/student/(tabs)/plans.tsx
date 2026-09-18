@@ -8,8 +8,6 @@ import {
   Menu,
   UsersRound,
 } from "lucide-react-native";
-import { Pressable, ScrollView, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import Navbar from "@/component/Navbar";
 
 type Plan = {

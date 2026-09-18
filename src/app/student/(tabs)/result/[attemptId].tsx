@@ -16,11 +16,12 @@ import {
   TrendingUp,
   TriangleAlert,
   Trophy,
-  Zap
+  Zap,
 } from "lucide-react-native";
 import { useMemo, useState } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import AptitudeRadar from "@/component/AptitudeRadar";
+import PersonalityRadar from "@/component/PersonalityRadar";
 
 type Dimension = {
   name: string;
@@ -61,7 +62,7 @@ type DreamCareer = {
 const dimensions: Dimension[] = [
   {
     name: "Verbal",
-    score: 82,
+    score: 80,
     short: "VER",
   },
   {
@@ -319,7 +320,7 @@ export default function DetailedResult() {
     : 0;
 
   return (
-    <SafeAreaView edges={["bottom"]} className="flex-1 bg-[#F4F6F8]">
+    <View className="flex-1 bg-[#F4F6F8]">
       <Navbar />
 
       <ScrollView
@@ -452,67 +453,7 @@ export default function DetailedResult() {
         </View>
 
         <View className="mx-5 mt-4 rounded-2xl border border-[#E6E9ED] bg-white p-4">
-          <View className="items-center py-3">
-            <View className="h-[250px] w-[250px] items-center justify-center">
-              <View className="absolute h-[210px] w-[210px] rounded-full border border-[#D6DBE1]" />
-              <View className="absolute h-[160px] w-[160px] rounded-full border border-[#E6E9ED]" />
-              <View className="absolute h-[110px] w-[110px] rounded-full border border-[#E6E9ED]" />
-              <View className="absolute h-[60px] w-[60px] rounded-full border border-[#E6E9ED]" />
-
-              <View className="absolute h-[210px] w-px bg-[#E6E9ED]" />
-              <View className="absolute h-px w-[210px] bg-[#E6E9ED]" />
-
-              <View
-                className="absolute h-[135px] w-[135px] items-center justify-center rounded-full border-2 border-[#1A3A5C]"
-                style={{
-                  transform: [
-                    { rotate: "18deg" },
-                    { scaleX: 1.15 },
-                    { scaleY: 0.72 },
-                  ],
-                  opacity: 0.35,
-                }}
-              />
-
-              <View className="items-center justify-center">
-                <Text className="text-[26px] font-bold text-[#1A3A5C]">
-                  78%
-                </Text>
-
-                <Text className="mt-0.5 text-[10px] font-medium uppercase tracking-wide text-[#9AA4AF]">
-                  Overall
-                </Text>
-              </View>
-
-              <Text className="absolute -top-1 text-[10px] font-semibold text-[#6B7684]">
-                Verbal
-              </Text>
-
-              <Text className="absolute right-0 top-[47px] text-[10px] font-semibold text-[#6B7684]">
-                Numerical
-              </Text>
-
-              <Text className="absolute bottom-[17px] right-[-2px] text-[10px] font-semibold text-[#6B7684]">
-                Abstract
-              </Text>
-
-              <Text className="absolute bottom-[-1px] text-[10px] font-semibold text-[#6B7684]">
-                Spatial
-              </Text>
-
-              <Text className="absolute bottom-[17px] left-[-2px] text-[10px] font-semibold text-[#6B7684]">
-                Mechanical
-              </Text>
-
-              <Text className="absolute left-0 top-[47px] text-[10px] font-semibold text-[#6B7684]">
-                Perceptual
-              </Text>
-
-              <Text className="absolute left-[28px] top-[-1px] text-[10px] font-semibold text-[#6B7684]">
-                Language
-              </Text>
-            </View>
-          </View>
+          <AptitudeRadar dimensions={dimensions}/>
 
           <View className="mt-2">
             {dimensions.map((dimension) => (
@@ -632,36 +573,7 @@ export default function DetailedResult() {
         </View>
 
         <View className="mx-5 mt-4 rounded-2xl border border-[#E6E9ED] bg-white p-4">
-          <View className="items-center py-2">
-            <View className="h-[190px] w-[190px] items-center justify-center">
-              <View className="absolute h-[160px] w-[160px] rounded-full border border-[#D6DBE1]" />
-              <View className="absolute h-[120px] w-[120px] rounded-full border border-[#E6E9ED]" />
-              <View className="absolute h-[80px] w-[80px] rounded-full border border-[#E6E9ED]" />
-
-              <View className="absolute h-[160px] w-px bg-[#E6E9ED]" />
-              <View className="absolute h-px w-[160px] bg-[#E6E9ED]" />
-
-              <View
-                className="absolute h-[105px] w-[105px] rounded-full border-2 border-[#1A3A5C]"
-                style={{
-                  transform: [
-                    { rotate: "-20deg" },
-                    { scaleX: 0.9 },
-                    { scaleY: 0.75 },
-                  ],
-                  opacity: 0.35,
-                }}
-              />
-
-              <Text className="text-[13px] font-bold text-[#1A3A5C]">
-                Openness
-              </Text>
-
-              <Text className="mt-1 text-[10px] text-[#9AA4AF]">
-                Dominant Trait
-              </Text>
-            </View>
-          </View>
+          <PersonalityRadar traits={personalityTraits}/>
 
           <View className="mt-3">
             {personalityTraits.map((trait) => (
@@ -1507,6 +1419,6 @@ export default function DetailedResult() {
           </Text>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }

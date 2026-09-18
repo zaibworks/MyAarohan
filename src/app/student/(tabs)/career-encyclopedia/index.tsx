@@ -11,8 +11,6 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import CareerCard from "@/component/careerEncylo/CareerCard";
-import CategoryChips from "@/component/careerEncylo/CategoryChips";
 
 const careers = [
   {
@@ -79,7 +77,8 @@ const careerFields = [
     description:
       "Creative, cultural, communication and audience-focused careers.",
     category: "Arts & Media",
-    image:"https://images.unsplash.com/photo-1594908900066-3f47337549d8?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    image:
+      "https://images.unsplash.com/photo-1594908900066-3f47337549d8?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
 
   {
@@ -143,7 +142,8 @@ const careerFields = [
     title: "Aviation",
     description: "The World of Flight, Airports, and Aerospace",
     category: "Aviation",
-    image:"https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=80",
+    image:
+      "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=80",
   },
 
   {
@@ -262,6 +262,7 @@ export default function CareerEncyclopedia() {
             <Pressable
               key={field.title}
               onPress={() => {
+                router.push('/student/(tabs)/career-encyclopedia/career-cards')
                 setActiveCategory(field.category);
                 setSearch("");
               }}

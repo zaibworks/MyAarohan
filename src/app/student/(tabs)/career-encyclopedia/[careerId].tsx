@@ -1,255 +1,240 @@
 import { useMemo, useRef, useState } from "react";
 import {
-  Alert,
   Pressable,
   ScrollView,
   Text,
   TextInput,
-  View,
+  View
 } from "react-native";
+
 import { router, useLocalSearchParams } from "expo-router";
 import {
   ArrowLeft,
-  ArrowRight,
   BookOpen,
-  Building2,
   Check,
-  ChevronRight,
   CircleDollarSign,
-  GraduationCap,
-  Info,
   Landmark,
-  MessageCircle,
-  Search,
   Send,
   Sparkles,
-  Users,
 } from "lucide-react-native";
-;
-import SectionCard from "@/component/careerEncylo/SectionCard";
+
 import InstituteCard from "@/component/careerEncylo/InstituteCard";
+import SectionCard from "@/component/careerEncylo/SectionCard";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const careerDetails: Record<string, any> = {
-  "art-dealer": {
-    name: "Art Dealer",
-    category: "Arts, Media & Entertainment",
-    shortCategory: "Arts & Media",
+  bacteriologist: {
+    name: "Bacteriologist",
+    category: "Health and Wellness",
+    shortCategory: "Health",
     description:
-      "Art dealers connect artists, collectors, galleries and institutions. They help discover, evaluate, present and sell artworks while building long-term relationships across the art market.",
+      "A bacteriologist is a microbiology professional who studies bacteria, bacterial infections, antimicrobial resistance, food and water contamination, diagnostics, vaccines and microbial safety.",
+
     overview:
-      "An art dealer works at the intersection of creativity and commerce. The role can involve sourcing artworks, researching artists, advising collectors, supporting exhibitions, negotiating transactions and coordinating the practical side of artwork sales.",
+      "Bacteriologists study bacteria and how they interact with humans, animals, food, water and the environment. Their work can involve laboratory research, identifying microorganisms, studying infections, testing antimicrobial resistance and supporting diagnostic, pharmaceutical, food-safety or public-health work.",
+
     places: [
-      "Art galleries",
-      "Auction houses",
-      "Artist studios",
-      "Museums",
-      "Art fairs",
-      "Cultural foundations",
-      "Private collections",
-      "Online art platforms",
-      "Corporate art advisory",
-      "Independent practice",
+      "Medical laboratories",
+      "Research laboratories",
+      "Hospitals",
+      "Universities",
+      "Pharmaceutical companies",
+      "Biotechnology companies",
+      "Food testing laboratories",
+      "Water testing laboratories",
+      "Public health laboratories",
+      "Government research institutes",
     ],
+
     environment:
-      "Expect a mix of research, conversations, gallery visits, exhibitions, client meetings and behind-the-scenes coordination. The work is relationship-heavy and may involve irregular hours around openings, fairs and events.",
+      "The work is usually laboratory-focused and requires careful handling of samples, cultures and scientific equipment. Depending on the role, bacteriologists may spend time performing experiments, analysing results, maintaining laboratory records and following strict hygiene and biosafety procedures.",
+
     fit: [
-      "You enjoy art, visual culture and meeting people.",
-      "You can build trust with clients and artists.",
-      "You are comfortable with negotiation and sales.",
-      "You notice quality, condition, style and provenance details.",
-      "You can balance creative taste with commercial judgement.",
+      "You are curious about microbes, disease and laboratory investigation.",
+      "You can work carefully with samples, cultures and biosafety rules.",
+      "You enjoy biology, chemistry and scientific problem-solving.",
+      "You are comfortable following detailed laboratory procedures.",
+      "You can patiently analyse observations and experimental results.",
     ],
+
     technicalSkills: [
-      "Art basics",
-      "Gallery operations",
-      "Artwork documentation",
-      "Client database",
-      "Sales support",
-      "Exhibition assistance",
+      "Microbiology",
+      "Bacterial culture",
+      "Microscopy",
+      "Laboratory techniques",
+      "Sample analysis",
+      "Data interpretation",
+      "Biosafety procedures",
+      "Scientific documentation",
     ],
+
     softSkills: [
-      "Professional communication",
       "Attention to detail",
-      "Client handling",
-      "Discretion",
-      "Hospitality",
+      "Scientific curiosity",
+      "Patience",
+      "Analytical thinking",
+      "Problem solving",
+      "Team collaboration",
+      "Clear communication",
     ],
+
     archetypes: [
       {
-        group: "ALCHEMISTS",
-        name: "The Dream-Weaver",
+        group: "INVESTIGATORS",
+        name: "The Microbe Detective",
         description:
-          "High Openness + Creative Aptitude. You may naturally spot meaning, style and visual potential in ideas and artworks.",
+          "High Curiosity + Analytical Thinking. You may enjoy investigating microorganisms, identifying patterns and understanding why biological processes behave differently.",
         values: [
-          ["Openness", "88%"],
-          ["Creativity", "91%"],
+          ["Curiosity", "91%"],
+          ["Analytical", "88%"],
         ],
       },
+
       {
-        group: "CATALYSTS",
-        name: "The Closer",
+        group: "PRECISIONISTS",
+        name: "The Lab Specialist",
         description:
-          "High Extraversion + Numerical Aptitude. You may be comfortable turning relationships into confident commercial decisions.",
+          "High Attention to Detail + Patience. You may naturally prefer careful procedures, accurate observations and methodical laboratory work.",
         values: [
-          ["Extraversion", "82%"],
-          ["Numerical", "76%"],
+          ["Precision", "94%"],
+          ["Patience", "86%"],
         ],
       },
     ],
+
     typicalDay: [
-      "Assist with gallery display, artwork handling and inventory.",
-      "Prepare artist notes, captions and documentation.",
-      "Support exhibitions, openings and art-fair events.",
-      "Communicate with clients, collectors and buyers.",
-      "Learn provenance, authenticity and artwork condition.",
-      "Maintain records and coordinate packaging or shipping.",
+      "Collect, prepare and label biological samples.",
+      "Grow and observe bacterial cultures using laboratory techniques.",
+      "Use microscopes and other laboratory equipment.",
+      "Record experimental observations and laboratory results.",
+      "Analyse bacterial characteristics and test results.",
+      "Follow laboratory hygiene and biosafety procedures.",
+      "Prepare reports and communicate findings with the research or medical team.",
     ],
+
     academicPath: [
       [
         "01",
         "Complete 10+2",
-        "Build strong communication, general awareness and academic fundamentals.",
+        "Science with Biology is generally the relevant school foundation for microbiology and life-science pathways.",
       ],
       [
         "02",
-        "Choose a Degree / Diploma",
-        "Consider fine arts, art history, design, business, commerce or related programs.",
+        "Choose an Undergraduate Degree",
+        "Consider B.Sc. Microbiology, Biotechnology, Life Sciences or another relevant biological-science program.",
       ],
       [
         "03",
-        "Build Practical Experience",
-        "Seek gallery, museum, auction-house or arts-organization internships.",
+        "Build Laboratory Skills",
+        "Develop practical knowledge of microbiology, microscopy, bacterial culture and laboratory safety.",
       ],
       [
         "04",
-        "Learn the Business Side",
-        "Develop sales, pricing, client management, documentation and negotiation skills.",
+        "Gain Practical Experience",
+        "Look for laboratory projects, internships, research assistant opportunities or academic practical work.",
       ],
       [
         "05",
-        "Consider Advanced Education",
-        "A postgraduate qualification can deepen expertise in art history, curation or management.",
+        "Consider Postgraduate Study",
+        "M.Sc. Microbiology, Biotechnology or related specialisations can support research and specialist roles.",
       ],
       [
         "06",
-        "Understand Regulations",
-        "Learn basics of contracts, taxes, provenance, copyright and art-market compliance.",
+        "Develop a Specialisation",
+        "Explore areas such as clinical microbiology, food microbiology, environmental microbiology or antimicrobial resistance.",
       ],
       [
         "07",
-        "Build Industry Network",
-        "Connect with artists, curators, galleries, collectors and cultural institutions.",
+        "Build Research Experience",
+        "Participate in research projects, laboratory studies, publications or scientific conferences where possible.",
       ],
       [
         "08",
-        "Start in an Entry Role",
-        "Begin with gallery, sales, collections or research responsibilities and grow from there.",
+        "Enter the Professional Field",
+        "Start with laboratory, research, quality-control, diagnostic or microbiology-related roles and progress with experience.",
       ],
     ],
+
     exams: [
-      [
-        "No mandatory national entrance exam",
-        "Common route",
-        "There is no single national exam required to become an art dealer. Institute requirements vary.",
-      ],
       [
         "CUET UG",
         "Undergraduate",
-        "Can be relevant for undergraduate programs offered by participating universities.",
+        "Can be relevant for undergraduate programs at participating universities offering microbiology, biotechnology or related life-science courses.",
+      ],
+      [
+        "University-specific entrance",
+        "Institute",
+        "Some universities may use their own entrance tests, merit-based admission or other selection processes.",
+      ],
+      [
+        "NEET UG",
+        "Medical route",
+        "Relevant for medical education pathways such as MBBS rather than the typical B.Sc. microbiology route.",
       ],
       [
         "CUET PG",
         "Postgraduate",
-        "May apply to selected postgraduate pathways depending on the university and program.",
+        "Can be relevant for selected postgraduate microbiology, biotechnology and life-science programs.",
       ],
       [
-        "NID DAT / UCEED / CEED",
-        "Design routes",
-        "Relevant mainly when using design or visual-arts education as an adjacent pathway.",
-      ],
-      [
-        "University-specific entrances",
-        "Institute",
-        "Some institutes use their own entrance tests, interviews, portfolios or selection processes.",
-      ],
-      [
-        "CAT / XAT / CMAT / MAT / GMAT",
-        "Business route",
-        "Potentially useful for management education when targeting the commercial side of the art market.",
+        "University-specific PG entrance",
+        "Postgraduate",
+        "Individual universities may conduct their own entrance examinations or admission processes.",
       ],
     ],
+
     certifications: [
-      "Art History Coursework",
-      "Art Appreciation",
-      "Gallery Internship",
-      "Museum Internship",
-      "Art Market Training",
-      "Collections Management",
+      "Microbiology Laboratory Training",
+      "Molecular Biology",
+      "Clinical Microbiology",
+      "Biosafety Training",
+      "Food Microbiology",
+      "Quality Control",
+      "Bioinformatics Basics",
+      "Research Methodology",
     ],
+
     institutes: [
       {
-        name: "Maharaja Sayajirao University of Baroda",
-        course: "Faculty of Fine Arts",
-        location: "Vadodara, Gujarat",
-        type: "government",
-      },
-      {
-        name: "College of Art, University of Delhi",
-        course: "Fine Arts",
+        name: "University of Delhi",
+        course: "Life Sciences / Related Life Science Programs",
         location: "New Delhi",
         type: "government",
       },
       {
         name: "Banaras Hindu University",
-        course: "Faculty of Visual Arts",
+        course: "Life Sciences / Related Biological Science Programs",
         location: "Varanasi, Uttar Pradesh",
         type: "government",
       },
       {
-        name: "Srishti Manipal Institute",
-        course: "Art, Design & Technology",
-        location: "Bengaluru, Karnataka",
+        name: "University of Hyderabad",
+        course: "Life Sciences / Biological Sciences",
+        location: "Hyderabad, Telangana",
+        type: "government",
+      },
+      {
+        name: "Amity University",
+        course: "Microbiology / Biotechnology",
+        location: "Noida, Uttar Pradesh",
         type: "private",
       },
       {
-        name: "FLAME University",
-        course: "Creative Arts",
-        location: "Pune, Maharashtra",
+        name: "Manipal Academy of Higher Education",
+        course: "Microbiology / Life Sciences",
+        location: "Manipal, Karnataka",
         type: "private",
       },
     ],
+
     stages: [
-      ["01", "Gallery Intern", "Entry exposure"],
-      ["02", "Gallery Associate", "Client support"],
-      ["03", "Art Dealer", "Sales & advisory"],
-      ["04", "Senior Art Dealer", "High-value work"],
-      ["05", "Gallery Manager", "Leadership"],
+      ["01", "Laboratory Trainee", "Build practical skills"],
+      ["02", "Lab Assistant", "Sample & lab support"],
+      ["03", "Microbiology Professional", "Independent laboratory work"],
+      ["04", "Senior Microbiologist", "Specialised responsibilities"],
+      ["05", "Research / Lab Lead", "Research & leadership"],
     ],
   },
-};
-
-const fallbackCareer = {
-  name: "Career Preview",
-  category: "Career",
-  shortCategory: "Career",
-  description:
-    "Explore this career and discover education pathways, skills and opportunities.",
-  overview:
-    "This is a UI prototype. Detailed career information can be connected later.",
-  places: [],
-  environment:
-    "Career environment information will be connected to the real career data later.",
-  fit: [],
-  technicalSkills: [],
-  softSkills: [],
-  archetypes: [],
-  typicalDay: [],
-  academicPath: [],
-  exams: [],
-  certifications: [],
-  institutes: [],
-  stages: [],
 };
 
 export default function CareerDetail() {
@@ -266,12 +251,12 @@ export default function CareerDetail() {
 
   const career = useMemo(
     () => careerDetails[careerId ?? ""] ?? fallbackCareer,
-    [careerId]
+    [careerId],
   );
 
   const filteredInstitutes = career.institutes.filter(
     (institute: any) =>
-      instituteFilter === "all" || institute.type === instituteFilter
+      instituteFilter === "all" || institute.type === instituteFilter,
   );
 
   const scrollToSection = (offset: number) => {
@@ -287,18 +272,17 @@ export default function CareerDetail() {
     if (!question) return;
 
     setAiReply(
-      `M.A.R.C.O.S: For ${career.name}, start by understanding the career pathway, build practical skills and gain relevant experience. In the real app, this response would be personalized using your assessment and profile.`
+      `M.A.R.C.O.S: For ${career.name}, start by understanding the career pathway, build practical skills and gain relevant experience. In the real app, this response would be personalized using your assessment and profile.`,
     );
 
     setAiInput("");
   };
 
   return (
-    <SafeAreaView edges={['bottom']}
-    className="flex-1 bg-[#F4F6F8]">
+    <View className="flex-1 bg-[#F4F6F8]">
       {/* TODO: Existing MyAarohan TopBar goes here */}
 
-      <View className="flex-row items-center border-b border-[#E2E5E9] bg-white px-4 py-3 pt-10">
+      <View className="flex-row items-center border-b border-[#E2E5E9] bg-white px-4 py-3 pt-14">
         <Pressable
           onPress={() => router.back()}
           className="h-9 w-9 items-center justify-center rounded-[11px] border border-[#E2E5E9] bg-white"
@@ -490,8 +474,8 @@ export default function CareerDetail() {
               </View>
 
               <Text className="mt-1.5 text-[11px] leading-[17px] text-[#6B7684]">
-                Based on your assessment and profile, these are the parts of
-                the career that may align with you.
+                Based on your assessment and profile, these are the parts of the
+                career that may align with you.
               </Text>
 
               <View className="mt-3">
@@ -581,10 +565,7 @@ export default function CareerDetail() {
 
                   <View className="mt-3">
                     {archetype.values.map(([label, value]: string[]) => (
-                      <View
-                        key={label}
-                        className="mb-2 flex-row items-center"
-                      >
+                      <View key={label} className="mb-2 flex-row items-center">
                         <Text className="w-[72px] text-[9px] text-[#6B7684]">
                           {label}
                         </Text>
@@ -653,10 +634,7 @@ export default function CareerDetail() {
               </Text>
 
               {career.academicPath.map((item: string[]) => (
-                <View
-                  key={item[0]}
-                  className="flex-row pb-4"
-                >
+                <View key={item[0]} className="flex-row pb-4">
                   <View className="mr-2.5 h-[33px] w-[33px] items-center justify-center rounded-full border border-[#D9E2EA] bg-[#EEF3F7]">
                     <Text className="text-[9px] font-black text-[#1A3A5C]">
                       {item[0]}
@@ -751,9 +729,7 @@ export default function CareerDetail() {
               <Text className="mt-2 text-[10px] text-[#46515C]">
                 • National Scholarship Portal
               </Text>
-              <Text className="mt-1 text-[10px] text-[#46515C]">
-                • PM-USP
-              </Text>
+              <Text className="mt-1 text-[10px] text-[#46515C]">• PM-USP</Text>
               <Text className="mt-1 text-[10px] text-[#46515C]">
                 • Post-Matric Scholarship schemes
               </Text>
@@ -1002,10 +978,9 @@ export default function CareerDetail() {
             </View>
 
             <Text className="mt-2 text-[10.5px] leading-[16px] text-[#706b84]">
-              Ask anything about this career — exams, skills, salary,
-              education, institutes or your next step. The assistant already
-              knows you are exploring{" "}
-              <Text className="font-extrabold">{career.name}</Text>.
+              Ask anything about this career — exams, skills, salary, education,
+              institutes or your next step. The assistant already knows you are
+              exploring <Text className="font-extrabold">{career.name}</Text>.
             </Text>
 
             <ScrollView
@@ -1058,6 +1033,6 @@ export default function CareerDetail() {
           </View>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }

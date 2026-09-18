@@ -136,7 +136,7 @@ export default function AcademicScreen() {
   };
 
   const handleContinue = () => {
-    router.push("/student/profile-setup/lifestyle");
+    router.push("/auth/profile-setup/lifestyle");
   };
 
   return (

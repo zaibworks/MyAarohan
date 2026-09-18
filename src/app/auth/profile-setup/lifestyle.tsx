@@ -122,7 +122,7 @@ export default function LifestyleScreen() {
       return;
     }
 
-    router.push("/student/profile-setup/review");
+    router.push("/auth/profile-setup/review");
   };
 
   const handleSaveDraft = () => {

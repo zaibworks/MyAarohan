@@ -7,21 +7,11 @@ import {
   UserRound,
 } from "lucide-react-native";
 import { Pressable, ScrollView, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function RegistrationComplete() {
   return (
-    <SafeAreaView edges={["bottom"]}
-    className="flex-1 bg-[#F4F6F8]">
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          flexGrow: 1,
-          paddingHorizontal: 20,
-          paddingTop: 40,
-          paddingBottom: 8,
-        }}
-      >
+    <View  className="flex-1 bg-[#F4F6F8]">
+     <View className="flex-grow px-5 pt-10 pb-10">
         {/* Success Illustration */}
         <View className="mt-10 items-center">
           <View className="h-[116px] w-[116px] items-center justify-center rounded-full bg-[#E6F7EE]">
@@ -145,7 +135,7 @@ export default function RegistrationComplete() {
           <Pressable
             onPress={() => {
               // Replace this with your detailed profile setup route
-              router.push("/student/profile-setup");
+              router.push("/auth/profile-setup");
             }}
             className="flex-row items-center justify-center rounded-xl bg-[#1A3A5C] py-3.5"
           >
@@ -160,20 +150,8 @@ export default function RegistrationComplete() {
               style={{ marginLeft: 7 }}
             />
           </Pressable>
-
-          <Pressable
-            onPress={() => {
-              // Temporary: replace with your actual dashboard route
-              router.replace("/auth/login");
-            }}
-            className="mt-3 items-center py-2"
-          >
-            <Text className="text-[11px] font-medium text-[#6B7684]">
-              I'll do this later
-            </Text>
-          </Pressable>
         </View>
-      </ScrollView>
-    </SafeAreaView>
+      </View>
+    </View>
   );
 }

@@ -83,19 +83,19 @@ export default function ReviewScreen() {
   };
 
   const handleEditBasic = () => {
-    router.push("/student/profile-setup");
+    router.push("/auth/profile-setup");
   };
 
   const handleEditGuardian = () => {
-    router.push("/student/profile-setup/guardian");
+    router.push("/auth/profile-setup/guardian");
   };
 
   const handleEditAcademic = () => {
-    router.push("/student/profile-setup/academic");
+    router.push("/auth/profile-setup/academic");
   };
 
   const handleEditLifestyle = () => {
-    router.push("/student/profile-setup/lifestyle");
+    router.push("/auth/profile-setup/lifestyle");
   };
 
   const handleSaveDraft = () => {

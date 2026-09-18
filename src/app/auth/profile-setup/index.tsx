@@ -93,7 +93,7 @@ export default function ProfileSetup() {
       return;
     }
 
-    router.push("/student/profile-setup/guardian");
+    router.push("/auth/profile-setup/guardian");
   };
 
   const handleSaveDraft = () => {

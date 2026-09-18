@@ -175,7 +175,7 @@ export default function GuardianScreen() {
   };
 
   const handleContinue = () => {
-    router.push("/student/profile-setup/academic");
+    router.push("/auth/profile-setup/academic");
   };
 
   return (

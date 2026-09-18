@@ -1,13 +1,22 @@
-import { useNavigation, useRouter } from "expo-router";
+import { useRef, useState } from "react";
 import {
   ArrowRight,
   Brain,
   Check,
   Compass,
   Info,
-  Menu,
   UsersRound,
 } from "lucide-react-native";
+import {
+  Dimensions,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  Pressable,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import Navbar from "@/component/Navbar";
 
 type Plan = {
@@ -72,156 +81,240 @@ const plans: Plan[] = [
   },
 ];
 
+const { width: SCREEN_WIDTH } = Dimensions.get("window");
+
+const HORIZONTAL_PADDING = 20;
+const CARD_WIDTH = SCREEN_WIDTH - HORIZONTAL_PADDING * 2;
+
 export default function Plans() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const carouselRef = useRef<ScrollView>(null);
+
   const handleChoosePlan = (plan: Plan) => {
-    // Payment / plan confirmation flow will be connected here later.
     console.log("Selected plan:", plan.id);
   };
 
-  const navigate = useNavigation() as any;
+  const handleCarouselScroll = (
+    event: NativeSyntheticEvent<NativeScrollEvent>
+  ) => {
+    const offsetX = event.nativeEvent.contentOffset.x;
 
-  const router = useRouter();
+    const index = Math.round(offsetX / CARD_WIDTH);
+
+    if (index !== activeIndex && index >= 0 && index < plans.length) {
+      setActiveIndex(index);
+    }
+  };
 
   return (
-    <SafeAreaView edges={['bottom']}
-    className="flex-1 bg-[#F4F6F8]">
-      {/* Existing app top bar goes here */}
-       <Navbar/>
+    <SafeAreaView edges={["bottom"]} className="flex-1 bg-[#F4F6F8]">
+      <Navbar />
 
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          paddingBottom: 32,
-        }}
+        contentContainerStyle={{ paddingBottom: 32 }}
       >
-        {/* Page Header */}
+        {/* Header */}
         <View className="px-5 pt-5">
           <Text className="text-[26px] font-bold text-[#16202A]">
             Choose Your Program
           </Text>
 
           <Text className="mt-1.5 text-[13px] leading-5 text-[#6B7684]">
-            Choose the right career support for you. Compare plans and unlock
-            the guidance you need.
+            Find the career support that fits your journey and get the
+            guidance you need.
           </Text>
         </View>
 
-        {/* Plans */}
-        <View className="mt-5 px-5">
-          {plans.map((plan) => {
-            const Icon = plan.icon;
+        {/* Plan Carousel */}
+        <View className="mt-5">
+          <ScrollView
+            ref={carouselRef}
+            horizontal
+            pagingEnabled
+            snapToInterval={CARD_WIDTH}
+            decelerationRate="fast"
+            showsHorizontalScrollIndicator={false}
+            onScroll={handleCarouselScroll}
+            scrollEventThrottle={16}
+            contentContainerStyle={{
+              paddingHorizontal: HORIZONTAL_PADDING,
+            }}
+          >
+            {plans.map((plan) => {
+              const Icon = plan.icon;
 
-            return (
-              <View
-                key={plan.id}
-                className={`mb-3.5 overflow-hidden rounded-2xl border bg-white ${
-                  plan.featured ? "border-[#1A3A5C]" : "border-[#E6E9ED]"
-                }`}
-              >
-                {/* Featured Header */}
-                {plan.featured && (
-                  <View className="flex-row items-center justify-center bg-[#1A3A5C] px-3 py-2">
-                    <Text className="text-[10px] font-bold uppercase tracking-[1px] text-white">
-                      Most Popular
-                    </Text>
-                  </View>
-                )}
-
-                <View className="p-4">
-                  {/* Plan Header */}
-                  <View className="flex-row items-start">
-                    <View
-                      className={`h-11 w-11 items-center justify-center rounded-xl ${
-                        plan.featured ? "bg-[#EAF1F7]" : "bg-[#F4F6F8]"
-                      }`}
-                    >
-                      <Icon size={21} color="#1A3A5C" strokeWidth={2} />
-                    </View>
-
-                    <View className="ml-3 flex-1 pr-2">
-                      <Text className="text-[15px] font-bold leading-5 text-[#16202A]">
-                        {plan.name}
-                      </Text>
-                    </View>
-
-                    <View className="rounded-full bg-[#E6F7EE] px-2.5 py-1">
-                      <Text className="text-[10px] font-bold text-[#1B8354]">
-                        {plan.saving}
-                      </Text>
-                    </View>
-                  </View>
-
-                  {/* Price */}
-                  <View className="mt-4 flex-row items-baseline">
-                    <Text className="text-[24px] font-extrabold text-[#1A3A5C]">
-                      {plan.price}
-                    </Text>
-
-                    <Text className="ml-2 text-[13px] text-[#9AA4AF] line-through">
-                      {plan.originalPrice}
-                    </Text>
-                  </View>
-
-                  <Text className="mt-0.5 text-[10.5px] text-[#9AA4AF]">
-                    inc GST
-                  </Text>
-
-                  {/* Description */}
-                  <View className="mt-3 rounded-xl bg-[#F4F6F8] px-3 py-2.5">
-                    <Text className="text-[12px] leading-[18px] text-[#6B7684]">
-                      {plan.description}
-                    </Text>
-                  </View>
-
-                  {/* Features */}
-                  <View className="mt-4">
-                    {plan.features.map((feature) => (
-                      <View key={feature} className="mb-2 flex-row items-start">
-                        <View className="mt-0.5 h-4 w-4 items-center justify-center rounded-full bg-[#E6F7EE]">
-                          <Check size={10} color="#1B8354" strokeWidth={3} />
-                        </View>
-
-                        <Text className="ml-2 flex-1 text-[12px] leading-[17px] text-[#16202A]">
-                          {feature}
-                        </Text>
-                      </View>
-                    ))}
-                  </View>
-
-                  {/* Choose Button */}
-                  <Pressable
-                    onPress={() => handleChoosePlan(plan)}
-                    className={`mt-2.5 flex-row items-center justify-center rounded-xl py-3 ${
+              return (
+                <View
+                  key={plan.id}
+                  style={{
+                    width: CARD_WIDTH,
+                    paddingHorizontal: 0,
+                  }}
+                >
+                  <View
+                    className={`mr-0 overflow-hidden rounded-2xl border bg-white ${
                       plan.featured
-                        ? "bg-[#1A3A5C]"
-                        : "border border-[#1A3A5C] bg-white"
+                        ? "border-[#1A3A5C]"
+                        : "border-[#E6E9ED]"
                     }`}
                   >
-                    <Text
-                      className={`text-[13px] font-bold ${
-                        plan.featured ? "text-white" : "text-[#1A3A5C]"
-                      }`}
-                    >
-                      Choose Plan
-                    </Text>
+                    {/* Featured Banner */}
+                    {plan.featured && (
+                      <View className="flex-row items-center justify-center bg-[#1A3A5C] px-3 py-2">
+                        <Text className="text-[10px] font-bold uppercase tracking-[1px] text-white">
+                          Most Popular
+                        </Text>
+                      </View>
+                    )}
 
-                    <ArrowRight
-                      size={15}
-                      color={plan.featured ? "#FFFFFF" : "#1A3A5C"}
-                      strokeWidth={2.2}
-                      style={{ marginLeft: 6 }}
-                    />
-                  </Pressable>
+                    <View className="p-4">
+                      {/* Plan Header */}
+                      <View className="flex-row items-start">
+                        <View
+                          className={`h-11 w-11 items-center justify-center rounded-xl ${
+                            plan.featured
+                              ? "bg-[#EAF1F7]"
+                              : "bg-[#F4F6F8]"
+                          }`}
+                        >
+                          <Icon
+                            size={21}
+                            color="#1A3A5C"
+                            strokeWidth={2}
+                          />
+                        </View>
+
+                        <View className="ml-3 flex-1 pr-2">
+                          <Text className="text-[16px] font-bold leading-5 text-[#16202A]">
+                            {plan.name}
+                          </Text>
+                        </View>
+
+                        <View className="rounded-full bg-[#E6F7EE] px-2.5 py-1">
+                          <Text className="text-[10px] font-bold text-[#1B8354]">
+                            {plan.saving}
+                          </Text>
+                        </View>
+                      </View>
+
+                      {/* Price */}
+                      <View className="mt-5 flex-row items-baseline">
+                        <Text className="text-[28px] font-extrabold text-[#1A3A5C]">
+                          {plan.price}
+                        </Text>
+
+                        <Text className="ml-2 text-[13px] text-[#9AA4AF] line-through">
+                          {plan.originalPrice}
+                        </Text>
+                      </View>
+
+                      <Text className="mt-0.5 text-[10.5px] text-[#9AA4AF]">
+                        inc GST
+                      </Text>
+
+                      {/* Description */}
+                      <View className="mt-3 rounded-xl bg-[#F4F6F8] px-3 py-2.5">
+                        <Text className="text-[12px] leading-[18px] text-[#6B7684]">
+                          {plan.description}
+                        </Text>
+                      </View>
+
+                      {/* Features */}
+                      <View className="mt-4">
+                        {plan.features.map((feature) => (
+                          <View
+                            key={feature}
+                            className="mb-2.5 flex-row items-start"
+                          >
+                            <View className="mt-0.5 h-4 w-4 items-center justify-center rounded-full bg-[#E6F7EE]">
+                              <Check
+                                size={10}
+                                color="#1B8354"
+                                strokeWidth={3}
+                              />
+                            </View>
+
+                            <Text className="ml-2 flex-1 text-[12px] leading-[17px] text-[#16202A]">
+                              {feature}
+                            </Text>
+                          </View>
+                        ))}
+                      </View>
+
+                      {/* CTA */}
+                      <Pressable
+                        onPress={() => handleChoosePlan(plan)}
+                        className={`mt-3 flex-row items-center justify-center rounded-xl py-3.5 ${
+                          plan.featured
+                            ? "bg-[#1A3A5C]"
+                            : "border border-[#1A3A5C] bg-white"
+                        }`}
+                      >
+                        <Text
+                          className={`text-[13px] font-bold ${
+                            plan.featured
+                              ? "text-white"
+                              : "text-[#1A3A5C]"
+                          }`}
+                        >
+                          Choose Plan
+                        </Text>
+
+                        <ArrowRight
+                          size={15}
+                          color={
+                            plan.featured ? "#FFFFFF" : "#1A3A5C"
+                          }
+                          strokeWidth={2.2}
+                          style={{ marginLeft: 6 }}
+                        />
+                      </Pressable>
+                    </View>
+                  </View>
                 </View>
-              </View>
-            );
-          })}
+              );
+            })}
+          </ScrollView>
+
+          {/* Pagination Dots */}
+          <View className="mt-4 flex-row items-center justify-center">
+            {plans.map((plan, index) => (
+              <View
+                key={plan.id}
+                className={`mx-1 rounded-full ${
+                  index === activeIndex
+                    ? "h-2 w-5 bg-[#1A3A5C]"
+                    : "h-2 w-2 bg-[#D6DBE1]"
+                }`}
+              />
+            ))}
+          </View>
+
+          {/* Swipe Hint */}
+          <View className="mt-3 flex-row items-center justify-center">
+            <Text className="text-[10px] text-[#9AA4AF]">
+              Swipe to see
+            </Text>
+
+            <ArrowRight
+              size={13}
+              color="#9AA4AF"
+              strokeWidth={1.8}
+              style={{ marginLeft: 5 }}
+            />
+          </View>
         </View>
 
         {/* Current Next Step */}
-        <View className="mx-5 mt-1 flex-row rounded-2xl border border-[#E6E9ED] bg-white p-3.5">
+        <View className="mx-5 mt-6 flex-row rounded-2xl border border-[#E6E9ED] bg-white p-3.5">
           <View className="h-9 w-9 items-center justify-center rounded-xl bg-[#EAF1F7]">
-            <ArrowRight size={17} color="#1A3A5C" strokeWidth={2} />
+            <ArrowRight
+              size={17}
+              color="#1A3A5C"
+              strokeWidth={2}
+            />
           </View>
 
           <View className="ml-3 flex-1">
@@ -230,8 +323,8 @@ export default function Plans() {
             </Text>
 
             <Text className="mt-1 text-[11px] leading-[17px] text-[#6B7684]">
-              Start Aptitude Test. Plans are optional unless you need another
-              assessment or more sessions.
+              Start Aptitude Test. Plans are optional unless you need
+              another assessment or more sessions.
             </Text>
           </View>
         </View>
@@ -239,7 +332,11 @@ export default function Plans() {
         {/* Payment Activation */}
         <View className="mx-5 mt-2.5 flex-row rounded-2xl border border-[#E6E9ED] bg-white p-3.5">
           <View className="h-9 w-9 items-center justify-center rounded-xl bg-[#F4F6F8]">
-            <Info size={17} color="#1A3A5C" strokeWidth={2} />
+            <Info
+              size={17}
+              color="#1A3A5C"
+              strokeWidth={2}
+            />
           </View>
 
           <View className="ml-3 flex-1">
@@ -248,16 +345,17 @@ export default function Plans() {
             </Text>
 
             <Text className="mt-1 text-[11px] leading-[17px] text-[#6B7684]">
-              Choose a plan first. Pay only after opening its instructions.
+              Choose a plan first. Pay only after opening its
+              instructions.
             </Text>
           </View>
         </View>
 
-        {/* Small footer */}
+        {/* Footer */}
         <View className="items-center px-8 pt-6">
           <Text className="text-center text-[10px] leading-[16px] text-[#9AA4AF]">
-            You can choose a plan whenever you need additional assessments,
-            mentorship or career guidance.
+            You can choose a plan whenever you need additional
+            assessments, mentorship or career guidance.
           </Text>
         </View>
       </ScrollView>

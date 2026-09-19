@@ -6,12 +6,12 @@ import {
   Sparkles,
   UserRound,
 } from "lucide-react-native";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 
 export default function RegistrationComplete() {
   return (
-    <View  className="flex-1 bg-[#F4F6F8]">
-     <View className="flex-grow px-5 pt-10 pb-10">
+    <View className="flex-1 bg-[#F4F6F8]">
+      <View className="flex-grow px-5 pt-10 pb-10">
         {/* Success Illustration */}
         <View className="mt-10 items-center">
           <View className="h-[116px] w-[116px] items-center justify-center rounded-full bg-[#E6F7EE]">

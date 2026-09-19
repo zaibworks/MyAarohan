@@ -1,27 +1,38 @@
+import { router } from "expo-router";
+import {
+  ArrowLeft,
+  ChevronDown,
+  ChevronRight,
+  Mail,
+  Phone,
+  Plus,
+  Trash2,
+  UserRound,
+} from "lucide-react-native";
 import { useState } from "react";
 import {
-  Modal,
   Pressable,
   ScrollView,
   Text,
   TextInput,
   View,
+   KeyboardAvoidingView,
+    Platform,
 } from "react-native";
-import { router } from "expo-router";
-import {
-  ArrowLeft,
-  Pencil,
-  Plus,
-  Trash2,
-  UsersRound,
-  X,
-  ChevronDown,
-} from "lucide-react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const primary = "#1A3A5C";
 
-const relations = ["Mother", "Father", "Guardian", "Other"];
+const relations = [
+  "Father",
+  "Mother",
+  "Guardian",
+  "Grandfather",
+  "Grandmother",
+  "Brother",
+  "Sister",
+  "Other",
+];
 
 type Guardian = {
   id: number;
@@ -31,195 +42,159 @@ type Guardian = {
   email: string;
 };
 
-export default function GuardianScreen() {
-  const [guardians, setGuardians] = useState<Guardian[]>([]);
+export default function GuardianProfile() {
+  const [guardians, setGuardians] = useState<Guardian[]>([
+    {
+      id: 1,
+      name: "",
+      relation: "",
+      phone: "",
+      email: "",
+    },
+  ]);
 
-  const [showGuardianSheet, setShowGuardianSheet] = useState(false);
-
-  const [guardianName, setGuardianName] = useState("");
-  const [guardianRelation, setGuardianRelation] = useState("");
-  const [guardianPhone, setGuardianPhone] = useState("");
-  const [guardianEmail, setGuardianEmail] = useState("");
-
-  const [showRelationPicker, setShowRelationPicker] = useState(false);
-
-  const [editingGuardianId, setEditingGuardianId] = useState<number | null>(
-    null
+  const [activeGuardian, setActiveGuardian] = useState(1);
+  const [showRelationPicker, setShowRelationPicker] = useState<number | null>(
+    null,
   );
 
-  const [errors, setErrors] = useState({
-    name: "",
-    relation: "",
-    phone: "",
-    email: "",
-  });
-
-  const resetGuardianForm = () => {
-    setGuardianName("");
-    setGuardianRelation("");
-    setGuardianPhone("");
-    setGuardianEmail("");
-    setEditingGuardianId(null);
-
-    setErrors({
-      name: "",
-      relation: "",
-      phone: "",
-      email: "",
-    });
-  };
-
-  const closeGuardianSheet = () => {
-    setShowGuardianSheet(false);
-    setShowRelationPicker(false);
-    resetGuardianForm();
-  };
-
-  const openAddGuardian = () => {
-    resetGuardianForm();
-    setShowGuardianSheet(true);
-  };
-
-  const openEditGuardian = (guardian: Guardian) => {
-    setEditingGuardianId(guardian.id);
-    setGuardianName(guardian.name);
-    setGuardianRelation(guardian.relation);
-    setGuardianPhone(guardian.phone);
-    setGuardianEmail(guardian.email);
-
-    setErrors({
-      name: "",
-      relation: "",
-      phone: "",
-      email: "",
-    });
-
-    setShowGuardianSheet(true);
-  };
-
-  const validateGuardian = () => {
-    const newErrors = {
-      name: "",
-      relation: "",
-      phone: "",
-      email: "",
-    };
-
-    if (!guardianName.trim()) {
-      newErrors.name = "Guardian name is required.";
-    }
-
-    if (!guardianRelation) {
-      newErrors.relation = "Please select a relation.";
-    }
-
-    if (!guardianPhone.trim()) {
-      newErrors.phone = "Phone number is required.";
-    } else if (!/^\d{10}$/.test(guardianPhone)) {
-      newErrors.phone = "Enter a valid 10-digit mobile number.";
-    }
-
-    if (!guardianEmail.trim()) {
-      newErrors.email = "Email is required.";
-    } else if (!/\S+@\S+\.\S+/.test(guardianEmail)) {
-      newErrors.email = "Enter a valid email address.";
-    }
-
-    setErrors(newErrors);
-
-    return !Object.values(newErrors).some(Boolean);
-  };
-
-  const saveGuardian = () => {
-    if (!validateGuardian()) {
-      return;
-    }
-
-    if (editingGuardianId !== null) {
-      setGuardians((prev) =>
-        prev.map((guardian) =>
-          guardian.id === editingGuardianId
-            ? {
-                ...guardian,
-                name: guardianName.trim(),
-                relation: guardianRelation,
-                phone: guardianPhone,
-                email: guardianEmail.trim(),
-              }
-            : guardian
-        )
-      );
-    } else {
-      const newGuardian: Guardian = {
-        id: Date.now(),
-        name: guardianName.trim(),
-        relation: guardianRelation,
-        phone: guardianPhone,
-        email: guardianEmail.trim(),
-      };
-
-      setGuardians((prev) => [...prev, newGuardian]);
-    }
-
-    closeGuardianSheet();
-  };
-
-  const deleteGuardian = (id: number) => {
-    setGuardians((prev) =>
-      prev.filter((guardian) => guardian.id !== id)
+  const updateGuardian = (
+    id: number,
+    field: keyof Guardian,
+    value: string,
+  ) => {
+    setGuardians((current) =>
+      current.map((guardian) =>
+        guardian.id === id
+          ? {
+              ...guardian,
+              [field]: value,
+            }
+          : guardian,
+      ),
     );
   };
 
-  const handleSaveDraft = () => {
-    // Draft persistence will be connected with shared profile state.
+  const addGuardian = () => {
+    const newId =
+      guardians.length > 0
+        ? Math.max(...guardians.map((guardian) => guardian.id)) + 1
+        : 1;
+
+    setGuardians((current) => [
+      ...current,
+      {
+        id: newId,
+        name: "",
+        relation: "",
+        phone: "",
+        email: "",
+      },
+    ]);
+
+    setActiveGuardian(newId);
+  };
+
+  const removeGuardian = (id: number) => {
+    if (guardians.length === 1) {
+      return;
+    }
+
+    setGuardians((current) =>
+      current.filter((guardian) => guardian.id !== id),
+    );
+
+    if (activeGuardian === id) {
+      const remaining = guardians.filter(
+        (guardian) => guardian.id !== id,
+      );
+
+      if (remaining.length > 0) {
+        setActiveGuardian(remaining[0].id);
+      }
+    }
   };
 
   const handleContinue = () => {
-    router.push("/auth/profile-setup/academic");
+    const primaryGuardian = guardians[0];
+
+    if (!primaryGuardian.name.trim()) {
+      return;
+    }
+
+    if (!primaryGuardian.relation) {
+      return;
+    }
+
+    if (!primaryGuardian.phone.trim()) {
+      return;
+    }
+
+    if (!primaryGuardian.email.trim()) {
+      return;
+    }
+
+    router.push("/auth/profile-setup/marks");
   };
 
   return (
-    <SafeAreaView edges={["bottom"]}
-    className="flex-1 bg-[#F4F6F8]">
-      {/* Top Bar */}
-      <View className="border-b border-[#E2E5E9] bg-white px-4 pb-3 pt-10">
+    <SafeAreaView
+      edges={["top", "bottom"]}
+      className="flex-1 bg-[#F4F6F8]"
+    >
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "android" ? "padding" : "height"}
+        className="flex-1"
+      >
+      {/* Header */}
+      <View className="border-b border-[#E2E5E9] bg-white px-5 pb-3 pt-3">
         <View className="flex-row items-center">
           <Pressable
             onPress={() => router.back()}
-            className="mr-3 h-9 w-9 items-center justify-center rounded-[10px]"
+            className="mr-3 h-9 w-9 items-center justify-center rounded-[10px] active:bg-[#F4F6F8]"
           >
-            <ArrowLeft size={21} color="#16202A" strokeWidth={2} />
+            <ArrowLeft
+              size={21}
+              color="#16202A"
+              strokeWidth={2}
+            />
           </Pressable>
 
-          <Text className="text-[16px] font-semibold text-[#16202A]">
-            Complete your profile
-          </Text>
+          <View className="flex-1">
+            <Text className="text-[16px] font-bold text-[#16202A]">
+              Complete your profile
+            </Text>
+
+            <Text className="mt-0.5 text-[11px] text-[#6B7684]">
+              Step 4 of 8 · Your guardian
+            </Text>
+          </View>
         </View>
       </View>
 
-      {/* Scrollable Content */}
       <ScrollView
         className="flex-1"
         contentContainerStyle={{
-          paddingHorizontal: 16,
-          paddingTop: 18,
-          paddingBottom: 24,
+          paddingHorizontal: 20,
+          paddingTop: 22,
+          paddingBottom: 30,
         }}
+        keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
       >
         {/* Progress */}
-        <View className="mb-6">
+        <View className="mb-7">
           <View className="mb-2 flex-row items-center justify-between">
-            <Text className="text-[13px] font-medium text-[#6B7684]">
-              Step 2 of 5
+            <Text className="text-[12px] font-medium text-[#6B7684]">
+              Your profile
             </Text>
 
-            <Text className="text-[13px] font-semibold text-[#1A3A5C]">
-              50%
+            <Text className="text-[12px] font-semibold text-[#1A3A5C]">
+              50% complete
             </Text>
           </View>
 
-          <View className="h-1.5 overflow-hidden rounded-full bg-[#E2E5E9]">
+          <View className="h-[5px] overflow-hidden rounded-full bg-[#E2E5E9]">
             <View
               className="h-full rounded-full"
               style={{
@@ -231,357 +206,305 @@ export default function GuardianScreen() {
         </View>
 
         {/* Heading */}
-        <View className="mb-6">
-          <Text className="text-[24px] font-bold text-[#16202A]">
-            Guardian details
+        <View className="mb-7">
+          <Text className="text-[25px] font-extrabold tracking-[-0.4px] text-[#16202A]">
+            Your guardian
           </Text>
 
-          <Text className="mt-1.5 text-[14px] leading-5 text-[#6B7684]">
-            Helps us contact the right person for account, safety, or
-            counselling updates. We won't contact them for marketing without
-            permission.
+          <Text className="mt-2 max-w-[335px] text-[13px] leading-5 text-[#6B7684]">
+            Add the details of a parent or guardian who can support your
+            career journey.
           </Text>
         </View>
 
-        {/* Add Guardian */}
-        <Pressable
-          onPress={openAddGuardian}
-          className="mb-4 flex-row items-center justify-center rounded-[10px] border border-dashed border-[#1A3A5C] bg-[#EAF1F7] py-3.5"
-        >
-          <Plus size={19} color={primary} strokeWidth={2.2} />
+        {guardians.map((guardian, index) => {
+          const isActive = activeGuardian === guardian.id;
 
-          <Text className="ml-2 text-[14px] font-semibold text-[#1A3A5C]">
-            Add guardian
-          </Text>
-        </Pressable>
-
-        {/* Empty State */}
-        {guardians.length === 0 ? (
-          <View className="items-center rounded-[12px] border border-[#E2E5E9] bg-white px-5 py-10">
-            <View className="mb-3 h-12 w-12 items-center justify-center rounded-full bg-[#EAF1F7]">
-              <UsersRound size={23} color={primary} />
-            </View>
-
-            <Text className="text-[15px] font-semibold text-[#16202A]">
-              No guardian added yet.
-            </Text>
-
-            <Text className="mt-1 text-center text-[13px] leading-5 text-[#9AA4AF]">
-              You can add a parent or guardian using the button above.
-            </Text>
-          </View>
-        ) : (
-          <View className="gap-3">
-            {guardians.map((guardian) => (
-              <View
-                key={guardian.id}
-                className="rounded-[12px] border border-[#E2E5E9] bg-white p-4"
-              >
-                <View className="flex-row items-start">
-                  {/* Avatar */}
-                  <View className="mr-3 h-11 w-11 items-center justify-center rounded-full bg-[#EAF1F7]">
-                    <Text className="text-[16px] font-bold text-[#1A3A5C]">
-                      {guardian.name.charAt(0).toUpperCase()}
-                    </Text>
-                  </View>
-
-                  {/* Details */}
-                  <View className="flex-1">
-                    <Text className="text-[15px] font-semibold text-[#16202A]">
-                      {guardian.name}
-                    </Text>
-
-                    <Text className="mt-0.5 text-[12px] font-medium text-[#1A3A5C]">
-                      {guardian.relation}
-                    </Text>
-
-                    <Text className="mt-2 text-[12px] leading-5 text-[#6B7684]">
-                      {guardian.phone}
-                    </Text>
-
-                    <Text className="text-[12px] leading-5 text-[#6B7684]">
-                      {guardian.email}
-                    </Text>
-                  </View>
-
-                  {/* Actions */}
-                  <View className="ml-2 flex-row">
-                    <Pressable
-                      onPress={() => openEditGuardian(guardian)}
-                      className="mr-2 h-8 w-8 items-center justify-center rounded-[8px] bg-[#F4F6F8]"
-                    >
-                      <Pencil size={15} color="#6B7684" />
-                    </Pressable>
-
-                    <Pressable
-                      onPress={() => deleteGuardian(guardian.id)}
-                      className="h-8 w-8 items-center justify-center rounded-[8px] bg-[#FDECEC]"
-                    >
-                      <Trash2 size={15} color="#B33A3A" />
-                    </Pressable>
-                  </View>
-                </View>
-              </View>
-            ))}
-          </View>
-        )}
-      </ScrollView>
-
-      {/* Fixed Footer */}
-      <View className="border-t border-[#E2E5E9] bg-[#F4F6F8] px-4 py-4">
-        <View className="flex-row items-center gap-3">
-          <Pressable
-            onPress={handleSaveDraft}
-            className="h-12 flex-1 items-center justify-center rounded-[10px] border border-[#D6DBE1] bg-white"
-          >
-            <Text className="text-[14px] font-semibold text-[#1A3A5C]">
-              Save draft
-            </Text>
-          </Pressable>
-
-          <Pressable
-            onPress={handleContinue}
-            className="h-12 flex-1 items-center justify-center rounded-[10px]"
-            style={{
-              backgroundColor: primary,
-            }}
-          >
-            <Text className="text-[14px] font-semibold text-white">
-              Continue
-            </Text>
-          </Pressable>
-        </View>
-      </View>
-
-      {/* Add / Edit Guardian Bottom Sheet */}
-      <Modal
-        visible={showGuardianSheet}
-        transparent
-        animationType="slide"
-        onRequestClose={closeGuardianSheet}
-      >
-        <View className="flex-1 justify-end bg-black/30">
-          <View className="max-h-[90%] rounded-t-[24px] bg-white px-4 pb-8 pt-5">
-            {/* Sheet Header */}
-            <View className="mb-5 flex-row items-center justify-between">
-              <Text className="text-[18px] font-bold text-[#16202A]">
-                {editingGuardianId !== null
-                  ? "Edit guardian"
-                  : "Add guardian"}
-              </Text>
-
-              <Pressable
-                onPress={closeGuardianSheet}
-                className="h-9 w-9 items-center justify-center rounded-full bg-[#F4F6F8]"
-              >
-                <X size={18} color="#6B7684" />
-              </Pressable>
-            </View>
-
-            <ScrollView
-              keyboardShouldPersistTaps="handled"
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={{
-                paddingBottom: 12,
-              }}
+          return (
+            <View
+              key={guardian.id}
+              className="mb-5"
             >
+              {/* Guardian Header */}
+              <View className="mb-3 flex-row items-center justify-between">
+                <View className="flex-row items-center">
+                  <View className="mr-2 h-7 w-7 items-center justify-center rounded-full bg-[#EAF1F7]">
+                    <UserRound
+                      size={15}
+                      color={primary}
+                      strokeWidth={2}
+                    />
+                  </View>
+
+                  <Text className="text-[14px] font-bold text-[#16202A]">
+                    Guardian {index + 1}
+                  </Text>
+
+                  {index === 0 && (
+                    <View className="ml-2 rounded-full bg-[#FFF6DF] px-2 py-0.5">
+                      <Text className="text-[8px] font-bold text-[#9A6B00]">
+                        REQUIRED
+                      </Text>
+                    </View>
+                  )}
+                </View>
+
+                {guardians.length > 1 && (
+                  <Pressable
+                    onPress={() => removeGuardian(guardian.id)}
+                    className="h-8 w-8 items-center justify-center rounded-[9px] active:bg-[#FDECEC]"
+                  >
+                    <Trash2
+                      size={16}
+                      color="#B33A3A"
+                      strokeWidth={1.9}
+                    />
+                  </Pressable>
+                )}
+              </View>
+
               {/* Name */}
               <View className="mb-4">
-                <Text className="mb-2 text-[13px] font-semibold text-[#16202A]">
-                  Name
+                <Text className="mb-2 text-[12.5px] font-semibold text-[#16202A]">
+                  Guardian name
                 </Text>
 
                 <TextInput
-                  value={guardianName}
-                  onChangeText={(text) => {
-                    setGuardianName(text);
-
-                    if (errors.name) {
-                      setErrors((prev) => ({
-                        ...prev,
-                        name: "",
-                      }));
-                    }
-                  }}
-                  placeholder="Guardian's full name"
+                  value={guardian.name}
+                  onFocus={() => setActiveGuardian(guardian.id)}
+                  onChangeText={(text) =>
+                    updateGuardian(
+                      guardian.id,
+                      "name",
+                      text,
+                    )
+                  }
+                  placeholder="Enter guardian name"
                   placeholderTextColor="#9AA4AF"
-                  className={`h-12 rounded-[10px] border bg-white px-3.5 text-[14px] text-[#16202A] ${
-                    errors.name
-                      ? "border-[#E74C3C]"
-                      : "border-[#E2E5E9]"
-                  }`}
+                  className="h-12 rounded-[11px] border border-[#E2E5E9] bg-white px-3.5 text-[14px] text-[#16202A]"
                 />
-
-                {errors.name ? (
-                  <Text className="mt-1.5 text-[12px] text-[#E74C3C]">
-                    {errors.name}
-                  </Text>
-                ) : null}
               </View>
 
               {/* Relation */}
               <View className="mb-4">
-                <Text className="mb-2 text-[13px] font-semibold text-[#16202A]">
-                  Relation
+                <Text className="mb-2 text-[12.5px] font-semibold text-[#16202A]">
+                  Relationship
                 </Text>
 
                 <Pressable
-                  onPress={() =>
-                    setShowRelationPicker(!showRelationPicker)
-                  }
-                  className={`h-12 flex-row items-center justify-between rounded-[10px] border bg-white px-3.5 ${
-                    errors.relation
-                      ? "border-[#E74C3C]"
-                      : "border-[#E2E5E9]"
-                  }`}
+                  onPress={() => {
+                    setActiveGuardian(guardian.id);
+                    setShowRelationPicker(guardian.id);
+                  }}
+                  className="h-12 flex-row items-center justify-between rounded-[11px] border border-[#E2E5E9] bg-white px-3.5"
                 >
                   <Text
                     className={`text-[14px] ${
-                      guardianRelation
+                      guardian.relation
                         ? "text-[#16202A]"
                         : "text-[#9AA4AF]"
                     }`}
                   >
-                    {guardianRelation || "Select relation"}
+                    {guardian.relation || "Select relationship"}
                   </Text>
 
-                  <ChevronDown size={18} color="#9AA4AF" />
+                  <ChevronDown
+                    size={18}
+                    color="#9AA4AF"
+                    strokeWidth={1.9}
+                  />
                 </Pressable>
-
-                {showRelationPicker && (
-                  <View className="mt-1 overflow-hidden rounded-[10px] border border-[#E2E5E9] bg-white">
-                    {relations.map((relation) => (
-                      <Pressable
-                        key={relation}
-                        onPress={() => {
-                          setGuardianRelation(relation);
-                          setShowRelationPicker(false);
-
-                          setErrors((prev) => ({
-                            ...prev,
-                            relation: "",
-                          }));
-                        }}
-                        className="border-b border-[#E2E5E9] px-3.5 py-3 last:border-b-0"
-                      >
-                        <Text className="text-[14px] text-[#16202A]">
-                          {relation}
-                        </Text>
-                      </Pressable>
-                    ))}
-                  </View>
-                )}
-
-                {errors.relation ? (
-                  <Text className="mt-1.5 text-[12px] text-[#E74C3C]">
-                    {errors.relation}
-                  </Text>
-                ) : null}
               </View>
 
               {/* Phone */}
               <View className="mb-4">
-                <Text className="mb-2 text-[13px] font-semibold text-[#16202A]">
-                  Phone
+                <Text className="mb-2 text-[12.5px] font-semibold text-[#16202A]">
+                  Phone number
                 </Text>
 
-                <TextInput
-                  value={guardianPhone}
-                  onChangeText={(text) => {
-                    const numericValue = text
-                      .replace(/\D/g, "")
-                      .slice(0, 10);
+                <View className="h-12 flex-row items-center rounded-[11px] border border-[#E2E5E9] bg-white px-3">
+                  <Phone
+                    size={17}
+                    color="#6B7684"
+                    strokeWidth={1.9}
+                  />
 
-                    setGuardianPhone(numericValue);
-
-                    if (errors.phone) {
-                      setErrors((prev) => ({
-                        ...prev,
-                        phone: "",
-                      }));
-                    }
-                  }}
-                  placeholder="10-digit mobile number"
-                  placeholderTextColor="#9AA4AF"
-                  keyboardType="phone-pad"
-                  maxLength={10}
-                  className={`h-12 rounded-[10px] border bg-white px-3.5 text-[14px] text-[#16202A] ${
-                    errors.phone
-                      ? "border-[#E74C3C]"
-                      : "border-[#E2E5E9]"
-                  }`}
-                />
-
-                <Text className="mt-2 text-[12px] leading-4 text-[#9AA4AF]">
-                  Use a 10-digit Indian mobile number.
-                </Text>
-
-                {errors.phone ? (
-                  <Text className="mt-1.5 text-[12px] text-[#E74C3C]">
-                    {errors.phone}
+                  <Text className="ml-2 mr-1 text-[13px] font-semibold text-[#6B7684]">
+                    +91
                   </Text>
-                ) : null}
+
+                  <TextInput
+                    value={guardian.phone}
+                    onFocus={() =>
+                      setActiveGuardian(guardian.id)
+                    }
+                    onChangeText={(text) =>
+                      updateGuardian(
+                        guardian.id,
+                        "phone",
+                        text.replace(/\D/g, "").slice(0, 10),
+                      )
+                    }
+                    placeholder="Enter phone number"
+                    placeholderTextColor="#9AA4AF"
+                    keyboardType="number-pad"
+                    maxLength={10}
+                    className="flex-1 text-[14px] text-[#16202A]"
+                  />
+                </View>
               </View>
 
               {/* Email */}
-              <View className="mb-5">
-                <Text className="mb-2 text-[13px] font-semibold text-[#16202A]">
+              <View>
+                <Text className="mb-2 text-[12.5px] font-semibold text-[#16202A]">
                   Email
                 </Text>
 
-                <TextInput
-                  value={guardianEmail}
-                  onChangeText={(text) => {
-                    setGuardianEmail(text);
+                <View className="h-12 flex-row items-center rounded-[11px] border border-[#E2E5E9] bg-white px-3">
+                  <Mail
+                    size={17}
+                    color="#6B7684"
+                    strokeWidth={1.9}
+                  />
 
-                    if (errors.email) {
-                      setErrors((prev) => ({
-                        ...prev,
-                        email: "",
-                      }));
+                  <TextInput
+                    value={guardian.email}
+                    onFocus={() =>
+                      setActiveGuardian(guardian.id)
                     }
-                  }}
-                  placeholder="guardian@example.com"
-                  placeholderTextColor="#9AA4AF"
-                  keyboardType="email-address"
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  className={`h-12 rounded-[10px] border bg-white px-3.5 text-[14px] text-[#16202A] ${
-                    errors.email
-                      ? "border-[#E74C3C]"
-                      : "border-[#E2E5E9]"
-                  }`}
-                />
-
-                <Text className="mt-2 text-[12px] leading-4 text-[#9AA4AF]">
-                  Required for at least one parent or guardian.
-                </Text>
-
-                {errors.email ? (
-                  <Text className="mt-1.5 text-[12px] text-[#E74C3C]">
-                    {errors.email}
-                  </Text>
-                ) : null}
+                    onChangeText={(text) =>
+                      updateGuardian(
+                        guardian.id,
+                        "email",
+                        text,
+                      )
+                    }
+                    placeholder="Enter email address"
+                    placeholderTextColor="#9AA4AF"
+                    keyboardType="email-address"
+                    autoCapitalize="none"
+                    className="ml-2 flex-1 text-[14px] text-[#16202A]"
+                  />
+                </View>
               </View>
 
-              {/* Save Guardian */}
-              <Pressable
-                onPress={saveGuardian}
-                className="h-12 items-center justify-center rounded-[10px]"
-                style={{
-                  backgroundColor: primary,
-                }}
-              >
-                <Text className="text-[14px] font-semibold text-white">
-                  {editingGuardianId !== null
-                    ? "Update guardian"
-                    : "Save guardian"}
+              {isActive && (
+                <Text className="mt-2 text-[10.5px] text-[#9AA4AF]">
+                  Guardian information can be updated later.
                 </Text>
-              </Pressable>
-            </ScrollView>
-          </View>
+              )}
+            </View>
+          );
+        })}
+
+        {/* Add Guardian */}
+        <Pressable
+          onPress={addGuardian}
+          className="mb-5 h-[46px] flex-row items-center justify-center rounded-[11px] border border-dashed border-[#B9C3CD] bg-white active:bg-[#F8FAFB]"
+        >
+          <Plus
+            size={17}
+            color={primary}
+            strokeWidth={2}
+          />
+
+          <Text className="ml-2 text-[13px] font-semibold text-[#1A3A5C]">
+            Add another guardian
+          </Text>
+        </Pressable>
+
+        {/* Info */}
+        <View className="rounded-[11px] bg-[#EAF1F7] px-3.5 py-3">
+          <Text className="text-[11px] leading-4 text-[#6B7684]">
+            Guardian details help us understand the support available to
+            you during your education and career journey.
+          </Text>
         </View>
-      </Modal>
+      </ScrollView>
+
+      {/* Bottom Action */}
+      <View className="border-t border-[#E2E5E9] bg-white px-5 py-3.5">
+        <Pressable
+          onPress={handleContinue}
+          className="h-[52px] w-full flex-row items-center justify-center rounded-[12px] bg-[#1A3A5C] active:opacity-90"
+        >
+          <Text className="mr-2 text-[14px] font-bold text-white">
+            Continue
+          </Text>
+
+          <ChevronRight
+            size={17}
+            color="#FFFFFF"
+            strokeWidth={2.5}
+          />
+        </Pressable>
+      </View>
+
+      {/* Relationship Picker */}
+      {showRelationPicker !== null && (
+        <View className="absolute inset-0">
+          <Pressable
+            onPress={() => setShowRelationPicker(null)}
+            className="flex-1 justify-end bg-black/30"
+          >
+            <Pressable
+              onPress={() => {}}
+              className="max-h-[75%] rounded-t-[24px] bg-white px-4 pb-8 pt-5"
+            >
+              <View className="mb-4">
+                <Text className="text-[18px] font-bold text-[#16202A]">
+                  Select relationship
+                </Text>
+
+                <Text className="mt-1 text-[11px] text-[#6B7684]">
+                  Choose your relationship with this guardian.
+                </Text>
+              </View>
+
+              <ScrollView showsVerticalScrollIndicator={false}>
+                {relations.map((relation) => {
+                  const selected =
+                    guardians.find(
+                      (item) =>
+                        item.id === showRelationPicker,
+                    )?.relation === relation;
+
+                  return (
+                    <Pressable
+                      key={relation}
+                      onPress={() => {
+                        updateGuardian(
+                          showRelationPicker,
+                          "relation",
+                          relation,
+                        );
+
+                        setShowRelationPicker(null);
+                      }}
+                      className={`mb-2 rounded-[10px] border px-4 py-3.5 ${
+                        selected
+                          ? "border-[#1A3A5C] bg-[#EAF1F7]"
+                          : "border-[#E2E5E9] bg-white"
+                      }`}
+                    >
+                      <Text
+                        className={`text-[14px] ${
+                          selected
+                            ? "font-semibold text-[#1A3A5C]"
+                            : "text-[#16202A]"
+                        }`}
+                      >
+                        {relation}
+                      </Text>
+                    </Pressable>
+                  );
+                })}
+              </ScrollView>
+            </Pressable>
+          </Pressable>
+        </View>
+      )}
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }

@@ -1,5 +1,11 @@
 import { router } from "expo-router";
-import { ArrowLeft, ChevronDown, Search, X } from "lucide-react-native";
+import {
+  ArrowLeft,
+  CalendarDays,
+  ChevronDown,
+  ChevronRight,
+  X,
+} from "lucide-react-native";
 import { useState } from "react";
 import {
   Modal,
@@ -13,140 +19,127 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 const primary = "#1A3A5C";
 
-const careerSuggestions = [
-  "Software Engineer",
-  "Doctor",
-  "Data Scientist",
-  "Not sure yet",
-];
-
-const genders = ["Prefer not to say", "Male", "Female", "Other"];
+const genders = ["Male", "Female", "Other", "Prefer not to say"];
 
 const days = Array.from({ length: 31 }, (_, index) => index + 1);
 
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
 const currentYear = new Date().getFullYear();
-const years = Array.from({ length: 26 }, (_, index) => currentYear - 5 - index);
+
+const years = Array.from({ length: 80 }, (_, index) => currentYear - index);
 
 export default function ProfileSetup() {
-  const [fullName, setFullName] = useState("Salman Khan");
-
-  const [dreamCareer1, setDreamCareer1] = useState("");
-  const [dreamCareer2, setDreamCareer2] = useState("");
-  const [dreamCareer3, setDreamCareer3] = useState("");
-
-  const [careerSearch, setCareerSearch] = useState("");
-  const [showCareerSuggestions, setShowCareerSuggestions] = useState(false);
-
-  const [dob, setDob] = useState("");
-  const [age, setAge] = useState<number | null>(null);
+  const [fullName, setFullName] = useState("");
 
   const [gender, setGender] = useState("");
+
+  const [selectedDay, setSelectedDay] = useState<number | null>(null);
+  const [selectedMonth, setSelectedMonth] = useState<number | null>(null);
+  const [selectedYear, setSelectedYear] = useState<number | null>(null);
 
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showGenderPicker, setShowGenderPicker] = useState(false);
 
-  const [selectedDay, setSelectedDay] = useState(10);
-  const [selectedMonth, setSelectedMonth] = useState(9);
-  const [selectedYear, setSelectedYear] = useState(2008);
-
-  const filteredSuggestions = careerSuggestions.filter((career) =>
-    career.toLowerCase().includes(careerSearch.toLowerCase()),
-  );
-
-  const calculateAge = (date: Date) => {
-    const today = new Date();
-
-    let calculatedAge = today.getFullYear() - date.getFullYear();
-
-    const monthDifference = today.getMonth() - date.getMonth();
-
-    if (
-      monthDifference < 0 ||
-      (monthDifference === 0 && today.getDate() < date.getDate())
-    ) {
-      calculatedAge--;
-    }
-
-    return calculatedAge;
-  };
-
   const handleDateConfirm = () => {
-    const date = new Date(selectedYear, selectedMonth, selectedDay);
-
-    const formattedDate = `${String(selectedDay).padStart(2, "0")}/${String(
-      selectedMonth + 1,
-    ).padStart(2, "0")}/${selectedYear}`;
-
-    setDob(formattedDate);
-    setAge(calculateAge(date));
-    setShowDatePicker(false);
-  };
-
-  const handleCareerSelect = (career: string) => {
-    setDreamCareer1(career);
-    setCareerSearch("");
-    setShowCareerSuggestions(false);
-  };
-
-  const handleContinue = () => {
-    if (!dreamCareer1.trim()) {
+    if (
+      selectedDay === null ||
+      selectedMonth === null ||
+      selectedYear === null
+    ) {
       return;
     }
 
-    router.push("/auth/profile-setup/guardian");
+    setShowDatePicker(false);
   };
 
-  const handleSaveDraft = () => {
-    // Draft persistence will be connected when shared profile state
-    // / storage is added to the profile setup flow.
+  const handleContinue = () => {
+    if (!fullName.trim()) {
+      return;
+    }
+
+    if (
+      selectedDay === null ||
+      selectedMonth === null ||
+      selectedYear === null
+    ) {
+      return;
+    }
+
+    router.push("/auth/profile-setup/school");
   };
+
+  const formattedDate =
+    selectedDay !== null && selectedMonth !== null && selectedYear !== null
+      ? `${String(selectedDay).padStart(2, "0")}/${String(
+          selectedMonth + 1,
+        ).padStart(2, "0")}/${selectedYear}`
+      : "";
 
   return (
-    <SafeAreaView edges={["bottom"]}
-    className="flex-1 bg-[#F4F6F8]">
-      {/* Top Bar */}
-      <View className="border-b border-[#E2E5E9] bg-white px-4 pb-3 pt-10">
+    <SafeAreaView edges={["top", "bottom"]} className="flex-1 bg-[#F4F6F8]">
+      {/* Header */}
+      <View className="border-b border-[#E2E5E9] bg-white px-5 pb-3 pt-3">
         <View className="flex-row items-center">
           <Pressable
             onPress={() => router.back()}
-            className="mr-3 h-9 w-9 items-center justify-center rounded-[10px]"
+            className="mr-3 h-9 w-9 items-center justify-center rounded-[10px] active:bg-[#F4F6F8]"
           >
             <ArrowLeft size={21} color="#16202A" strokeWidth={2} />
           </Pressable>
 
-          <Text className="text-[16px] font-semibold text-[#16202A]">
-            Complete your profile
-          </Text>
+          <View className="flex-1">
+            <Text className="text-[16px] font-bold text-[#16202A]">
+              Complete your profile
+            </Text>
+
+            <Text className="mt-0.5 text-[11px] text-[#6B7684]">
+              Step 1 of 8 · About you
+            </Text>
+          </View>
         </View>
       </View>
 
       <ScrollView
         className="flex-1"
         contentContainerStyle={{
-          paddingHorizontal: 16,
-          paddingTop: 18,
-          paddingBottom: 24,
+          paddingHorizontal: 20,
+          paddingTop: 22,
+          paddingBottom: 30,
         }}
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
       >
         {/* Progress */}
-        <View className="mb-6">
+        <View className="mb-7">
           <View className="mb-2 flex-row items-center justify-between">
-            <Text className="text-[13px] font-medium text-[#6B7684]">
-              Step 1 of 5
+            <Text className="text-[12px] font-medium text-[#6B7684]">
+              Your profile
             </Text>
 
-            <Text className="text-[13px] font-semibold text-[#1A3A5C]">
-              17%
+            <Text className="text-[12px] font-semibold text-[#1A3A5C]">
+              12% complete
             </Text>
           </View>
 
-          <View className="h-1.5 overflow-hidden rounded-full bg-[#E2E5E9]">
+          <View className="h-[5px] overflow-hidden rounded-full bg-[#E2E5E9]">
             <View
               className="h-full rounded-full"
               style={{
-                width: "17%",
+                width: "12.5%",
                 backgroundColor: primary,
               }}
             />
@@ -154,120 +147,91 @@ export default function ProfileSetup() {
         </View>
 
         {/* Heading */}
+        <View className="mb-7">
+          <Text className="text-[25px] font-extrabold tracking-[-0.4px] text-[#16202A]">
+            Let’s meet you
+          </Text>
+
+          <Text className="mt-2 max-w-[330px] text-[13px] leading-5 text-[#6B7684]">
+            Start with a few basic details so we can personalize your
+            experience.
+          </Text>
+        </View>
+
+        {/* Full Name */}
         <View className="mb-6">
-          <Text className="text-[24px] font-bold text-[#16202A]">
-            About you
-          </Text>
+          <View className="mb-2 flex-row items-center">
+            <Text className="text-[13px] font-semibold text-[#16202A]">
+              Full name
+            </Text>
 
-          <Text className="mt-1.5 text-[14px] leading-5 text-[#6B7684]">
-            Let’s start with the basics.
-          </Text>
-        </View>
-
-        {/* Dream Career 1 */}
-        <View className="mb-5">
-          <Text className="mb-2 text-[13px] font-semibold text-[#16202A]">
-            Dream Career 1 <Text className="text-[#E74C3C]">*</Text>
-          </Text>
-
-          <View className="relative">
-            <View className="flex-row items-center rounded-[10px] border border-[#E2E5E9] bg-white px-3">
-              <Search size={18} color="#9AA4AF" />
-
-              <TextInput
-                value={careerSearch || dreamCareer1}
-                onChangeText={(text) => {
-                  setCareerSearch(text);
-                  setDreamCareer1(text);
-                  setShowCareerSuggestions(true);
-                }}
-                onFocus={() => setShowCareerSuggestions(true)}
-                placeholder="Search your dream career"
-                placeholderTextColor="#9AA4AF"
-                className="h-12 flex-1 px-2 text-[14px] text-[#16202A]"
-              />
-
-              {dreamCareer1.length > 0 && (
-                <Pressable
-                  onPress={() => {
-                    setDreamCareer1("");
-                    setCareerSearch("");
-                  }}
-                  className="h-8 w-8 items-center justify-center"
-                >
-                  <X size={17} color="#9AA4AF" />
-                </Pressable>
-              )}
+            <View className="ml-2 rounded-full bg-[#FFF6DF] px-2 py-0.5">
+              <Text className="text-[8px] font-bold text-[#9A6B00]">
+                REQUIRED
+              </Text>
             </View>
-
-            {showCareerSuggestions && (
-              <View className="mt-1 overflow-hidden rounded-[10px] border border-[#E2E5E9] bg-white">
-                {filteredSuggestions.length > 0 ? (
-                  filteredSuggestions.map((career) => (
-                    <Pressable
-                      key={career}
-                      onPress={() => handleCareerSelect(career)}
-                      className="border-b border-[#E2E5E9] px-3.5 py-3 last:border-b-0"
-                    >
-                      <Text className="text-[14px] text-[#16202A]">
-                        {career}
-                      </Text>
-                    </Pressable>
-                  ))
-                ) : (
-                  <Text className="px-3.5 py-3 text-[13px] text-[#6B7684]">
-                    No suggestions found.
-                  </Text>
-                )}
-              </View>
-            )}
           </View>
 
-          <Text className="mt-2 text-[12px] leading-4 text-[#9AA4AF]">
-            Type any career you want. Suggestions are optional.
-          </Text>
+          <TextInput
+            value={fullName}
+            onChangeText={setFullName}
+            placeholder="Enter your full name"
+            placeholderTextColor="#9AA4AF"
+            className="h-12 w-full rounded-[11px] border border-[#E2E5E9] bg-white px-[13px] text-[14px] text-[#16202A]"
+          />
         </View>
 
-        {/* Dream Career 2 & 3 */}
-        <View className="mb-5 flex-row gap-3">
-          <View className="flex-1">
-            <Text className="mb-2 text-[13px] font-semibold text-[#16202A]">
-              Dream Career 2
+        {/* Date of Birth */}
+        <View className="mb-6">
+          <View className="mb-2 flex-row items-center">
+            <Text className="text-[13px] font-semibold text-[#16202A]">
+              Date of birth
             </Text>
 
-            <TextInput
-              value={dreamCareer2}
-              onChangeText={setDreamCareer2}
-              placeholder="Optional"
-              placeholderTextColor="#9AA4AF"
-              className="h-12 rounded-[10px] border border-[#E2E5E9] bg-white px-3 text-[13px] text-[#16202A]"
-            />
+            <View className="ml-2 rounded-full bg-[#FFF6DF] px-2 py-0.5">
+              <Text className="text-[8px] font-bold text-[#9A6B00]">
+                REQUIRED
+              </Text>
+            </View>
           </View>
 
-          <View className="flex-1">
-            <Text className="mb-2 text-[13px] font-semibold text-[#16202A]">
-              Dream Career 3
+          <Pressable
+            onPress={() => setShowDatePicker(true)}
+            className="h-12 flex-row items-center justify-between rounded-[11px] border border-[#E2E5E9] bg-white px-3.5 active:bg-[#F8FAFB]"
+          >
+            <Text
+              className={`text-[14px] ${
+                formattedDate ? "text-[#16202A]" : "text-[#9AA4AF]"
+              }`}
+            >
+              {formattedDate || "Select your date of birth"}
             </Text>
 
-            <TextInput
-              value={dreamCareer3}
-              onChangeText={setDreamCareer3}
-              placeholder="Optional"
-              placeholderTextColor="#9AA4AF"
-              className="h-12 rounded-[10px] border border-[#E2E5E9] bg-white px-3 text-[13px] text-[#16202A]"
-            />
-          </View>
+            <CalendarDays size={18} color="#6B7684" strokeWidth={1.9} />
+          </Pressable>
+
+          <Text className="mt-2 text-[11px] leading-4 text-[#9AA4AF]">
+            Your date of birth helps us personalize your profile.
+          </Text>
         </View>
 
         {/* Gender */}
-        <View className="mb-8">
-          <Text className="mb-2 text-[13px] font-semibold text-[#16202A]">
-            Gender
-          </Text>
+        <View>
+          <View className="mb-2 flex-row items-center">
+            <Text className="text-[13px] font-semibold text-[#16202A]">
+              Gender
+            </Text>
+
+            <View className="ml-2 rounded-full bg-[#EEF3F7] px-2 py-0.5">
+              <Text className="text-[8px] font-bold text-[#6B7684]">
+                OPTIONAL
+              </Text>
+            </View>
+          </View>
 
           <Pressable
             onPress={() => setShowGenderPicker(true)}
-            className="h-12 flex-row items-center justify-between rounded-[10px] border border-[#E2E5E9] bg-white px-3.5"
+            className="h-12 flex-row items-center justify-between rounded-[11px] border border-[#E2E5E9] bg-white px-3.5 active:bg-[#F8FAFB]"
           >
             <Text
               className={`text-[14px] ${
@@ -277,39 +241,30 @@ export default function ProfileSetup() {
               {gender || "Select gender"}
             </Text>
 
-            <ChevronDown size={18} color="#9AA4AF" />
+            <ChevronDown size={18} color="#9AA4AF" strokeWidth={1.9} />
           </Pressable>
-        </View>
 
-        {/* Footer Buttons */}
+          <Text className="mt-2 text-[11px] leading-4 text-[#9AA4AF]">
+            You may choose not to say.
+          </Text>
+        </View>
       </ScrollView>
 
-      <View className="border-t border-[#E2E5E9] bg-[#F4F6F8] px-4 py-4">
-        <View className="flex-row items-center gap-3">
-          <Pressable
-            onPress={handleSaveDraft}
-            className="h-12 flex-1 items-center justify-center rounded-[10px] border border-[#D6DBE1] bg-white"
-          >
-            <Text className="text-[14px] font-semibold text-[#1A3A5C]">
-              Save draft
-            </Text>
-          </Pressable>
+      {/* Bottom Action */}
+      <View className="border-t border-[#E2E5E9] bg-white px-5 py-3.5">
+        <Pressable
+          onPress={handleContinue}
+          className="h-[52px] w-full flex-row items-center justify-center rounded-[12px] bg-[#1A3A5C] active:opacity-90"
+        >
+          <Text className="mr-2 text-[14px] font-bold text-white">
+            Continue
+          </Text>
 
-          <Pressable
-            onPress={handleContinue}
-            className="h-12 flex-1 items-center justify-center rounded-[10px]"
-            style={{
-              backgroundColor: primary,
-            }}
-          >
-            <Text className="text-[14px] font-semibold text-white">
-              Continue
-            </Text>
-          </Pressable>
-        </View>
+          <ChevronRight size={17} color="#FFFFFF" strokeWidth={2.5} />
+        </Pressable>
       </View>
 
-      {/* Gender Bottom Sheet */}
+      {/* Gender Picker */}
       <Modal
         visible={showGenderPicker}
         transparent
@@ -319,9 +274,15 @@ export default function ProfileSetup() {
         <View className="flex-1 justify-end bg-black/30">
           <View className="rounded-t-[24px] bg-white px-4 pb-8 pt-5">
             <View className="mb-4 flex-row items-center justify-between">
-              <Text className="text-[18px] font-bold text-[#16202A]">
-                Select gender
-              </Text>
+              <View className="flex-1 pr-3">
+                <Text className="text-[18px] font-bold text-[#16202A]">
+                  Select gender
+                </Text>
+
+                <Text className="mt-1 text-[11px] text-[#6B7684]">
+                  You may choose not to say.
+                </Text>
+              </View>
 
               <Pressable
                 onPress={() => setShowGenderPicker(false)}
@@ -359,6 +320,156 @@ export default function ProfileSetup() {
                 </Pressable>
               );
             })}
+          </View>
+        </View>
+      </Modal>
+
+      {/* Date Picker */}
+      <Modal
+        visible={showDatePicker}
+        transparent
+        animationType="slide"
+        onRequestClose={() => setShowDatePicker(false)}
+      >
+        <View className="flex-1 justify-end bg-black/30">
+          <View className="rounded-t-[24px] bg-white px-4 pb-8 pt-5">
+            <View className="mb-5 flex-row items-center justify-between">
+              <View>
+                <Text className="text-[18px] font-bold text-[#16202A]">
+                  Date of birth
+                </Text>
+
+                <Text className="mt-1 text-[11px] text-[#6B7684]">
+                  Select your date of birth
+                </Text>
+              </View>
+
+              <Pressable
+                onPress={() => setShowDatePicker(false)}
+                className="h-9 w-9 items-center justify-center rounded-full bg-[#F4F6F8]"
+              >
+                <X size={18} color="#6B7684" />
+              </Pressable>
+            </View>
+
+            <View className="mb-5 flex-row">
+              {/* Day */}
+              <View className="mr-2 flex-1">
+                <Text className="mb-2 text-[11px] font-semibold text-[#6B7684]">
+                  Day
+                </Text>
+
+                <ScrollView
+                  className="h-[180px]"
+                  showsVerticalScrollIndicator={false}
+                >
+                  {days.map((day) => {
+                    const selected = selectedDay === day;
+
+                    return (
+                      <Pressable
+                        key={day}
+                        onPress={() => setSelectedDay(day)}
+                        className={`mb-1 items-center rounded-[9px] py-2.5 ${
+                          selected ? "bg-[#EAF1F7]" : "bg-white"
+                        }`}
+                      >
+                        <Text
+                          className={`text-[13px] ${
+                            selected
+                              ? "font-bold text-[#1A3A5C]"
+                              : "text-[#16202A]"
+                          }`}
+                        >
+                          {day}
+                        </Text>
+                      </Pressable>
+                    );
+                  })}
+                </ScrollView>
+              </View>
+
+              {/* Month */}
+              <View className="mr-2 flex-[1.5]">
+                <Text className="mb-2 text-[11px] font-semibold text-[#6B7684]">
+                  Month
+                </Text>
+
+                <ScrollView
+                  className="h-[180px]"
+                  showsVerticalScrollIndicator={false}
+                >
+                  {months.map((month, index) => {
+                    const selected = selectedMonth === index;
+
+                    return (
+                      <Pressable
+                        key={month}
+                        onPress={() => setSelectedMonth(index)}
+                        className={`mb-1 rounded-[9px] px-3 py-2.5 ${
+                          selected ? "bg-[#EAF1F7]" : "bg-white"
+                        }`}
+                      >
+                        <Text
+                          className={`text-[13px] ${
+                            selected
+                              ? "font-bold text-[#1A3A5C]"
+                              : "text-[#16202A]"
+                          }`}
+                        >
+                          {month}
+                        </Text>
+                      </Pressable>
+                    );
+                  })}
+                </ScrollView>
+              </View>
+
+              {/* Year */}
+              <View className="flex-1">
+                <Text className="mb-2 text-[11px] font-semibold text-[#6B7684]">
+                  Year
+                </Text>
+
+                <ScrollView
+                  className="h-[180px]"
+                  showsVerticalScrollIndicator={false}
+                >
+                  {years.map((year) => {
+                    const selected = selectedYear === year;
+
+                    return (
+                      <Pressable
+                        key={year}
+                        onPress={() => setSelectedYear(year)}
+                        className={`mb-1 items-center rounded-[9px] py-2.5 ${
+                          selected ? "bg-[#EAF1F7]" : "bg-white"
+                        }`}
+                      >
+                        <Text
+                          className={`text-[13px] ${
+                            selected
+                              ? "font-bold text-[#1A3A5C]"
+                              : "text-[#16202A]"
+                          }`}
+                        >
+                          {year}
+                        </Text>
+                      </Pressable>
+                    );
+                  })}
+                </ScrollView>
+              </View>
+            </View>
+
+            <Pressable
+              onPress={handleDateConfirm}
+              className="h-[50px] items-center justify-center rounded-[12px] bg-[#1A3A5C] active:opacity-90"
+            >
+              <Text className="text-[14px] font-bold text-white">
+                Confirm date
+              </Text>
+            </Pressable>
           </View>
         </View>
       </Modal>

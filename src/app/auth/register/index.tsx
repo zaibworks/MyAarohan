@@ -6,7 +6,7 @@ import {
   ChevronRight,
   LockIcon,
 } from "lucide-react-native";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Modal, Pressable, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -14,6 +14,7 @@ const Register = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
   const [isClassPickerOpen, setIsClassPickerOpen] = useState(false);
+  const [focusedField, setFocusedField] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -91,13 +92,7 @@ const Register = () => {
     return null;
   };
 
-    const finishRegistration=()=>{
-    setErrorMessage("")
-    router.replace('/auth/register/complete')
-  }
-
   const handleNext = () => {
-
     setErrorMessage("");
     const error = validateStep();
 
@@ -110,9 +105,9 @@ const Register = () => {
       setCurrentStep(currentStep + 1);
       return;
     }
-   
 
     handleRegistration();
+    router.replace("/auth/register/complete");
   };
 
   const handleRegistration = () => {
@@ -120,10 +115,9 @@ const Register = () => {
   };
 
   return (
-    <SafeAreaView edges={["bottom"]}
-    className="flex-1 bg-white">
+    <SafeAreaView edges={["bottom"]} className="flex-1 bg-white">
       {/* Top Bar  */}
-      <View className="flex-row items-center gap-3 px-9 pt-16">
+      <View className="flex-row items-center gap-3 pl-7 pr-12 pt-16">
         <Pressable
           onPress={() => {
             if (currentStep > 0) {
@@ -229,10 +223,14 @@ const Register = () => {
               />
             </View>
             {errorMessage && (
-              <View className="mt-3 self-center flex-row items-center gap-2 rounded-[6px] border border-[#F3CACA] bg-[#FDECEC] px-5 py-2.5">
-                <Text className="text-[15px] text-[#E74C3C]">!</Text>
+              <View className="mt-3 flex-row items-center rounded-[10px] border border-[#F3CACA] bg-[#FDECEC] px-3 py-2.5">
+                <View className="mr-2 h-[20px] w-[20px] items-center justify-center rounded-full bg-[#F8D7D7]">
+                  <Text className="text-[12px] font-bold text-[#B33A3A]">
+                    !
+                  </Text>
+                </View>
 
-                <Text className="flex-1 text-[11.5px] text-[#E74C3C]">
+                <Text className="flex-1 text-[11.5px] leading-[16px] text-[#B33A3A]">
                   {errorMessage}
                 </Text>
               </View>
@@ -261,6 +259,8 @@ const Register = () => {
                 </Text>
 
                 <TextInput
+                  onFocus={() => setFocusedField("day")}
+                  onBlur={() => setFocusedField(null)}
                   value={formData.day}
                   onChangeText={(value) =>
                     setFormData({ ...formData, day: value })
@@ -268,8 +268,14 @@ const Register = () => {
                   placeholder="DD"
                   placeholderTextColor="#9AA4AF"
                   keyboardType="number-pad"
+                  cursorColor="transparent"
                   maxLength={2}
-                  className="h-12 w-full rounded-[11px] border border-[#E2E5E9] px-2 text-center text-[14px] text-[#16202A]"
+
+                  className={`h-12 w-full rounded-[11px] border px-2 text-center text-[14px] text-[#16202A] ${
+                    focusedField === "day"
+                      ? "border-[#1a3a5c77]"
+                      : "border-[#E2E5E9]"
+                  }`}
                 />
               </View>
 
@@ -279,6 +285,8 @@ const Register = () => {
                 </Text>
 
                 <TextInput
+                  onFocus={() => setFocusedField("month")}
+                  onBlur={() => setFocusedField(null)}
                   value={formData.month}
                   onChangeText={(value) =>
                     setFormData({ ...formData, month: value })
@@ -286,8 +294,13 @@ const Register = () => {
                   placeholder="MM"
                   placeholderTextColor="#9AA4AF"
                   keyboardType="number-pad"
+                  cursorColor="transparent"
                   maxLength={2}
-                  className="h-12 w-full rounded-[11px] border border-[#E2E5E9] px-2 text-center text-[14px] text-[#16202A]"
+                  className={`h-12 w-full rounded-[11px] border px-2 text-center text-[14px] text-[#16202A] ${
+                    focusedField === "month"
+                      ? "border-[#1a3a5c77]"
+                      : "border-[#E2E5E9]"
+                  }`}
                 />
               </View>
 
@@ -297,6 +310,8 @@ const Register = () => {
                 </Text>
 
                 <TextInput
+                  onFocus={() => setFocusedField("year")}
+                  onBlur={() => setFocusedField(null)}
                   value={formData.year}
                   onChangeText={(value) =>
                     setFormData({ ...formData, year: value })
@@ -304,8 +319,13 @@ const Register = () => {
                   placeholder="YYYY"
                   placeholderTextColor="#9AA4AF"
                   keyboardType="number-pad"
+                  cursorColor="transparent"
                   maxLength={4}
-                  className="h-12 w-full rounded-[11px] border border-[#E2E5E9] px-2 text-center text-[14px] text-[#16202A]"
+                  className={`h-12 w-full rounded-[11px] border px-2 text-center text-[14px] text-[#16202A] ${
+                    focusedField === "year"
+                      ? "border-[#1a3a5c77]"
+                      : "border-[#E2E5E9]"
+                  }`}
                 />
               </View>
             </View>
@@ -319,10 +339,14 @@ const Register = () => {
               </Text>
             </View>
             {errorMessage && (
-              <View className="mt-3 self-center flex-row items-center gap-2 rounded-[6px] border border-[#F3CACA] bg-[#FDECEC] px-5 py-2.5">
-                <Text className="text-[15px] text-[#E74C3C]">!</Text>
+              <View className="mt-3 flex-row items-center rounded-[10px] border border-[#F3CACA] bg-[#FDECEC] px-3 py-2.5">
+                <View className="mr-2 h-[20px] w-[20px] items-center justify-center rounded-full bg-[#F8D7D7]">
+                  <Text className="text-[12px] font-bold text-[#B33A3A]">
+                    !
+                  </Text>
+                </View>
 
-                <Text className="flex-1 text-[11.5px] text-[#E74C3C]">
+                <Text className="flex-1 text-[11.5px] leading-[16px] text-[#B33A3A]">
                   {errorMessage}
                 </Text>
               </View>
@@ -384,10 +408,14 @@ const Register = () => {
               </Pressable>
             </View>
             {errorMessage && (
-              <View className="mt-3 self-center flex-row items-center gap-2 rounded-[6px] border border-[#F3CACA] bg-[#FDECEC] px-5 py-2.5">
-                <Text className="text-[15px] text-[#E74C3C]">!</Text>
+              <View className="mt-3 flex-row items-center rounded-[10px] border border-[#F3CACA] bg-[#FDECEC] px-3 py-2.5">
+                <View className="mr-2 h-[20px] w-[20px] items-center justify-center rounded-full bg-[#F8D7D7]">
+                  <Text className="text-[12px] font-bold text-[#B33A3A]">
+                    !
+                  </Text>
+                </View>
 
-                <Text className="flex-1 text-[11.5px] text-[#E74C3C]">
+                <Text className="flex-1 text-[11.5px] leading-[16px] text-[#B33A3A]">
                   {errorMessage}
                 </Text>
               </View>
@@ -466,10 +494,14 @@ const Register = () => {
               />
             </View>
             {errorMessage && (
-              <View className="mt-3 self-center flex-row items-center gap-2 rounded-[6px] border border-[#F3CACA] bg-[#FDECEC] px-5 py-2.5">
-                <Text className="text-[15px] text-[#E74C3C]">!</Text>
+              <View className="mt-3 flex-row items-center rounded-[10px] border border-[#F3CACA] bg-[#FDECEC] px-3 py-2.5">
+                <View className="mr-2 h-[20px] w-[20px] items-center justify-center rounded-full bg-[#F8D7D7]">
+                  <Text className="text-[12px] font-bold text-[#B33A3A]">
+                    !
+                  </Text>
+                </View>
 
-                <Text className="flex-1 text-[11.5px] text-[#E74C3C]">
+                <Text className="flex-1 text-[11.5px] leading-[16px] text-[#B33A3A]">
                   {errorMessage}
                 </Text>
               </View>
@@ -481,9 +513,7 @@ const Register = () => {
 
       <View className="px-6 pb-5 pt-3">
         <Pressable
-          onPress={
-            currentStep === 3 ? () => router.replace("/auth/register/complete") : handleNext
-          }
+          onPress={handleNext}
           className="h-[52px] w-full flex-row items-center justify-center gap-2 rounded-xl bg-[#1A3A5C]"
         >
           <Text className="text-[14.5px] font-bold text-white">

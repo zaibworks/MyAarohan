@@ -39,7 +39,7 @@ const [passwordError, setPasswordError] = useState("");
   };
 
   return (
-    <SafeAreaView edges={["bottom"]} className="flex-1 bg-white">
+    <SafeAreaView edges={["bottom"]} className="flex-1 bg-white mb-3">
       {/* Content */}
       <View className="mt-40 flex-1 px-[26px] pt-5">
         {/* Brand Icon */}

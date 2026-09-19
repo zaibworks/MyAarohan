@@ -1,20 +1,16 @@
-import { router, useNavigation } from "expo-router";
+import Navbar from "@/component/Navbar";
+import { useNavigation } from "expo-router";
 import {
   Calendar,
   CalendarDays,
   CalendarPlus,
-  ChevronRight,
   Headphones,
   History,
-  Menu,
-  Plus,
   ShieldCheck,
-  Ticket,
+  Ticket
 } from "lucide-react-native";
 import { useState } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import Navbar from "@/component/Navbar";
 
 type SessionType = "mentorship" | "expert";
 type ActionType = "book" | "sessions";
@@ -76,11 +72,10 @@ export default function Mentorship() {
   const navigate = useNavigation() as any;
 
   return (
-    <View 
-    className="flex-1 bg-[#F4F6F8]">
+    <View className="flex-1 bg-[#F4F6F8]">
       {/* Top Bar */}
 
-           <Navbar/>
+      <Navbar />
 
       {/* Scrollable Content */}
       <ScrollView
@@ -92,21 +87,32 @@ export default function Mentorship() {
           paddingBottom: 24,
         }}
       >
-        <View className="bg-[#F4F6F8] pr-4 pb-3 pt-5">
-          <Text className="text-[24px] font-bold tracking-[-0.4px] text-[#16202A]">
-            Mentorship
-          </Text>
-        </View>
+        {/* Page Header */}
+        <View className="mb-[14px] flex-row items-start justify-between pr-1">
+          <View className="flex-1 pr-3">
+            <Text className="text-[24px] font-bold tracking-[-0.4px] text-[#16202A]">
+              {sessionType === "mentorship" ? "Mentorship" : "Expert"}
+            </Text>
 
-        {/* Intro */}
-        <View className="mb-[14px]">
-          <Text className="mb-1.5 text-[17px] font-bold leading-[22px] text-[#16202A]">
-            Career guidance, when you need it.
-          </Text>
+            <Text className="mt-1 text-[11.5px] text-[#6B7684]">
+              Book a session when you need guidance
+            </Text>
+          </View>
 
-          <Text className="max-w-[340px] text-[12.5px] leading-[19px] text-[#6B7684]">
-            Use your report to book mentorship or expert counselling.
-          </Text>
+          {/* Available Credit */}
+          <View className="mt-1 flex-row items-center rounded-full border border-[#D6DBE1] bg-white px-2.5 py-1">
+            <Ticket size={12} color="#1A3A5C" strokeWidth={2} />
+
+            <Text className="ml-1.5 text-[10.5px] font-semibold text-[#6B7684]">
+              Available
+            </Text>
+
+            <View className="ml-1.5 rounded-full bg-[#E6F7EE] px-1.5 py-0.5">
+              <Text className="text-[10px] font-extrabold text-[#1B8354]">
+                {sessionType === "mentorship" ? "1" : "0"}
+              </Text>
+            </View>
+          </View>
         </View>
 
         {/* Session Type Switcher */}
@@ -153,49 +159,6 @@ export default function Mentorship() {
             </Text>
           </Pressable>
         </View>
-
-        {/* Available Credit */}
-        <View className="mb-3 flex-row items-center gap-3 rounded-[15px] border border-[#E6E9ED] bg-white px-[14px] py-[13px]">
-          <View className="h-[38px] w-[38px] items-center justify-center rounded-[11px] bg-[#EAF1F7]">
-            <Ticket size={20} color="#1A3A5C" strokeWidth={2} />
-          </View>
-
-          <View className="flex-1">
-            <Text className="mb-[3px] text-[12.5px] font-bold text-[#16202A]">
-              Available sessions
-            </Text>
-
-            <Text className="text-[11px] text-[#6B7684]">
-              {sessionType === "mentorship"
-                ? "Mentorship sessions remaining"
-                : "Expert sessions remaining"}
-            </Text>
-          </View>
-
-          <View className="h-[34px] min-w-[34px] items-center justify-center rounded-[10px] bg-[#E6F7EE] px-2">
-            <Text className="text-[14px] font-extrabold text-[#1B8354]">
-              {sessionType === "mentorship" ? "1" : "0"}
-            </Text>
-          </View>
-        </View>
-
-        {/* Plans */}
-        <Pressable
-          onPress={() => {
-            router.push("/student/plans");
-          }}
-          className="mb-4 w-full flex-row items-center gap-[9px] rounded-[12px] border border-[#E6E9ED] bg-white px-[13px] py-[11px]"
-        >
-          <Plus size={17} color="#1A3A5C" strokeWidth={2.2} />
-
-          <Text className="text-[12px] font-bold text-[#1A3A5C]">
-            View counselling plans
-          </Text>
-
-          <View className="flex-1" />
-
-          <ChevronRight size={16} color="#1A3A5C" strokeWidth={2} />
-        </Pressable>
 
         {/* Action Tabs */}
         <View className="mb-[14px] flex-row gap-2">
@@ -254,14 +217,9 @@ export default function Mentorship() {
               <CalendarDays size={18} color="#1A3A5C" strokeWidth={2} />
 
               <Text className="text-[14px] font-bold text-[#16202A]">
-                Select Your Session
+                Select Date & Time
               </Text>
             </View>
-
-            <Text className="mb-[14px] text-[11.5px] leading-[17px] text-[#6B7684]">
-              Select an available date and time slot to book your career
-              mentorship. You'll be assigned to an available counselor.
-            </Text>
 
             {/* Available Dates */}
             <Text className="mb-[7px] text-[11px] font-bold text-[#6B7684]">

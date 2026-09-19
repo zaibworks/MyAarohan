@@ -7,18 +7,41 @@ import {
 } from "lucide-react-native";
 import { Pressable, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useState } from "react";
 
 const Login = () => {
+
+const [phone, setPhone] = useState("");
+const [password, setPassword] = useState("");
+
+const [phoneError, setPhoneError] = useState("");
+const [passwordError, setPasswordError] = useState("");
   const router = useRouter();
 
   const handleLogin = () => {
-    router.replace("/student");
+   let isValid = true;
+    setPhoneError("")
+    setPasswordError("")
+
+    if(!phone.trim()){
+      setPhoneError("Phone number required")
+      isValid= false;
+    }
+
+    if(!password.trim()){
+      setPasswordError("Please enter password")
+      isValid=false;
+    }
+
+     if (!isValid) return;
+     
+      router.replace("/student");
   };
 
   return (
     <SafeAreaView edges={["bottom"]} className="flex-1 bg-white">
       {/* Content */}
-      <View className="mt-60 flex-1 px-[26px] pt-5">
+      <View className="mt-40 flex-1 px-[26px] pt-5">
         {/* Brand Icon */}
         <View className="mb-[18px] h-[52px] w-[52px] items-center justify-center rounded-[14px] bg-[#EAF1F7]">
           <Compass
@@ -44,7 +67,11 @@ const Login = () => {
             Phone
           </Text>
 
-          <View className="h-[50px] flex-row overflow-hidden rounded-xl border border-[#E2E5E9] bg-white">
+          <View
+  className={`h-[50px] flex-row overflow-hidden rounded-xl border bg-white ${
+    phoneError ? "border-[#B33A3A]" : "border-[#E2E5E9]"
+  }`}
+>
             {/* Country Code */}
             <View className="items-center justify-center border-r border-[#E2E5E9] bg-[#F4F6F8] px-3.5">
               <Text className="text-[14px] font-semibold text-[#6B7684]">
@@ -54,6 +81,11 @@ const Login = () => {
 
             {/* Phone Input */}
             <TextInput
+            value={phone}
+            onChangeText={(value)=>{
+              setPhone(value)
+              setPhoneError("")
+            }}
               placeholder="Enter your phone number"
               placeholderTextColor="#9AA4AF"
               keyboardType="number-pad"
@@ -61,7 +93,13 @@ const Login = () => {
               className="flex-1 px-[13px] text-[14px] text-[#16202A]"
             />
           </View>
+          {phoneError && (
+  <Text className="mt-1.5 text-[11px] text-[#B33A3A]">
+    {phoneError}
+  </Text>
+)}
         </View>
+        
 
         {/* Password */}
         <View className="mb-4">
@@ -70,11 +108,22 @@ const Login = () => {
           </Text>
 
           <TextInput
+          value={password}
+          onChangeText={(value)=>{
+            setPassword(value)
+            setPasswordError("")
+          }}
             placeholder="Enter your password"
             placeholderTextColor="#9AA4AF"
             secureTextEntry
-            className="h-[50px] rounded-xl border border-[#E2E5E9] bg-white px-[13px] text-[14px] text-[#16202A]"
-          />
+           className={`h-[50px] rounded-xl border bg-white px-[13px] text-[14px] text-[#16202A] ${
+    passwordError ? "border-[#B33A3A]" : "border-[#E2E5E9]"
+  }`}/>
+  {passwordError && (
+  <Text className="mt-1.5 text-[11px] text-[#B33A3A]">
+    {passwordError}
+  </Text>
+)}
 
           {/* Security Helper */}
           <View className="mt-2.5 flex-row items-start rounded-[10px] bg-[#EAF1F7] px-3 py-2.5">

@@ -171,12 +171,6 @@ export default function SchoolProfile() {
               <Text className="text-[13px] font-semibold text-[#16202A]">
                 School
               </Text>
-
-              <View className="ml-2 rounded-full bg-[#FFF6DF] px-2 py-0.5">
-                <Text className="text-[8px] font-bold text-[#9A6B00]">
-                  REQUIRED
-                </Text>
-              </View>
             </View>
 
             <View className="h-12 flex-row items-center rounded-[11px] border border-[#E2E5E9] bg-white px-3">
@@ -198,12 +192,6 @@ export default function SchoolProfile() {
               <Text className="text-[13px] font-semibold text-[#16202A]">
                 Grade / Class
               </Text>
-
-              <View className="ml-2 rounded-full bg-[#FFF6DF] px-2 py-0.5">
-                <Text className="text-[8px] font-bold text-[#9A6B00]">
-                  REQUIRED
-                </Text>
-              </View>
             </View>
 
             <Pressable
@@ -228,12 +216,6 @@ export default function SchoolProfile() {
               <Text className="text-[13px] font-semibold text-[#16202A]">
                 State
               </Text>
-
-              <View className="ml-2 rounded-full bg-[#FFF6DF] px-2 py-0.5">
-                <Text className="text-[8px] font-bold text-[#9A6B00]">
-                  REQUIRED
-                </Text>
-              </View>
             </View>
 
             <Pressable
@@ -262,12 +244,6 @@ export default function SchoolProfile() {
               <Text className="text-[13px] font-semibold text-[#16202A]">
                 Email
               </Text>
-
-              <View className="ml-2 rounded-full bg-[#FFF6DF] px-2 py-0.5">
-                <Text className="text-[8px] font-bold text-[#9A6B00]">
-                  REQUIRED
-                </Text>
-              </View>
             </View>
 
             <View className="h-12 flex-row items-center rounded-[11px] border border-[#E2E5E9] bg-white px-3">

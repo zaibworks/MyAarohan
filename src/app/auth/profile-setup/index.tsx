@@ -47,24 +47,17 @@ export default function ProfileSetup() {
 
   const [gender, setGender] = useState("");
 
-  const [selectedDay, setSelectedDay] = useState<number | null>(null);
-  const [selectedMonth, setSelectedMonth] = useState<number | null>(null);
-  const [selectedYear, setSelectedYear] = useState<number | null>(null);
+ const [focusedField, setFocusedField] = useState<
+  "day" | "month" | "year" | null
+>(null);
 
-  const [showDatePicker, setShowDatePicker] = useState(false);
+const [formData, setFormData] = useState({
+  day: "",
+  month: "",
+  year: "",
+});
+ 
   const [showGenderPicker, setShowGenderPicker] = useState(false);
-
-  const handleDateConfirm = () => {
-    if (
-      selectedDay === null ||
-      selectedMonth === null ||
-      selectedYear === null
-    ) {
-      return;
-    }
-
-    setShowDatePicker(false);
-  };
 
   const handleContinue = () => {
     if (!fullName.trim()) {
@@ -72,22 +65,15 @@ export default function ProfileSetup() {
     }
 
     if (
-      selectedDay === null ||
-      selectedMonth === null ||
-      selectedYear === null
+       formData.day === null ||
+      formData.month === null ||
+      formData.year === null
     ) {
       return;
     }
 
     router.push("/auth/profile-setup/school");
   };
-
-  const formattedDate =
-    selectedDay !== null && selectedMonth !== null && selectedYear !== null
-      ? `${String(selectedDay).padStart(2, "0")}/${String(
-          selectedMonth + 1,
-        ).padStart(2, "0")}/${selectedYear}`
-      : "";
 
   return (
     <SafeAreaView edges={["top", "bottom"]} className="flex-1 bg-[#F4F6F8]">
@@ -164,12 +150,6 @@ export default function ProfileSetup() {
             <Text className="text-[13px] font-semibold text-[#16202A]">
               Full name
             </Text>
-
-            <View className="ml-2 rounded-full bg-[#FFF6DF] px-2 py-0.5">
-              <Text className="text-[8px] font-bold text-[#9A6B00]">
-                REQUIRED
-              </Text>
-            </View>
           </View>
 
           <TextInput
@@ -187,32 +167,81 @@ export default function ProfileSetup() {
             <Text className="text-[13px] font-semibold text-[#16202A]">
               Date of birth
             </Text>
-
-            <View className="ml-2 rounded-full bg-[#FFF6DF] px-2 py-0.5">
-              <Text className="text-[8px] font-bold text-[#9A6B00]">
-                REQUIRED
-              </Text>
-            </View>
           </View>
 
-          <Pressable
-            onPress={() => setShowDatePicker(true)}
-            className="h-12 flex-row items-center justify-between rounded-[11px] border border-[#E2E5E9] bg-white px-3.5 active:bg-[#F8FAFB]"
-          >
-            <Text
-              className={`text-[14px] ${
-                formattedDate ? "text-[#16202A]" : "text-[#9AA4AF]"
-              }`}
-            >
-              {formattedDate || "Select your date of birth"}
-            </Text>
+          <View className="flex-row gap-2">
+  {/* Day */}
+  <View className="flex-[0.9] bg-white rounded-[11px]">
+    <TextInput
+      onFocus={() => setFocusedField("day")}
+      onBlur={() => setFocusedField(null)}
+      value={formData.day}
+      onChangeText={(value) =>
+        setFormData({ ...formData, day: value })
+      }
+      placeholder="DD"
+      placeholderTextColor="#9AA4AF"
+      keyboardType="number-pad"
+      cursorColor="transparent"
+      maxLength={2}
+      className={`h-12 w-full rounded-[11px] border px-2 text-center text-[14px] text-[#16202A] ${
+        focusedField === "day"
+          ? "border-[#1a3a5c77]"
+          : "border-[#E2E5E9]"
+      }`}
+    />
+  </View>
 
-            <CalendarDays size={18} color="#6B7684" strokeWidth={1.9} />
-          </Pressable>
+  {/* Month */}
+  <View className="flex-[0.9] bg-white rounded-[11px]">
 
-          <Text className="mt-2 text-[11px] leading-4 text-[#9AA4AF]">
-            Your date of birth helps us personalize your profile.
-          </Text>
+    <TextInput
+      onFocus={() => setFocusedField("month")}
+      onBlur={() => setFocusedField(null)}
+      value={formData.month}
+      onChangeText={(value) =>
+        setFormData({ ...formData, month: value })
+      }
+      placeholder="MM"
+      placeholderTextColor="#9AA4AF"
+      keyboardType="number-pad"
+      cursorColor="transparent"
+      maxLength={2}
+      className={`h-12 w-full rounded-[11px] border px-2 text-center text-[14px] text-[#16202A] ${
+        focusedField === "month"
+          ? "border-[#1a3a5c77]"
+          : "border-[#E2E5E9]"
+      }`}
+    />
+  </View>
+
+  {/* Year */}
+  <View className="flex-[1.4] bg-white rounded-[11px]">
+
+    <TextInput
+      onFocus={() => setFocusedField("year")}
+      onBlur={() => setFocusedField(null)}
+      value={formData.year}
+      onChangeText={(value) =>
+        setFormData({ ...formData, year: value })
+      }
+      placeholder="YYYY"
+      placeholderTextColor="#9AA4AF"
+      keyboardType="number-pad"
+      cursorColor="transparent"
+      maxLength={4}
+      className={`h-12 w-full rounded-[11px] border px-2 text-center text-[14px] text-[#16202A] ${
+        focusedField === "year"
+          ? "border-[#1a3a5c77]"
+          : "border-[#E2E5E9]"
+      }`}
+    />
+  </View>
+</View>
+
+         <Text className="mt-2 text-[11px] leading-4 text-[#9AA4AF]">
+  Your date of birth helps us personalize your profile.
+</Text>
         </View>
 
         {/* Gender */}
@@ -221,12 +250,6 @@ export default function ProfileSetup() {
             <Text className="text-[13px] font-semibold text-[#16202A]">
               Gender
             </Text>
-
-            <View className="ml-2 rounded-full bg-[#EEF3F7] px-2 py-0.5">
-              <Text className="text-[8px] font-bold text-[#6B7684]">
-                OPTIONAL
-              </Text>
-            </View>
           </View>
 
           <Pressable
@@ -320,156 +343,6 @@ export default function ProfileSetup() {
                 </Pressable>
               );
             })}
-          </View>
-        </View>
-      </Modal>
-
-      {/* Date Picker */}
-      <Modal
-        visible={showDatePicker}
-        transparent
-        animationType="slide"
-        onRequestClose={() => setShowDatePicker(false)}
-      >
-        <View className="flex-1 justify-end bg-black/30">
-          <View className="rounded-t-[24px] bg-white px-4 pb-8 pt-5">
-            <View className="mb-5 flex-row items-center justify-between">
-              <View>
-                <Text className="text-[18px] font-bold text-[#16202A]">
-                  Date of birth
-                </Text>
-
-                <Text className="mt-1 text-[11px] text-[#6B7684]">
-                  Select your date of birth
-                </Text>
-              </View>
-
-              <Pressable
-                onPress={() => setShowDatePicker(false)}
-                className="h-9 w-9 items-center justify-center rounded-full bg-[#F4F6F8]"
-              >
-                <X size={18} color="#6B7684" />
-              </Pressable>
-            </View>
-
-            <View className="mb-5 flex-row">
-              {/* Day */}
-              <View className="mr-2 flex-1">
-                <Text className="mb-2 text-[11px] font-semibold text-[#6B7684]">
-                  Day
-                </Text>
-
-                <ScrollView
-                  className="h-[180px]"
-                  showsVerticalScrollIndicator={false}
-                >
-                  {days.map((day) => {
-                    const selected = selectedDay === day;
-
-                    return (
-                      <Pressable
-                        key={day}
-                        onPress={() => setSelectedDay(day)}
-                        className={`mb-1 items-center rounded-[9px] py-2.5 ${
-                          selected ? "bg-[#EAF1F7]" : "bg-white"
-                        }`}
-                      >
-                        <Text
-                          className={`text-[13px] ${
-                            selected
-                              ? "font-bold text-[#1A3A5C]"
-                              : "text-[#16202A]"
-                          }`}
-                        >
-                          {day}
-                        </Text>
-                      </Pressable>
-                    );
-                  })}
-                </ScrollView>
-              </View>
-
-              {/* Month */}
-              <View className="mr-2 flex-[1.5]">
-                <Text className="mb-2 text-[11px] font-semibold text-[#6B7684]">
-                  Month
-                </Text>
-
-                <ScrollView
-                  className="h-[180px]"
-                  showsVerticalScrollIndicator={false}
-                >
-                  {months.map((month, index) => {
-                    const selected = selectedMonth === index;
-
-                    return (
-                      <Pressable
-                        key={month}
-                        onPress={() => setSelectedMonth(index)}
-                        className={`mb-1 rounded-[9px] px-3 py-2.5 ${
-                          selected ? "bg-[#EAF1F7]" : "bg-white"
-                        }`}
-                      >
-                        <Text
-                          className={`text-[13px] ${
-                            selected
-                              ? "font-bold text-[#1A3A5C]"
-                              : "text-[#16202A]"
-                          }`}
-                        >
-                          {month}
-                        </Text>
-                      </Pressable>
-                    );
-                  })}
-                </ScrollView>
-              </View>
-
-              {/* Year */}
-              <View className="flex-1">
-                <Text className="mb-2 text-[11px] font-semibold text-[#6B7684]">
-                  Year
-                </Text>
-
-                <ScrollView
-                  className="h-[180px]"
-                  showsVerticalScrollIndicator={false}
-                >
-                  {years.map((year) => {
-                    const selected = selectedYear === year;
-
-                    return (
-                      <Pressable
-                        key={year}
-                        onPress={() => setSelectedYear(year)}
-                        className={`mb-1 items-center rounded-[9px] py-2.5 ${
-                          selected ? "bg-[#EAF1F7]" : "bg-white"
-                        }`}
-                      >
-                        <Text
-                          className={`text-[13px] ${
-                            selected
-                              ? "font-bold text-[#1A3A5C]"
-                              : "text-[#16202A]"
-                          }`}
-                        >
-                          {year}
-                        </Text>
-                      </Pressable>
-                    );
-                  })}
-                </ScrollView>
-              </View>
-            </View>
-
-            <Pressable
-              onPress={handleDateConfirm}
-              className="h-[50px] items-center justify-center rounded-[12px] bg-[#1A3A5C] active:opacity-90"
-            >
-              <Text className="text-[14px] font-bold text-white">
-                Confirm date
-              </Text>
-            </Pressable>
           </View>
         </View>
       </Modal>

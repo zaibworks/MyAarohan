@@ -5,6 +5,7 @@ import {
 } from "lucide-react-native";
 import { Pressable, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useRouter } from "expo-router";
 
 const options = [
   "Strongly Disagree",
@@ -16,6 +17,7 @@ const options = [
 
 export default function PersonalityTest() {
   const selectedOption = "Agree";
+  const router = useRouter()
 
   return (
     <SafeAreaView
@@ -161,7 +163,8 @@ export default function PersonalityTest() {
         </Pressable>
 
         {/* Next */}
-        <Pressable className="h-12 flex-row items-center justify-center rounded-xl bg-[#1A3A5C]">
+        <Pressable onPress={()=>router.push('/student/assessments/test/interest')}
+        className="h-12 flex-row items-center justify-center rounded-xl bg-[#1A3A5C]">
           <Text className="text-sm font-bold text-white">
             Next
           </Text>

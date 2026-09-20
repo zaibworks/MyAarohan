@@ -1,16 +1,13 @@
+import Navbar from "@/component/Navbar";
+import { useNavigation, useRouter } from "expo-router";
 import {
   CheckSquare,
   ChevronRight,
   ClipboardList,
   Heart,
-  UserRound,
-  Menu
+  UserRound
 } from "lucide-react-native";
 import { Pressable, ScrollView, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { useNavigation } from "expo-router";
-import { useRouter } from "expo-router";
-import Navbar from "@/component/Navbar";
 
 export default function Assessments() {
   const credit = 1;
@@ -51,7 +48,7 @@ export default function Assessments() {
   ];
   return (
     <View className="flex-1 bg-[#F4F6F8]">
-        <Navbar/>
+      <Navbar />
       <View className="flex-1 px-[18px] pt-4 pb-6">
         {/* Page Header */}
         <View className="mb-4">
@@ -142,7 +139,7 @@ export default function Assessments() {
 
           {/* Start Button */}
           <Pressable
-            disabled
+            onPress={()=>router.push('/student/assessments/instructions')}
             className={`w-full flex-row items-center justify-center rounded-xl ${credit > 0 ? "bg-[#1A3A5C]" : "bg-[#bfc9d4]"}  py-3.5`}
           >
             <Text

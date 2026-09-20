@@ -10,7 +10,6 @@ import {
   Sparkles,
   UserRound,
   UsersRound,
-  CircleAlert 
 } from "lucide-react-native";
 import { Pressable, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -80,11 +79,14 @@ const Review = () => {
   const router = useRouter();
 
   const handleCompleteProfile = () => {
-    router.replace("/student/(tabs)");
+    router.push("/auth/profile-setup/complete");
   };
 
   return (
-    <SafeAreaView edges={["top", "bottom"]} className="flex-1 bg-[#F4F6F8]">
+    <SafeAreaView
+      edges={["top", "bottom"]}
+      className="flex-1 bg-[#F4F6F8]"
+    >
       {/* Header */}
       <View className="border-b border-[#E2E5E9] bg-white px-[22px] pb-4 pt-3">
         <View className="flex-row items-center">
@@ -110,7 +112,6 @@ const Review = () => {
           </Text>
         </View>
 
-        {/* Progress */}
         <View className="mt-3 h-[4px] overflow-hidden rounded-full bg-[#E2E5E9]">
           <View className="h-full w-full rounded-full bg-[#1A3A5C]" />
         </View>
@@ -131,8 +132,8 @@ const Review = () => {
           </Text>
 
           <Text className="mt-2 max-w-[335px] text-[12px] leading-[18px] text-[#6B7684]">
-            Take a quick look at your information before completing your
-            profile.
+            Everything looks good? Review your information once before
+            completing your profile.
           </Text>
         </View>
 
@@ -148,9 +149,20 @@ const Review = () => {
           }
           onEdit={() => router.push("/auth/profile-setup")}
         >
-          <ReviewRow label="Full name" value="Your registered name" />
-          <ReviewRow label="Date of birth" value="Your date of birth" />
-          <ReviewRow label="Gender" value="Not selected" />
+          <ReviewRow
+            label="Full name"
+            value="Aarav Sharma"
+          />
+
+          <ReviewRow
+            label="Date of birth"
+            value="14 August 2008"
+          />
+
+          <ReviewRow
+            label="Gender"
+            value="Male"
+          />
         </ReviewSection>
 
         {/* Your School */}
@@ -165,10 +177,25 @@ const Review = () => {
           }
           onEdit={() => router.push("/auth/profile-setup/school")}
         >
-          <ReviewRow label="School" value="Your school name" />
-          <ReviewRow label="Grade / Class" value="Your class" />
-          <ReviewRow label="State" value="Your state" />
-          <ReviewRow label="Email" value="Your email address" />
+          <ReviewRow
+            label="School"
+            value="Delhi Public School, Lucknow"
+          />
+
+          <ReviewRow
+            label="Grade / Class"
+            value="Class 12"
+          />
+
+          <ReviewRow
+            label="State"
+            value="Uttar Pradesh"
+          />
+
+          <ReviewRow
+            label="Email"
+            value="aarav.sharma@gmail.com"
+          />
         </ReviewSection>
 
         {/* Your Future */}
@@ -185,19 +212,22 @@ const Review = () => {
         >
           <ReviewRow
             label="Dream career 1"
-            value="Your first career choice"
+            value="Software Engineer"
           />
+
           <ReviewRow
             label="Dream career 2"
-            value="Your second career choice"
+            value="Data Scientist"
           />
+
           <ReviewRow
             label="Dream career 3"
-            value="Your third career choice"
+            value="Product Manager"
           />
+
           <ReviewRow
             label="Direction"
-            value="Your career confidence"
+            value="Very confident"
           />
         </ReviewSection>
 
@@ -215,20 +245,29 @@ const Review = () => {
         >
           <ReviewRow
             label="Guardian"
-            value="Guardian information"
+            value="Rajesh Sharma"
           />
+
           <ReviewRow
             label="Relationship"
-            value="Guardian relationship"
+            value="Father"
           />
+
           <ReviewRow
             label="Phone"
-            value="Guardian phone number"
+            value="+91 98765 43210"
           />
+
           <ReviewRow
             label="Email"
-            value="Guardian email"
+            value="rajesh.sharma@gmail.com"
           />
+
+          <View className="mt-1 rounded-[10px] bg-[#F4F6F8] px-3 py-2">
+            <Text className="text-[10px] font-semibold text-[#6B7684]">
+              1 guardian added
+            </Text>
+          </View>
         </ReviewSection>
 
         {/* Your Marks */}
@@ -245,16 +284,64 @@ const Review = () => {
         >
           <ReviewRow
             label="Overall result"
-            value="Your overall score / percentage"
+            value="86%"
           />
-          <ReviewRow
-            label="Subjects"
-            value="Your subject-wise scores"
-          />
-          <ReviewRow
-            label="Maximum marks"
-            value="Your maximum marks"
-          />
+
+          <View className="mt-1 rounded-xl bg-[#F4F6F8] p-3">
+            <Text className="mb-2 text-[10px] font-bold uppercase tracking-[0.4px] text-[#9AA4AF]">
+              Subject scores
+            </Text>
+
+            <View className="flex-row items-center justify-between border-b border-[#E2E5E9] pb-2">
+              <Text className="text-[11px] font-semibold text-[#16202A]">
+                Mathematics
+              </Text>
+
+              <Text className="text-[11px] font-bold text-[#1A3A5C]">
+                91 / 100
+              </Text>
+            </View>
+
+            <View className="flex-row items-center justify-between border-b border-[#E2E5E9] py-2">
+              <Text className="text-[11px] font-semibold text-[#16202A]">
+                Physics
+              </Text>
+
+              <Text className="text-[11px] font-bold text-[#1A3A5C]">
+                84 / 100
+              </Text>
+            </View>
+
+            <View className="flex-row items-center justify-between border-b border-[#E2E5E9] py-2">
+              <Text className="text-[11px] font-semibold text-[#16202A]">
+                Chemistry
+              </Text>
+
+              <Text className="text-[11px] font-bold text-[#1A3A5C]">
+                82 / 100
+              </Text>
+            </View>
+
+            <View className="flex-row items-center justify-between border-b border-[#E2E5E9] py-2">
+              <Text className="text-[11px] font-semibold text-[#16202A]">
+                English
+              </Text>
+
+              <Text className="text-[11px] font-bold text-[#1A3A5C]">
+                88 / 100
+              </Text>
+            </View>
+
+            <View className="flex-row items-center justify-between pt-2">
+              <Text className="text-[11px] font-semibold text-[#16202A]">
+                Computer Science
+              </Text>
+
+              <Text className="text-[11px] font-bold text-[#1A3A5C]">
+                93 / 100
+              </Text>
+            </View>
+          </View>
         </ReviewSection>
 
         {/* How You Learn */}
@@ -271,19 +358,22 @@ const Review = () => {
         >
           <ReviewRow
             label="Stream"
-            value="Your academic stream"
+            value="Science"
           />
+
           <ReviewRow
             label="Learning style"
-            value="Your preferred learning style"
+            value="Hands-on"
           />
+
           <ReviewRow
             label="Study time"
-            value="Your daily study hours"
+            value="2–3 hours"
           />
+
           <ReviewRow
             label="Internet"
-            value="Your internet access"
+            value="Good access"
           />
         </ReviewSection>
 
@@ -301,37 +391,72 @@ const Review = () => {
         >
           <ReviewRow
             label="Work preference"
-            value="Your preferred work environment"
+            value="Hybrid"
           />
-          <ReviewRow
-            label="Activities"
-            value="Your extracurricular activities"
-          />
+
+          <View className="mb-3">
+            <Text className="mb-1.5 w-[42%] text-[11px] text-[#9AA4AF]">
+              Activities
+            </Text>
+
+            <View className="flex-row flex-wrap">
+              {[
+                "Cricket",
+                "Coding",
+                "Chess",
+                "Music",
+                "Public Speaking",
+              ].map((activity) => (
+                <View
+                  key={activity}
+                  className="mb-1.5 mr-1.5 rounded-full bg-[#EAF1F7] px-2.5 py-1"
+                >
+                  <Text className="text-[10px] font-semibold text-[#1A3A5C]">
+                    {activity}
+                  </Text>
+                </View>
+              ))}
+            </View>
+          </View>
+
           <ReviewRow
             label="First generation"
-            value="Your schooling background"
+            value="No"
           />
+
           <ReviewRow
-            label="Parents"
-            value="Parents' education"
+            label="Father's education"
+            value="Graduate"
+          />
+
+          <ReviewRow
+            label="Mother's education"
+            value="Postgraduate"
           />
         </ReviewSection>
 
-        {/* Submission Note */}
-        <View className="mt-3 flex-row items-start rounded-xl border border-[#ff000013] bg-[#FDECEC] px-3.5 py-3">
- <View className="mr-2.5 h-[22px] w-[22px] items-center justify-center rounded-full bg-[#F8D7D7]">
-  <CircleAlert
-    size={14}
-    color="#B33A3A"
-    strokeWidth={2.2}
-  />
-</View>
+        {/* Registration note */}
+        <View className="mt-1 rounded-xl border border-[#D6DBE1] bg-[#EEF3F7] px-3.5 py-3">
+          <Text className="text-[11px] leading-[16px] text-[#6B7684]">
+            Your registration information such as your name, date of birth,
+            school and contact details is already associated with your
+            account.
+          </Text>
+        </View>
 
-  <Text className="flex-1 text-[11px] leading-[16px] text-[#846b6b]">
-    Please check your information carefully before submitting. Once
-    completed, your profile information cannot be changed or undone.
-  </Text>
-</View>
+        {/* Final warning */}
+        <View className="mt-3 flex-row items-start rounded-xl border border-[#F3CACA] bg-[#FDECEC] px-3.5 py-3">
+          <View className="mr-2.5 mt-0.5 h-[22px] w-[22px] items-center justify-center rounded-full bg-[#F8D7D7]">
+            <Text className="text-[12px] font-bold text-[#B33A3A]">
+              !
+            </Text>
+          </View>
+
+          <Text className="flex-1 text-[11px] leading-[16px] text-[#B33A3A]">
+            Please check your information carefully before submitting. Once
+            completed, your profile information cannot be changed or undone.
+          </Text>
+        </View>
       </ScrollView>
 
       {/* Bottom Action */}
@@ -341,7 +466,7 @@ const Review = () => {
           className="h-[52px] w-full flex-row items-center justify-center rounded-xl bg-[#1A3A5C] active:opacity-90"
         >
           <Text className="mr-2 text-[14px] font-bold text-white">
-           Submit Profile
+            Complete Profile
           </Text>
 
           <ChevronRight

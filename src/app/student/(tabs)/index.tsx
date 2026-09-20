@@ -1,4 +1,5 @@
 import Navbar from "@/component/Navbar";
+import { router } from "expo-router";
 import {
   CalendarDays,
   ChevronRight,
@@ -39,7 +40,8 @@ export default function StudentDashboard() {
               counselling.
             </Text>
 
-            <Pressable className="mt-5 self-start flex-row items-center rounded-xl bg-white px-4 py-3">
+            <Pressable onPress={()=>router.push("/student/(tabs)/plans")}
+            className="mt-5 self-start flex-row items-center rounded-xl bg-white px-4 py-3">
               <Text className="text-[14px] font-bold text-[#1A3A5C]">
                 View Plans
               </Text>
@@ -190,7 +192,9 @@ export default function StudentDashboard() {
         </View>
 
         {/* ───────────── Career Encyclopedia ───────────── */}
-        <Pressable className="mt-4 flex-row items-center rounded-[18px] border border-[#E2E5E9] bg-white px-4 py-7">
+        <Pressable 
+      onPress={()=>router.push('/student/(tabs)/career-encyclopedia')}
+        className="mt-4 flex-row items-center rounded-[18px] border border-[#E2E5E9] bg-white px-4 py-7">
           <View className="h-12 w-12 items-center justify-center rounded-full bg-[#EAF1F7]">
             <Compass
               size={24}

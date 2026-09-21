@@ -104,9 +104,17 @@ export default function MarksProfile() {
     router.push("/auth/profile-setup/learning");
   };
 
+   const completeSubject = subjects.some(
+      (subject) =>
+        subject.name.trim() &&
+        subject.score.trim() &&
+        subject.maxScore.trim(),
+    );
+const isComplete = completeSubject
+
   return (
     <SafeAreaView
-      edges={["top", "bottom"]}
+      edges={[ "bottom"]}
       className="flex-1 bg-[#F4F6F8]"
     >
          <KeyboardAvoidingView
@@ -114,7 +122,7 @@ export default function MarksProfile() {
         className="flex-1"
       >
       {/* Header */}
-      <View className="border-b border-[#E2E5E9] bg-white px-5 pb-3 pt-3">
+      <View className="border-b border-[#E2E5E9] bg-white px-5 pb-3 pt-14">
         <View className="flex-row items-center">
           <Pressable
             onPress={() => router.back()}
@@ -340,20 +348,18 @@ export default function MarksProfile() {
       </ScrollView>
 
       {/* Bottom Action */}
-      <View className="border-t border-[#E2E5E9] bg-white px-5 py-3.5">
+     <View className="border-t border-[#E2E5E9] bg-white px-5 py-3.5">
         <Pressable
+        disabled={!isComplete}
           onPress={handleContinue}
-          className="h-[52px] w-full flex-row items-center justify-center rounded-[12px] bg-[#1A3A5C] active:opacity-90"
+          className={`h-[52px] w-full flex-row items-center justify-center rounded-[12px] active:opacity-90 ${isComplete ? "bg-[#1A3A5C]" : "bg-[#D6DBE1]"} `}
         >
-          <Text className="mr-2 text-[14px] font-bold text-white">
+          <Text className={`mr-2 text-[14px] font-bold text-white 
+            ${ isComplete ? "text-white" : "text-[#9AA4AF]"}`}>
             Continue
           </Text>
 
-          <ChevronRight
-            size={17}
-            color="#FFFFFF"
-            strokeWidth={2.5}
-          />
+          <ChevronRight size={17} color="#FFFFFF" strokeWidth={2.5} />
         </Pressable>
       </View>
       </KeyboardAvoidingView>

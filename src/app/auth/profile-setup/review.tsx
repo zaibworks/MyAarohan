@@ -55,18 +55,10 @@ const ReviewSection = ({
   );
 };
 
-const ReviewRow = ({
-  label,
-  value,
-}: {
-  label: string;
-  value: string;
-}) => {
+const ReviewRow = ({ label, value }: { label: string; value: string }) => {
   return (
     <View className="mb-2 flex-row">
-      <Text className="w-[42%] text-[11px] text-[#9AA4AF]">
-        {label}
-      </Text>
+      <Text className="w-[42%] text-[11px] text-[#9AA4AF]">{label}</Text>
 
       <Text className="flex-1 text-[11.5px] font-medium leading-[16px] text-[#16202A]">
         {value}
@@ -79,16 +71,14 @@ const Review = () => {
   const router = useRouter();
 
   const handleCompleteProfile = () => {
-    router.push("/auth/profile-setup/complete");
+    router.dismissAll();
+    router.replace("/auth/profile-setup/complete");
   };
 
   return (
-    <SafeAreaView
-      edges={["top", "bottom"]}
-      className="flex-1 bg-[#F4F6F8]"
-    >
+    <SafeAreaView edges={["bottom"]} className="flex-1 bg-[#F4F6F8]">
       {/* Header */}
-      <View className="border-b border-[#E2E5E9] bg-white px-[22px] pb-4 pt-3">
+      <View className="border-b border-[#E2E5E9] bg-white px-[22px] pb-4 pt-14">
         <View className="flex-row items-center">
           <Pressable
             onPress={() => router.back()}
@@ -118,26 +108,26 @@ const Review = () => {
         }}
       >
         <View className="mb-7">
-                  <View className="mb-2 flex-row items-center justify-between">
-                    <Text className="text-[12px] font-medium text-[#6B7684]">
-                      Your profile
-                    </Text>
-        
-                    <Text className="text-[12px] font-semibold text-[#1A3A5C]">
-                      100% complete
-                    </Text>
-                  </View>
-        
-                  <View className="h-[5px] overflow-hidden rounded-full bg-[#E2E5E9]">
-                    <View
-                      className="h-full rounded-full"
-                      style={{
-                        width: " 100%",
-                        backgroundColor: '#1a3a5c',
-                      }}
-                    />
-                  </View>
-                </View>
+          <View className="mb-2 flex-row items-center justify-between">
+            <Text className="text-[12px] font-medium text-[#6B7684]">
+              Your profile
+            </Text>
+
+            <Text className="text-[12px] font-semibold text-[#1A3A5C]">
+              100% complete
+            </Text>
+          </View>
+
+          <View className="h-[5px] overflow-hidden rounded-full bg-[#E2E5E9]">
+            <View
+              className="h-full rounded-full"
+              style={{
+                width: " 100%",
+                backgroundColor: "#1a3a5c",
+              }}
+            />
+          </View>
+        </View>
         {/* Intro */}
         <View className="mb-6">
           <Text className="text-[23px] font-extrabold tracking-[-0.4px] text-[#16202A]">
@@ -153,128 +143,59 @@ const Review = () => {
         {/* About You */}
         <ReviewSection
           title="About You"
-          icon={
-            <UserRound
-              size={18}
-              color="#1A3A5C"
-              strokeWidth={2}
-            />
-          }
+          icon={<UserRound size={18} color="#1A3A5C" strokeWidth={2} />}
           onEdit={() => router.push("/auth/profile-setup")}
         >
-          <ReviewRow
-            label="Full name"
-            value="Aarav Sharma"
-          />
+          <ReviewRow label="Full name" value="Aarav Sharma" />
 
-          <ReviewRow
-            label="Date of birth"
-            value="14 August 2008"
-          />
+          <ReviewRow label="Date of birth" value="14 August 2008" />
 
-          <ReviewRow
-            label="Gender"
-            value="Male"
-          />
+          <ReviewRow label="Gender" value="Male" />
         </ReviewSection>
 
         {/* Your School */}
         <ReviewSection
           title="Your School"
-          icon={
-            <School
-              size={18}
-              color="#1A3A5C"
-              strokeWidth={2}
-            />
-          }
+          icon={<School size={18} color="#1A3A5C" strokeWidth={2} />}
           onEdit={() => router.push("/auth/profile-setup/school")}
         >
-          <ReviewRow
-            label="School"
-            value="Delhi Public School, Lucknow"
-          />
+          <ReviewRow label="School" value="Delhi Public School, Lucknow" />
 
-          <ReviewRow
-            label="Grade / Class"
-            value="Class 12"
-          />
+          <ReviewRow label="Grade / Class" value="Class 12" />
 
-          <ReviewRow
-            label="State"
-            value="Uttar Pradesh"
-          />
+          <ReviewRow label="State" value="Uttar Pradesh" />
 
-          <ReviewRow
-            label="Email"
-            value="aarav.sharma@gmail.com"
-          />
+          <ReviewRow label="Email" value="aarav.sharma@gmail.com" />
         </ReviewSection>
 
         {/* Your Future */}
         <ReviewSection
           title="Your Future"
-          icon={
-            <Sparkles
-              size={18}
-              color="#1A3A5C"
-              strokeWidth={2}
-            />
-          }
+          icon={<Sparkles size={18} color="#1A3A5C" strokeWidth={2} />}
           onEdit={() => router.push("/auth/profile-setup/future")}
         >
-          <ReviewRow
-            label="Dream career 1"
-            value="Software Engineer"
-          />
+          <ReviewRow label="Dream career 1" value="Software Engineer" />
 
-          <ReviewRow
-            label="Dream career 2"
-            value="Data Scientist"
-          />
+          <ReviewRow label="Dream career 2" value="Data Scientist" />
 
-          <ReviewRow
-            label="Dream career 3"
-            value="Product Manager"
-          />
+          <ReviewRow label="Dream career 3" value="Product Manager" />
 
-          <ReviewRow
-            label="Direction"
-            value="Very confident"
-          />
+          <ReviewRow label="Direction" value="Very confident" />
         </ReviewSection>
 
         {/* Your Guardian */}
         <ReviewSection
           title="Your Guardian"
-          icon={
-            <UsersRound
-              size={18}
-              color="#1A3A5C"
-              strokeWidth={2}
-            />
-          }
+          icon={<UsersRound size={18} color="#1A3A5C" strokeWidth={2} />}
           onEdit={() => router.push("/auth/profile-setup/guardian")}
         >
-          <ReviewRow
-            label="Guardian"
-            value="Rajesh Sharma"
-          />
+          <ReviewRow label="Guardian" value="Rajesh Sharma" />
 
-          <ReviewRow
-            label="Relationship"
-            value="Father"
-          />
+          <ReviewRow label="Relationship" value="Father" />
 
-          <ReviewRow
-            label="Phone"
-            value="+91 98765 43210"
-          />
+          <ReviewRow label="Phone" value="+91 98765 43210" />
 
-          <ReviewRow
-            label="Email"
-            value="rajesh.sharma@gmail.com"
-          />
+          <ReviewRow label="Email" value="rajesh.sharma@gmail.com" />
 
           <View className="mt-1 rounded-[10px] bg-[#F4F6F8] px-3 py-2">
             <Text className="text-[10px] font-semibold text-[#6B7684]">
@@ -286,19 +207,10 @@ const Review = () => {
         {/* Your Marks */}
         <ReviewSection
           title="Your Marks"
-          icon={
-            <GraduationCap
-              size={18}
-              color="#1A3A5C"
-              strokeWidth={2}
-            />
-          }
+          icon={<GraduationCap size={18} color="#1A3A5C" strokeWidth={2} />}
           onEdit={() => router.push("/auth/profile-setup/marks")}
         >
-          <ReviewRow
-            label="Overall result"
-            value="86%"
-          />
+          <ReviewRow label="Overall result" value="86%" />
 
           <View className="mt-1 rounded-xl bg-[#F4F6F8] p-3">
             <Text className="mb-2 text-[10px] font-bold uppercase tracking-[0.4px] text-[#9AA4AF]">
@@ -360,52 +272,25 @@ const Review = () => {
         {/* How You Learn */}
         <ReviewSection
           title="How You Learn"
-          icon={
-            <Heart
-              size={18}
-              color="#1A3A5C"
-              strokeWidth={2}
-            />
-          }
+          icon={<Heart size={18} color="#1A3A5C" strokeWidth={2} />}
           onEdit={() => router.push("/auth/profile-setup/learning")}
         >
-          <ReviewRow
-            label="Stream"
-            value="Science"
-          />
+          <ReviewRow label="Stream" value="Science" />
 
-          <ReviewRow
-            label="Learning style"
-            value="Hands-on"
-          />
+          <ReviewRow label="Learning style" value="Hands-on" />
 
-          <ReviewRow
-            label="Study time"
-            value="2–3 hours"
-          />
+          <ReviewRow label="Study time" value="2–3 hours" />
 
-          <ReviewRow
-            label="Internet"
-            value="Good access"
-          />
+          <ReviewRow label="Internet" value="Good access" />
         </ReviewSection>
 
         {/* Your World */}
         <ReviewSection
           title="Your World"
-          icon={
-            <BriefcaseBusiness
-              size={18}
-              color="#1A3A5C"
-              strokeWidth={2}
-            />
-          }
+          icon={<BriefcaseBusiness size={18} color="#1A3A5C" strokeWidth={2} />}
           onEdit={() => router.push("/auth/profile-setup/world")}
         >
-          <ReviewRow
-            label="Work preference"
-            value="Hybrid"
-          />
+          <ReviewRow label="Work preference" value="Hybrid" />
 
           <View className="mb-3">
             <Text className="mb-1.5 w-[42%] text-[11px] text-[#9AA4AF]">
@@ -413,56 +298,40 @@ const Review = () => {
             </Text>
 
             <View className="flex-row flex-wrap">
-              {[
-                "Cricket",
-                "Coding",
-                "Chess",
-                "Music",
-                "Public Speaking",
-              ].map((activity) => (
-                <View
-                  key={activity}
-                  className="mb-1.5 mr-1.5 rounded-full bg-[#EAF1F7] px-2.5 py-1"
-                >
-                  <Text className="text-[10px] font-semibold text-[#1A3A5C]">
-                    {activity}
-                  </Text>
-                </View>
-              ))}
+              {["Cricket", "Coding", "Chess", "Music", "Public Speaking"].map(
+                (activity) => (
+                  <View
+                    key={activity}
+                    className="mb-1.5 mr-1.5 rounded-full bg-[#EAF1F7] px-2.5 py-1"
+                  >
+                    <Text className="text-[10px] font-semibold text-[#1A3A5C]">
+                      {activity}
+                    </Text>
+                  </View>
+                ),
+              )}
             </View>
           </View>
 
-          <ReviewRow
-            label="First generation"
-            value="No"
-          />
+          <ReviewRow label="First generation" value="No" />
 
-          <ReviewRow
-            label="Father's education"
-            value="Graduate"
-          />
+          <ReviewRow label="Father's education" value="Graduate" />
 
-          <ReviewRow
-            label="Mother's education"
-            value="Postgraduate"
-          />
+          <ReviewRow label="Mother's education" value="Postgraduate" />
         </ReviewSection>
 
         {/* Registration note */}
         <View className="mt-1 rounded-xl border border-[#D6DBE1] bg-[#EEF3F7] px-3.5 py-3">
           <Text className="text-[11px] leading-[16px] text-[#6B7684]">
             Your registration information such as your name, date of birth,
-            school and contact details is already associated with your
-            account.
+            school and contact details is already associated with your account.
           </Text>
         </View>
 
         {/* Final warning */}
         <View className="mt-3 flex-row items-start rounded-xl border border-[#F3CACA] bg-[#FDECEC] px-3.5 py-3">
           <View className="mr-2.5 mt-0.5 h-[22px] w-[22px] items-center justify-center rounded-full bg-[#F8D7D7]">
-            <Text className="text-[12px] font-bold text-[#B33A3A]">
-              !
-            </Text>
+            <Text className="text-[12px] font-bold text-[#B33A3A]">!</Text>
           </View>
 
           <Text className="flex-1 text-[11px] leading-[16px] text-[#B33A3A]">
@@ -482,11 +351,7 @@ const Review = () => {
             Complete Profile
           </Text>
 
-          <ChevronRight
-            size={17}
-            color="#FFFFFF"
-            strokeWidth={2.5}
-          />
+          <ChevronRight size={17} color="#FFFFFF" strokeWidth={2.5} />
         </Pressable>
 
         <Text className="mt-2 text-center text-[10px] text-[#9AA4AF]">

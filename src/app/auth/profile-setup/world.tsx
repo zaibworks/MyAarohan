@@ -172,9 +172,9 @@ const [activityPickerOpen, setActivityPickerOpen] = useState(false);
 );
 
   return (
-    <SafeAreaView edges={["top", "bottom"]} className="flex-1 bg-[#F4F6F8]">
+    <SafeAreaView edges={["bottom"]} className="flex-1 bg-[#F4F6F8]">
       {/* Header */}
-      <View className="border-b border-[#E2E5E9] bg-white px-[22px] pb-4 pt-3">
+      <View className="border-b border-[#E2E5E9] bg-white px-[22px] pb-4 pt-14">
         <View className="flex-row items-center">
           <Pressable
             onPress={() => router.back()}

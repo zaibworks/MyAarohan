@@ -138,9 +138,18 @@ export default function GuardianProfile() {
     router.push("/auth/profile-setup/marks");
   };
 
+  const primaryGuardian = guardians[0];
+
+  const isComplete = 
+  primaryGuardian.name &&
+  primaryGuardian.email &&
+  primaryGuardian.phone &&
+  primaryGuardian.relation
+                      
+
   return (
     <SafeAreaView
-      edges={["top", "bottom"]}
+      edges={[ "bottom"]}
       className="flex-1 bg-[#F4F6F8]"
     >
       <KeyboardAvoidingView
@@ -148,7 +157,7 @@ export default function GuardianProfile() {
         className="flex-1"
       >
       {/* Header */}
-      <View className="border-b border-[#E2E5E9] bg-white px-5 pb-3 pt-3">
+      <View className="border-b border-[#E2E5E9] bg-white px-5 pb-3 pt-14">
         <View className="flex-row items-center">
           <Pressable
             onPress={() => router.back()}
@@ -418,18 +427,16 @@ export default function GuardianProfile() {
       {/* Bottom Action */}
       <View className="border-t border-[#E2E5E9] bg-white px-5 py-3.5">
         <Pressable
+        disabled={!isComplete}
           onPress={handleContinue}
-          className="h-[52px] w-full flex-row items-center justify-center rounded-[12px] bg-[#1A3A5C] active:opacity-90"
+          className={`h-[52px] w-full flex-row items-center justify-center rounded-[12px] active:opacity-90 ${isComplete ? "bg-[#1A3A5C]" : "bg-[#D6DBE1]"} `}
         >
-          <Text className="mr-2 text-[14px] font-bold text-white">
+          <Text className={`mr-2 text-[14px] font-bold text-white 
+            ${ isComplete ? "text-white" : "text-[#9AA4AF]"}`}>
             Continue
           </Text>
 
-          <ChevronRight
-            size={17}
-            color="#FFFFFF"
-            strokeWidth={2.5}
-          />
+          <ChevronRight size={17} color="#FFFFFF" strokeWidth={2.5} />
         </Pressable>
       </View>
 

@@ -75,10 +75,12 @@ const [formData, setFormData] = useState({
     router.push("/auth/profile-setup/school");
   };
 
+   const isComplete = fullName && formData.day && formData.month && formData.year;
+
   return (
-    <SafeAreaView edges={["top", "bottom"]} className="flex-1 bg-[#F4F6F8]">
+    <SafeAreaView edges={["bottom"]} className="flex-1 bg-[#F4F6F8]">
       {/* Header */}
-      <View className="border-b border-[#E2E5E9] bg-white px-5 pb-3 pt-3">
+      <View className="border-b border-[#E2E5E9] bg-white px-5 pb-3 pt-14">
         <View className="flex-row items-center">
           <Pressable
             onPress={() => router.back()}
@@ -276,10 +278,12 @@ const [formData, setFormData] = useState({
       {/* Bottom Action */}
       <View className="border-t border-[#E2E5E9] bg-white px-5 py-3.5">
         <Pressable
+        disabled={!isComplete}
           onPress={handleContinue}
-          className="h-[52px] w-full flex-row items-center justify-center rounded-[12px] bg-[#1A3A5C] active:opacity-90"
+          className={`h-[52px] w-full flex-row items-center justify-center rounded-[12px] active:opacity-90 ${isComplete ? "bg-[#1A3A5C]" : "bg-[#D6DBE1]"} `}
         >
-          <Text className="mr-2 text-[14px] font-bold text-white">
+          <Text className={`mr-2 text-[14px] font-bold text-white 
+            ${ isComplete ? "text-white" : "text-[#9AA4AF]"}`}>
             Continue
           </Text>
 

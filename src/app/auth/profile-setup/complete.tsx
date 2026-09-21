@@ -1,11 +1,11 @@
 import { router } from "expo-router";
 import {
-    ArrowRight,
-    Check,
-    CircleCheck,
-    Compass,
-    Sparkles,
-    UserRound,
+  ArrowRight,
+  Check,
+  CircleCheck,
+  Compass,
+  Sparkles,
+  UserRound,
 } from "lucide-react-native";
 import { Pressable, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -152,6 +152,7 @@ export default function ProfileSetupComplete() {
         <View className="mt-auto pt-7">
           <Pressable
             onPress={() => {
+              router.dismissAll();
               router.replace("/student/(tabs)");
             }}
             className="h-[52px] w-full flex-row items-center justify-center rounded-xl bg-[#1A3A5C] active:opacity-90"

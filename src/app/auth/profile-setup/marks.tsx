@@ -77,7 +77,7 @@ export default function MarksProfile() {
               ...subject,
               [field]:
                 field === "score" || field === "maxScore"
-                  ? value.replace(/\D/g, "")
+                  ? value
                   : value,
             }
           : subject,
@@ -190,12 +190,6 @@ export default function MarksProfile() {
             <Text className="text-[13px] font-semibold text-[#16202A]">
               Overall score
             </Text>
-
-            <View className="ml-2 rounded-full bg-[#FFF6DF] px-2 py-0.5">
-              <Text className="text-[8px] font-bold text-[#9A6B00]">
-                REQUIRED
-              </Text>
-            </View>
           </View>
 
           <View className="flex-row items-center rounded-[11px] border border-[#E2E5E9] bg-white px-3">

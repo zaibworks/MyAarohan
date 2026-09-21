@@ -23,8 +23,8 @@ const [passwordError, setPasswordError] = useState("");
     setPhoneError("")
     setPasswordError("")
 
-    if(!phone.trim()){
-      setPhoneError("Phone number required")
+    if(phone.trim().length < 10 ){
+      setPhoneError("10 digit Phone number required")
       isValid= false;
     }
 

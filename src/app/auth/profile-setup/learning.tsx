@@ -114,7 +114,7 @@ const Learning = () => {
         <View className="flex-row items-center">
           <Pressable
             onPress={() => router.back()}
-            className="mr-3 h-[38px] w-[38px] items-center justify-center rounded-xl bg-[#F4F6F8] active:opacity-70"
+            className="mr-3 h-[38px] w-[38px] items-center justify-center rounded-xl active:opacity-70"
           >
             <ArrowLeft size={19} color="#1A3A5C" strokeWidth={2.2} />
           </Pressable>
@@ -127,15 +127,6 @@ const Learning = () => {
               Step 6 of 8 · How you learn
             </Text>
           </View>
-
-          <Text className="text-[11px] font-bold text-[#1A3A5C]">
-            75%
-          </Text>
-        </View>
-
-        {/* Progress */}
-        <View className="mt-3 h-[4px] overflow-hidden rounded-full bg-[#E2E5E9]">
-          <View className="h-full w-[75%] rounded-full bg-[#1A3A5C]" />
         </View>
       </View>
 
@@ -147,6 +138,29 @@ const Learning = () => {
           paddingBottom: 30,
         }}
       >
+
+        <View className="mb-7">
+                 <View className="mb-2 flex-row items-center justify-between">
+                   <Text className="text-[12px] font-medium text-[#6B7684]">
+                     Your profile
+                   </Text>
+       
+                   <Text className="text-[12px] font-semibold text-[#1A3A5C]">
+                     62% complete
+                   </Text>
+                 </View>
+       
+                 <View className="h-[5px] overflow-hidden rounded-full bg-[#E2E5E9]">
+                   <View
+                     className="h-full rounded-full"
+                     style={{
+                       width: "62.5%",
+                       backgroundColor: '#1a3a5c',
+                     }}
+                   />
+                 </View>
+               </View>
+
         <Text className="text-[23px] font-extrabold tracking-[-0.4px] text-[#16202A]">
           How do you learn?
         </Text>

@@ -106,14 +106,6 @@ const Review = () => {
               Step 8 of 8 · Review
             </Text>
           </View>
-
-          <Text className="text-[11px] font-bold text-[#1A3A5C]">
-            100%
-          </Text>
-        </View>
-
-        <View className="mt-3 h-[4px] overflow-hidden rounded-full bg-[#E2E5E9]">
-          <View className="h-full w-full rounded-full bg-[#1A3A5C]" />
         </View>
       </View>
 
@@ -125,6 +117,27 @@ const Review = () => {
           paddingBottom: 32,
         }}
       >
+        <View className="mb-7">
+                  <View className="mb-2 flex-row items-center justify-between">
+                    <Text className="text-[12px] font-medium text-[#6B7684]">
+                      Your profile
+                    </Text>
+        
+                    <Text className="text-[12px] font-semibold text-[#1A3A5C]">
+                      100% complete
+                    </Text>
+                  </View>
+        
+                  <View className="h-[5px] overflow-hidden rounded-full bg-[#E2E5E9]">
+                    <View
+                      className="h-full rounded-full"
+                      style={{
+                        width: " 100%",
+                        backgroundColor: '#1a3a5c',
+                      }}
+                    />
+                  </View>
+                </View>
         {/* Intro */}
         <View className="mb-6">
           <Text className="text-[23px] font-extrabold tracking-[-0.4px] text-[#16202A]">

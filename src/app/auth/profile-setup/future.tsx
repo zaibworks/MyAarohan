@@ -195,12 +195,6 @@ export default function FutureProfile() {
               <Text className="text-[13px] font-semibold text-[#16202A]">
                 Dream Career 1
               </Text>
-
-              <View className="ml-2 rounded-full bg-[#FFF6DF] px-2 py-0.5">
-                <Text className="text-[8px] font-bold text-[#9A6B00]">
-                  REQUIRED
-                </Text>
-              </View>
             </View>
 
             <View className="flex-row items-center rounded-[11px] border border-[#E2E5E9] bg-white px-3">
@@ -228,27 +222,32 @@ export default function FutureProfile() {
               )}
             </View>
 
-            {activeCareer === 1 && (
-              <View className="mt-1 overflow-hidden rounded-[11px] border border-[#E2E5E9] bg-white">
-                {filteredSuggestions.length > 0 ? (
-                  filteredSuggestions.map((career) => (
-                    <Pressable
-                      key={career}
-                      onPress={() => handleCareerSelect(career)}
-                      className="border-b border-[#E2E5E9] px-3.5 py-3 last:border-b-0"
-                    >
-                      <Text className="text-[13px] text-[#16202A]">
-                        {career}
-                      </Text>
-                    </Pressable>
-                  ))
-                ) : (
-                  <Text className="px-3.5 py-3 text-[12px] text-[#6B7684]">
-                    No suggestions found.
-                  </Text>
-                )}
-              </View>
-            )}
+         {activeCareer === 1 && (
+  <View className="mt-1 max-h-[180px] overflow-hidden rounded-[11px] border border-[#E2E5E9] bg-white">
+    <ScrollView
+      nestedScrollEnabled
+      showsVerticalScrollIndicator={false}
+    >
+      {filteredSuggestions.length > 0 ? (
+        filteredSuggestions.map((career) => (
+          <Pressable
+            key={career}
+            onPress={() => handleCareerSelect(career)}
+            className="border-b border-[#E2E5E9] px-3.5 py-3 last:border-b-0"
+          >
+            <Text className="text-[13px] text-[#16202A]">
+              {career}
+            </Text>
+          </Pressable>
+        ))
+      ) : (
+        <Text className="px-3.5 py-3 text-[12px] text-[#6B7684]">
+          No suggestions found.
+        </Text>
+      )}
+    </ScrollView>
+  </View>
+)}
           </View>
 
           {/* Career 2 */}
@@ -257,12 +256,6 @@ export default function FutureProfile() {
               <Text className="text-[13px] font-semibold text-[#16202A]">
                 Dream Career 2
               </Text>
-
-              <View className="ml-2 rounded-full bg-[#EEF3F7] px-2 py-0.5">
-                <Text className="text-[8px] font-bold text-[#6B7684]">
-                  OPTIONAL
-                </Text>
-              </View>
             </View>
 
             <View className="flex-row items-center rounded-[11px] border border-[#E2E5E9] bg-white px-3">
@@ -290,27 +283,32 @@ export default function FutureProfile() {
               )}
             </View>
 
-            {activeCareer === 2 && (
-              <View className="mt-1 overflow-hidden rounded-[11px] border border-[#E2E5E9] bg-white">
-                {filteredSuggestions.length > 0 ? (
-                  filteredSuggestions.map((career) => (
-                    <Pressable
-                      key={career}
-                      onPress={() => handleCareerSelect(career)}
-                      className="border-b border-[#E2E5E9] px-3.5 py-3 last:border-b-0"
-                    >
-                      <Text className="text-[13px] text-[#16202A]">
-                        {career}
-                      </Text>
-                    </Pressable>
-                  ))
-                ) : (
-                  <Text className="px-3.5 py-3 text-[12px] text-[#6B7684]">
-                    No suggestions found.
-                  </Text>
-                )}
-              </View>
-            )}
+           {activeCareer === 2 && (
+  <View className="mt-1 max-h-[180px] overflow-hidden rounded-[11px] border border-[#E2E5E9] bg-white">
+    <ScrollView
+      nestedScrollEnabled
+      showsVerticalScrollIndicator={false}
+    >
+      {filteredSuggestions.length > 0 ? (
+        filteredSuggestions.map((career) => (
+          <Pressable
+            key={career}
+            onPress={() => handleCareerSelect(career)}
+            className="border-b border-[#E2E5E9] px-3.5 py-3 last:border-b-0"
+          >
+            <Text className="text-[13px] text-[#16202A]">
+              {career}
+            </Text>
+          </Pressable>
+        ))
+      ) : (
+        <Text className="px-3.5 py-3 text-[12px] text-[#6B7684]">
+          No suggestions found.
+        </Text>
+      )}
+    </ScrollView>
+  </View>
+)}
           </View>
 
           {/* Career 3 */}
@@ -319,12 +317,6 @@ export default function FutureProfile() {
               <Text className="text-[13px] font-semibold text-[#16202A]">
                 Dream Career 3
               </Text>
-
-              <View className="ml-2 rounded-full bg-[#EEF3F7] px-2 py-0.5">
-                <Text className="text-[8px] font-bold text-[#6B7684]">
-                  OPTIONAL
-                </Text>
-              </View>
             </View>
 
             <View className="flex-row items-center rounded-[11px] border border-[#E2E5E9] bg-white px-3">
@@ -353,25 +345,30 @@ export default function FutureProfile() {
             </View>
 
             {activeCareer === 3 && (
-              <View className="mt-1 overflow-hidden rounded-[11px] border border-[#E2E5E9] bg-white">
-                {filteredSuggestions.length > 0 ? (
-                  filteredSuggestions.map((career) => (
-                    <Pressable
-                      key={career}
-                      onPress={() => handleCareerSelect(career)}
-                      className="border-b border-[#E2E5E9] px-3.5 py-3 last:border-b-0"
-                    >
-                      <Text className="text-[13px] text-[#16202A]">
-                        {career}
-                      </Text>
-                    </Pressable>
-                  ))
-                ) : (
-                  <Text className="px-3.5 py-3 text-[12px] text-[#6B7684]">
-                    No suggestions found.
-                  </Text>
-                )}
-              </View>
+              <View className="mt-1 max-h-[180px] overflow-hidden rounded-[11px] border border-[#E2E5E9] bg-white">
+    <ScrollView
+      nestedScrollEnabled
+      showsVerticalScrollIndicator={false}
+    >
+      {filteredSuggestions.length > 0 ? (
+        filteredSuggestions.map((career) => (
+          <Pressable
+            key={career}
+            onPress={() => handleCareerSelect(career)}
+            className="border-b border-[#E2E5E9] px-3.5 py-3 last:border-b-0"
+          >
+            <Text className="text-[13px] text-[#16202A]">
+              {career}
+            </Text>
+          </Pressable>
+        ))
+      ) : (
+        <Text className="px-3.5 py-3 text-[12px] text-[#6B7684]">
+          No suggestions found.
+        </Text>
+      )}
+    </ScrollView>
+  </View>
             )}
           </View>
 

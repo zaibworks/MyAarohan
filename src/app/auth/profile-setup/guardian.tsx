@@ -18,6 +18,7 @@ import {
   View,
    KeyboardAvoidingView,
     Platform,
+    Modal
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -239,14 +240,6 @@ export default function GuardianProfile() {
                   <Text className="text-[14px] font-bold text-[#16202A]">
                     Guardian {index + 1}
                   </Text>
-
-                  {index === 0 && (
-                    <View className="ml-2 rounded-full bg-[#FFF6DF] px-2 py-0.5">
-                      <Text className="text-[8px] font-bold text-[#9A6B00]">
-                        REQUIRED
-                      </Text>
-                    </View>
-                  )}
                 </View>
 
                 {guardians.length > 1 && (
@@ -442,67 +435,77 @@ export default function GuardianProfile() {
 
       {/* Relationship Picker */}
       {showRelationPicker !== null && (
-        <View className="absolute inset-0">
-          <Pressable
-            onPress={() => setShowRelationPicker(null)}
-            className="flex-1 justify-end bg-black/30"
-          >
+        <Modal
+  visible={showRelationPicker !== null}
+  transparent
+  animationType="slide"
+  onRequestClose={() => setShowRelationPicker(null)}
+>
+  <View className="flex-1 justify-end bg-black/30">
+    {/* Outside area */}
+    <Pressable
+      onPress={() => setShowRelationPicker(null)}
+      className="absolute inset-0"
+    />
+
+    {/* Bottom Sheet */}
+    <View className="max-h-[65%] rounded-t-[24px] bg-white px-4 pb-8 pt-5">
+      {/* Header */}
+      <View className="mb-4">
+        <Text className="text-[18px] font-bold text-[#16202A]">
+          Select relationship
+        </Text>
+
+        <Text className="mt-1 text-[11px] text-[#6B7684]">
+          Choose your relationship with this guardian.
+        </Text>
+      </View>
+
+      {/* Options */}
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        nestedScrollEnabled
+      >
+        {relations.map((relation) => {
+          const selected =
+            guardians.find(
+              (item) => item.id === showRelationPicker,
+            )?.relation === relation;
+
+          return (
             <Pressable
-              onPress={() => {}}
-              className="max-h-[75%] rounded-t-[24px] bg-white px-4 pb-8 pt-5"
+              key={relation}
+              onPress={() => {
+                updateGuardian(
+                  showRelationPicker!,
+                  "relation",
+                  relation,
+                );
+
+                setShowRelationPicker(null);
+              }}
+              className={`mb-2 rounded-[10px] border px-4 py-3.5 ${
+                selected
+                  ? "border-[#1A3A5C] bg-[#EAF1F7]"
+                  : "border-[#E2E5E9] bg-white"
+              }`}
             >
-              <View className="mb-4">
-                <Text className="text-[18px] font-bold text-[#16202A]">
-                  Select relationship
-                </Text>
-
-                <Text className="mt-1 text-[11px] text-[#6B7684]">
-                  Choose your relationship with this guardian.
-                </Text>
-              </View>
-
-              <ScrollView showsVerticalScrollIndicator={false}>
-                {relations.map((relation) => {
-                  const selected =
-                    guardians.find(
-                      (item) =>
-                        item.id === showRelationPicker,
-                    )?.relation === relation;
-
-                  return (
-                    <Pressable
-                      key={relation}
-                      onPress={() => {
-                        updateGuardian(
-                          showRelationPicker,
-                          "relation",
-                          relation,
-                        );
-
-                        setShowRelationPicker(null);
-                      }}
-                      className={`mb-2 rounded-[10px] border px-4 py-3.5 ${
-                        selected
-                          ? "border-[#1A3A5C] bg-[#EAF1F7]"
-                          : "border-[#E2E5E9] bg-white"
-                      }`}
-                    >
-                      <Text
-                        className={`text-[14px] ${
-                          selected
-                            ? "font-semibold text-[#1A3A5C]"
-                            : "text-[#16202A]"
-                        }`}
-                      >
-                        {relation}
-                      </Text>
-                    </Pressable>
-                  );
-                })}
-              </ScrollView>
+              <Text
+                className={`text-[14px] ${
+                  selected
+                    ? "font-semibold text-[#1A3A5C]"
+                    : "text-[#16202A]"
+                }`}
+              >
+                {relation}
+              </Text>
             </Pressable>
-          </Pressable>
-        </View>
+          );
+        })}
+      </ScrollView>
+    </View>
+  </View>
+</Modal>
       )}
       </KeyboardAvoidingView>
     </SafeAreaView>

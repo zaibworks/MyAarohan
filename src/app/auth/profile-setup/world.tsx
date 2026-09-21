@@ -192,15 +192,6 @@ const [activityPickerOpen, setActivityPickerOpen] = useState(false);
               Step 7 of 8 · Your world
             </Text>
           </View>
-
-          <Text className="text-[11px] font-bold text-[#1A3A5C]">
-            87.5%
-          </Text>
-        </View>
-
-        {/* Progress */}
-        <View className="mt-3 h-[4px] overflow-hidden rounded-full bg-[#E2E5E9]">
-          <View className="h-full w-[87.5%] rounded-full bg-[#1A3A5C]" />
         </View>
       </View>
 
@@ -212,6 +203,27 @@ const [activityPickerOpen, setActivityPickerOpen] = useState(false);
           paddingBottom: 30,
         }}
       >
+          <View className="mb-7">
+                  <View className="mb-2 flex-row items-center justify-between">
+                    <Text className="text-[12px] font-medium text-[#6B7684]">
+                      Your profile
+                    </Text>
+        
+                    <Text className="text-[12px] font-semibold text-[#1A3A5C]">
+                      87% complete
+                    </Text>
+                  </View>
+        
+                  <View className="h-[5px] overflow-hidden rounded-full bg-[#E2E5E9]">
+                    <View
+                      className="h-full rounded-full"
+                      style={{
+                        width: " 87.5%",
+                        backgroundColor: '#1a3a5c',
+                      }}
+                    />
+                  </View>
+                </View>
         <Text className="text-[23px] font-extrabold tracking-[-0.4px] text-[#16202A]">
           Tell us about your world
         </Text>

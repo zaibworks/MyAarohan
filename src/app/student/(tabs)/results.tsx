@@ -114,7 +114,7 @@ export default function Results() {
       ? results
       : results.filter((result) => result.type === activeFilter);
 
-  const latestResult = results[0];
+  const latestResult = results[3];
 
   const navigate = useNavigation() as any;
   return (

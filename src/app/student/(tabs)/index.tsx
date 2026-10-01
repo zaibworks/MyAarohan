@@ -1,22 +1,12 @@
+import AssessmentCard from "@/component/dashboard/AssessmentCard";
+import CounsellingCard from "@/component/dashboard/CounsellingCard";
+import GrowthKundliCard from "@/component/dashboard/GrowthKundliCard";
+import HelpfulActionsCard from "@/component/dashboard/HelpfulActionsCard";
+import LatestArticlesCard from "@/component/dashboard/LatestArticlesCard";
+import NoticeBoard from "@/component/dashboard/NoticeBoard";
 import StudentInformationCard from "@/component/dashboard/StudentInfoCard";
 import Navbar from "@/component/Navbar";
-import { router } from "expo-router";
-import {
-  CalendarDays,
-  ChevronRight,
-  ClipboardCheck,
-  Compass,
-  ClipboardList,
-  UserRound,
-  Heart,
-} from "lucide-react-native";
-import { Pressable, ScrollView, Text, View } from "react-native";
-import AssessmentCard from "@/component/dashboard/AssessmentCard";
-import GrowthKundliCard from "@/component/dashboard/GrowthKundliCard";
-import CounsellingCard from "@/component/dashboard/CounsellingCard";
-import HelpfulActionsCard from "@/component/dashboard/HelpfulActionsCard";
-import NoticeBoard from "@/component/dashboard/NoticeBoard";
-import LatestArticlesCard from "@/component/dashboard/LatestArticlesCard";
+import { ScrollView, View } from "react-native";
 
 export default function StudentDashboard() {
   return (
@@ -35,20 +25,14 @@ export default function StudentDashboard() {
         }}
       >
         <View className="gap-[14px]">
-
-        <StudentInformationCard />
-        <AssessmentCard/>
-        <GrowthKundliCard/>
-        <CounsellingCard/>
-        <HelpfulActionsCard/>
-        <NoticeBoard/>
-        <LatestArticlesCard/>
-
-
+          <StudentInformationCard />
+          <AssessmentCard />
+          <GrowthKundliCard />
+          <CounsellingCard />
+          <HelpfulActionsCard />
+          <NoticeBoard />
+          <LatestArticlesCard />
         </View>
-
-
-
       </ScrollView>
     </View>
   );

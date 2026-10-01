@@ -1,11 +1,8 @@
 import Navbar from "@/component/Navbar";
 import { useNavigation } from "expo-router";
 import {
-  Calendar,
   CalendarDays,
-  CalendarPlus,
   Headphones,
-  History,
   ShieldCheck,
   Ticket
 } from "lucide-react-native";
@@ -32,10 +29,30 @@ const timeSlots = [
   { time: "06:30 PM", disabled: true },
 ];
 
+function SessionCard({ Icon, title, subTitle, state }: any) {
+  return (
+    <View className="mb-2 flex-row items-center gap-2.5 rounded-[14px] border border-[#E6E9ED] bg-white p-3">
+      <View className="h-9 w-9 items-center justify-center rounded-[11px] bg-[#EAF1F7]">
+        <Icon size={18} color="#1A3A5C" strokeWidth={2} />
+      </View>
+
+      <View className="flex-1">
+        <Text className="mb-[3px] text-[12px] font-bold text-[#16202A]">
+          {title}
+        </Text>
+
+        <Text className="text-[10.5px] text-[#6B7684]">{subTitle}</Text>
+      </View>
+
+      <View className="rounded-full bg-[#f7e6e6] px-2 py-1.5">
+        <Text className="text-[9.5px] font-bold text-[#831b1b]">{state}</Text>
+      </View>
+    </View>
+  );
+}
+
 export default function Mentorship() {
   const [sessionType, setSessionType] = useState<SessionType>("mentorship");
-
-  const [action, setAction] = useState<ActionType>("book");
 
   const [selectedDate, setSelectedDate] = useState("TODAY");
 
@@ -84,7 +101,7 @@ export default function Mentorship() {
         contentContainerStyle={{
           paddingHorizontal: 15,
           paddingTop: 16,
-          paddingBottom: 24,
+          paddingBottom: 2,
         }}
       >
         {/* Page Header */}
@@ -160,224 +177,157 @@ export default function Mentorship() {
           </Pressable>
         </View>
 
-        {/* Action Tabs */}
-        <View className="mb-[14px] flex-row gap-2">
-          <Pressable
-            onPress={() => setAction("book")}
-            className={`flex-1 flex-row items-center justify-center gap-[7px] rounded-[12px] border px-2 py-2.5 ${
-              action === "book"
-                ? "border-[#1A3A5C] bg-[#EAF1F7]"
-                : "border-[#E6E9ED] bg-white"
-            }`}
-          >
-            <CalendarPlus
-              size={16}
-              color={action === "book" ? "#1A3A5C" : "#6B7684"}
-              strokeWidth={2}
-            />
-
-            <Text
-              className={`text-[11.5px] font-bold ${
-                action === "book" ? "text-[#1A3A5C]" : "text-[#6B7684]"
-              }`}
-            >
-              Book Session
-            </Text>
-          </Pressable>
-
-          <Pressable
-            onPress={() => setAction("sessions")}
-            className={`flex-1 flex-row items-center justify-center gap-[7px] rounded-[12px] border px-2 py-2.5 ${
-              action === "sessions"
-                ? "border-[#1A3A5C] bg-[#EAF1F7]"
-                : "border-[#E6E9ED] bg-white"
-            }`}
-          >
-            <History
-              size={16}
-              color={action === "sessions" ? "#1A3A5C" : "#6B7684"}
-              strokeWidth={2}
-            />
-
-            <Text
-              className={`text-[11.5px] font-bold ${
-                action === "sessions" ? "text-[#1A3A5C]" : "text-[#6B7684]"
-              }`}
-            >
-              My Sessions
-            </Text>
-          </Pressable>
-        </View>
-
         {/* BOOK SESSION */}
-        {action === "book" && (
-          <View className="mb-[14px] rounded-[16px] border border-[#E6E9ED] bg-white p-[15px]">
-            {/* Section Heading */}
-            <View className="mb-[5px] flex-row items-center gap-2">
-              <CalendarDays size={18} color="#1A3A5C" strokeWidth={2} />
+        <View className="mb-[14px] rounded-[16px] border border-[#E6E9ED] bg-white p-[15px]">
+          {/* Section Heading */}
+          <View className="mb-[5px] flex-row items-center gap-2">
+            <CalendarDays size={18} color="#1A3A5C" strokeWidth={2} />
 
-              <Text className="text-[14px] font-bold text-[#16202A]">
-                Select Date & Time
-              </Text>
-            </View>
-
-            {/* Available Dates */}
-            <Text className="mb-[7px] text-[11px] font-bold text-[#6B7684]">
-              Available dates
+            <Text className="text-[14px] font-bold text-[#16202A]">
+              Select Date & Time
             </Text>
+          </View>
 
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              className="mb-[14px]"
-            >
-              <View className="flex-row gap-2">
-                {dates.map((date) => {
-                  const isActive = selectedDate === date.day;
+          {/* Available Dates */}
+          <Text className="mb-[7px] text-[11px] font-bold text-[#6B7684]">
+            Available dates
+          </Text>
 
-                  return (
-                    <Pressable
-                      key={date.day}
-                      onPress={() => handleDate(date.day)}
-                      className={`min-w-[62px] rounded-[11px] border px-1.5 py-2 text-center ${
-                        isActive
-                          ? "border-[#1A3A5C] bg-[#1A3A5C]"
-                          : "border-[#E6E9ED] bg-white"
-                      }`}
-                    >
-                      <Text
-                        className={`mb-[3px] text-center text-[10px] ${
-                          isActive ? "text-white" : "text-[#9AA4AF]"
-                        }`}
-                      >
-                        {date.day}
-                      </Text>
-
-                      <Text
-                        className={`text-center text-[14px] font-bold ${
-                          isActive ? "text-white" : "text-[#16202A]"
-                        }`}
-                      >
-                        {date.number}
-                      </Text>
-                    </Pressable>
-                  );
-                })}
-              </View>
-            </ScrollView>
-
-            {/* Available Time Slots */}
-            <Text className="mb-[7px] text-[11px] font-bold text-[#6B7684]">
-              Available time slots
-            </Text>
-
-            <View className="mb-[13px] flex-row flex-wrap gap-2">
-              {timeSlots.map((slot) => {
-                const isActive = selectedTime === slot.time;
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            className="mb-[14px]"
+          >
+            <View className="flex-row gap-2">
+              {dates.map((date) => {
+                const isActive = selectedDate === date.day;
 
                 return (
                   <Pressable
-                    key={slot.time}
-                    disabled={slot.disabled}
-                    onPress={() => handleTime(slot.time)}
-                    className={`w-[31.5%] rounded-[10px] border px-1 py-[9px] ${
-                      slot.disabled
-                        ? "border-[#E6E9ED] bg-white opacity-40"
-                        : isActive
-                          ? "border-[#1A3A5C] bg-[#EAF1F7]"
-                          : "border-[#E6E9ED] bg-white"
+                    key={date.day}
+                    onPress={() => handleDate(date.day)}
+                    className={`min-w-[62px] rounded-[11px] border px-1.5 py-2 text-center ${
+                      isActive
+                        ? "border-[#1A3A5C] bg-[#1A3A5C]"
+                        : "border-[#E6E9ED] bg-white"
                     }`}
                   >
                     <Text
-                      className={`text-center text-[10.5px] ${
-                        slot.disabled
-                          ? "text-[#6B7684] line-through"
-                          : isActive
-                            ? "font-bold text-[#1A3A5C]"
-                            : "text-[#6B7684]"
+                      className={`mb-[3px] text-center text-[10px] ${
+                        isActive ? "text-white" : "text-[#9AA4AF]"
                       }`}
                     >
-                      {slot.time}
+                      {date.day}
+                    </Text>
+
+                    <Text
+                      className={`text-center text-[14px] font-bold ${
+                        isActive ? "text-white" : "text-[#16202A]"
+                      }`}
+                    >
+                      {date.number}
                     </Text>
                   </Pressable>
                 );
               })}
             </View>
+          </ScrollView>
 
-            {/* Confirm */}
-            <Pressable
-              onPress={() => showToast("Session booking request submitted")}
-              className="w-full items-center justify-center rounded-[11px] bg-[#1A3A5C] py-3"
-            >
-              <Text className="text-[12px] font-bold text-white">
-                Confirm & Book Session
-              </Text>
-            </Pressable>
+          {/* Available Time Slots */}
+          <Text className="mb-[7px] text-[11px] font-bold text-[#6B7684]">
+            Available time slots
+          </Text>
+
+          <View className="mb-[13px] flex-row flex-wrap gap-2">
+            {timeSlots.map((slot) => {
+              const isActive = selectedTime === slot.time;
+
+              return (
+                <Pressable
+                  key={slot.time}
+                  disabled={slot.disabled}
+                  onPress={() => handleTime(slot.time)}
+                  className={`w-[31.5%] rounded-[10px] border px-1 py-[9px] ${
+                    slot.disabled
+                      ? "border-[#E6E9ED] bg-white opacity-40"
+                      : isActive
+                        ? "border-[#1A3A5C] bg-[#EAF1F7]"
+                        : "border-[#E6E9ED] bg-white"
+                  }`}
+                >
+                  <Text
+                    className={`text-center text-[10.5px] ${
+                      slot.disabled
+                        ? "text-[#6B7684] line-through"
+                        : isActive
+                          ? "font-bold text-[#1A3A5C]"
+                          : "text-[#6B7684]"
+                    }`}
+                  >
+                    {slot.time}
+                  </Text>
+                </Pressable>
+              );
+            })}
           </View>
-        )}
+
+          {/* Confirm */}
+          <Pressable
+            onPress={() => showToast("Session booking request submitted")}
+            className="w-full items-center justify-center rounded-[11px] bg-[#1A3A5C] py-3"
+          >
+            <Text className="text-[12px] font-bold text-white">
+              Confirm & Book Session
+            </Text>
+          </Pressable>
+        </View>
 
         {/* MY SESSIONS */}
-        {action === "sessions" && (
-          <View className="mt-1">
-            <View className="mb-[9px] flex-row items-center justify-between">
-              <Text className="text-[14px] font-bold text-[#16202A]">
-                Counselling Sessions
-              </Text>
 
-              <Text className="text-[9px] font-extrabold tracking-[0.6px] text-[#9AA4AF]">
-                {sessionType === "mentorship"
-                  ? "MENTORSHIP SESSIONS"
-                  : "EXPERT SESSIONS"}
-              </Text>
-            </View>
-
-            {/* Session 1 */}
-            <View className="mb-2 flex-row items-center gap-2.5 rounded-[14px] border border-[#E6E9ED] bg-white p-3">
-              <View className="h-9 w-9 items-center justify-center rounded-[11px] bg-[#EAF1F7]">
-                <Calendar size={18} color="#1A3A5C" strokeWidth={2} />
-              </View>
-
-              <View className="flex-1">
-                <Text className="mb-[3px] text-[12px] font-bold text-[#16202A]">
-                  Career Mentorship
-                </Text>
-
-                <Text className="text-[10.5px] text-[#6B7684]">
-                  No upcoming session
-                </Text>
-              </View>
-
-              <View className="rounded-full bg-[#E6F7EE] px-2 py-1.5">
-                <Text className="text-[9.5px] font-bold text-[#1B8354]">
-                  Available
-                </Text>
-              </View>
-            </View>
-
-            {/* Session 2 */}
-            <View className="mb-2 flex-row items-center gap-2.5 rounded-[14px] border border-[#E6E9ED] bg-white p-3">
-              <View className="h-9 w-9 items-center justify-center rounded-[11px] bg-[#EAF1F7]">
-                <Headphones size={18} color="#1A3A5C" strokeWidth={2} />
-              </View>
-
-              <View className="flex-1">
-                <Text className="mb-[3px] text-[12px] font-bold text-[#16202A]">
-                  Expert Counselling
-                </Text>
-
-                <Text className="text-[10.5px] text-[#6B7684]">
-                  Book when you're ready
-                </Text>
-              </View>
-
-              <View className="rounded-full bg-[#E6F7EE] px-2 py-1.5">
-                <Text className="text-[9.5px] font-bold text-[#1B8354]">
-                  Eligible
-                </Text>
-              </View>
-            </View>
+        <View className="mt-1">
+          <View className="mb-[9px] flex-row items-center">
+            <Text className="text-[14px] font-bold text-[#16202A]">
+              My Sessions
+            </Text>
           </View>
-        )}
+
+          <ScrollView
+            className="h-[250px]"
+            nestedScrollEnabled
+            showsVerticalScrollIndicator={false}
+          >
+            <SessionCard
+              title="Expert Counselling"
+              subTitle="Book when you are ready"
+              state="Not Available"
+              Icon={ShieldCheck}
+            />
+            <SessionCard
+              title="Career Mentorship"
+              subTitle="No upcoming sessions"
+              state="Not Available"
+              Icon={Headphones}
+            />
+            <SessionCard
+              title="Career Mentorship"
+              subTitle="No upcoming sessions"
+              state="Not Available"
+              Icon={Headphones}
+            />
+            <SessionCard
+              title="Career Mentorship"
+              subTitle="No upcoming sessions"
+              state="Not Available"
+              Icon={Headphones}
+            />
+            <SessionCard
+              title="Career Mentorship"
+              subTitle="No upcoming sessions"
+              state="Not Available"
+              Icon={Headphones}
+            />
+          </ScrollView>
+        </View>
       </ScrollView>
     </View>
   );

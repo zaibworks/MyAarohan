@@ -7,6 +7,12 @@ import {
   UserRound,
 } from "lucide-react-native";
 
+ <View className="rounded-full bg-[#f7e6e6] px-2 py-1.5">
+              <Text className="text-[9.5px] font-bold text-[#831b1b]">
+                Not Available
+              </Text>
+            </View>
+
 export default function AssessmentCard() {
   return (
     <View className="w-full rounded-[24px] border border-[#E2E5E9] bg-white px-[12px] py-[12px]">

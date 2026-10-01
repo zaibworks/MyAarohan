@@ -4,7 +4,7 @@
     "slug": "my-aarohan",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/my-icons/my-aarohan-logo.png",
+    "icon": "./assets/my-icons/my-aarohanIcon.png",
     "scheme": "myaarohan",
     "userInterfaceStyle": "automatic",
     "android": {
@@ -13,15 +13,15 @@
     },
     "web": {
       "output": "static",
-      "favicon": "./assets/my-icons/my-aarohan-logo.png"
+      "favicon": "./assets/my-icons/my-aarohanIcon.png"
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#1A3A5C",
-          "image": "./assets/my-icons/my-aarohan-splash.png",
+          "backgroundColor": "#f7f7f7",
+          "image": "./assets/my-icons/my-aarohansplashIcon.png",
           "imageWidth": 180,
           "resizeMode": "contain"
         }

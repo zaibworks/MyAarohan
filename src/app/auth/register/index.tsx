@@ -15,6 +15,7 @@ const Register = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isClassPickerOpen, setIsClassPickerOpen] = useState(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
+  
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",

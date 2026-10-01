@@ -9,8 +9,6 @@ import {
   TextInput,
   View,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-
 
 const careers = [
   {
@@ -182,7 +180,7 @@ export default function CareerEncyclopedia() {
   };
 
   return (
-    <SafeAreaView edges={["bottom"]} className="flex-1 bg-[#F4F6F8]">
+    <View className="flex-1 bg-[#F4F6F8]">
       {/* TODO: Existing MyAarohan TopBar goes here */}
 
       <View className="border-b border-[#E6E9ED] bg-white pt-10">
@@ -262,7 +260,7 @@ export default function CareerEncyclopedia() {
             <Pressable
               key={field.title}
               onPress={() => {
-                router.push('/student/(tabs)/career-encyclopedia/career-cards')
+                router.push("/student/(tabs)/career-encyclopedia/career-cards");
                 setActiveCategory(field.category);
                 setSearch("");
               }}
@@ -295,6 +293,6 @@ export default function CareerEncyclopedia() {
           ))}
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }

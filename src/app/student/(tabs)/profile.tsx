@@ -16,6 +16,11 @@ export default function Profile() {
     { rank: "3", name: "Book Writer" },
   ];
 
+
+
+
+
+
   return (
     <View className="flex-1 bg-white pt-10">
       <ScrollView
@@ -136,7 +141,7 @@ export default function Profile() {
             </Text>
 
             <Text className="mb-1 text-[32px] font-extrabold leading-[32px] text-[#1A3A5C]">
-              N/A
+              326/400
             </Text>
 
             <Text className="text-[11px] text-[#6B7684]">
@@ -145,13 +150,10 @@ export default function Profile() {
           </View>
 
           {/* Subject */}
-          <View className="mt-2 flex-row items-center justify-between rounded-[11px] bg-[#F4F6F8] px-3 py-[11px]">
-            <Text className="text-[13px] font-semibold text-[#16202A]">
-              Maths
-            </Text>
-
-            <Text className="text-[13px] font-bold text-[#1A3A5C]">92</Text>
-          </View>
+          <Subject title='Urdu' marks={79}/>
+          <Subject title='Mathematics' marks={78}/>
+          <Subject title='Chemistry' marks={90}/>
+          <Subject title='Physics' marks={77}/>
         </View>
 
         {/* Personal Details */}
@@ -267,3 +269,15 @@ export default function Profile() {
     </View>
   );
 }
+
+  function Subject({title,marks}:{title:string, marks:number}){
+         return(
+           <View className="mt-2 flex-row items-center justify-between rounded-[11px] bg-[#F4F6F8] px-3 py-[11px]">
+            <Text className="text-[13px] font-semibold text-[#16202A]">
+              {title}
+            </Text>
+
+            <Text className="text-[13px] font-bold text-[#1A3A5C]">{marks}</Text>
+          </View>
+         )
+  }

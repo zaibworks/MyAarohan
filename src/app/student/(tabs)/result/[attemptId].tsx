@@ -24,6 +24,8 @@ import AptitudeRadar from "@/component/AptitudeRadar";
 import PersonalityRadar from "@/component/PersonalityRadar";
 import FloatingButton from "@/component/FloatingButton";
 import SummaryCards from "@/component/results/SummaryCards";
+import ProfileCluster from "@/component/results/ProfileCluster";
+import DreamCareerCards from "@/component/results/DreamCareerCards";
 
 type Dimension = {
   name: string;
@@ -49,16 +51,6 @@ type CareerOrientation = {
   score: number;
   level: string;
   description: string;
-};
-
-type DreamCareer = {
-  title: string;
-  icon: typeof BriefcaseBusiness;
-  description: string;
-  nextStep: string;
-  education: string;
-  outlook: string;
-  focus: string;
 };
 
 const dimensions: Dimension[] = [
@@ -228,68 +220,9 @@ const careerOrientations: CareerOrientation[] = [
   },
 ];
 
-const careers = [
-  {
-    title: "Software Developer",
-    match: 91,
-    icon: BriefcaseBusiness,
-  },
-  {
-    title: "Data Analyst",
-    match: 87,
-    icon: BarChart3,
-  },
-  {
-    title: "Product Designer",
-    match: 79,
-    icon: Compass,
-  },
-];
 
-const dreamCareers: DreamCareer[] = [
-  {
-    title: "Software Engineer",
-    icon: BriefcaseBusiness,
-    description:
-      "A software engineer designs and builds digital systems, applications and software solutions.",
-    nextStep:
-      "Explore the field through small coding projects and compare related technology paths before committing to a long-term pathway.",
-    education:
-      "Computer Science, Software Engineering, BCA, B.Tech or related technical pathways can provide a foundation.",
-    outlook:
-      "Technology continues to offer diverse roles across software development, systems and digital products.",
-    focus:
-      "Strengthen logical reasoning, coding fundamentals, problem solving and consistent project practice.",
-  },
-  {
-    title: "Photographer",
-    icon: Compass,
-    description:
-      "A photographer creates images for news, documentary work, weddings, fashion, products, advertising, portraits and other visual communication.",
-    nextStep:
-      "Try practical photography activities and compare different areas such as portrait, product, travel or documentary photography.",
-    education:
-      "Fine arts, media studies, design, journalism or practical photography training can support this pathway.",
-    outlook:
-      "Portfolio quality, visual skills, technical practice and communication are important for building opportunities.",
-    focus:
-      "Develop composition, lighting, editing, visual storytelling and a strong portfolio.",
-  },
-  {
-    title: "Book Writer",
-    icon: Sparkles,
-    description:
-      "A book writer develops stories, ideas and long-form written content across different genres and subjects.",
-    nextStep:
-      "Write short stories or essays regularly, read across genres and seek feedback to develop your writing voice.",
-    education:
-      "There is no single fixed degree requirement; literature, journalism, communication and creative-writing pathways can help.",
-    outlook:
-      "Writing opportunities can span publishing, digital content, journalism, education and independent work.",
-    focus:
-      "Strengthen verbal reasoning, language ability, creativity, reading and consistent writing practice.",
-  },
-];
+
+
 
 export default function DetailedResult() {
   const { attemptId } = useLocalSearchParams<{
@@ -298,19 +231,10 @@ export default function DetailedResult() {
 
   const router = useRouter();
 
-  const [selectedSkill, setSelectedSkill] = useState(0);
-  const [showAllCareers, setShowAllCareers] = useState(false);
   const [selectedGrowthDimension, setSelectedGrowthDimension] = useState<
     number | null
   >(null);
   const [improvementAmount, setImprovementAmount] = useState(0);
-
-  const selectedSkillData = skills[selectedSkill];
-
-  const visibleCareers = useMemo(
-    () => (showAllCareers ? careers : careers.slice(0, 2)),
-    [showAllCareers],
-  );
 
   const selectedGrowthData =
     selectedGrowthDimension !== null
@@ -393,7 +317,7 @@ export default function DetailedResult() {
           </Text>
         </View>
 
-        <View className="mx-5 mt-4 rounded-2xl border border-[#E6E9ED] bg-white p-4">
+        <View className="mx-5 mt-4 rounded-2xl border border-[#E6E9ED] bg-white p-4 ">
           <AptitudeRadar dimensions={dimensions}/>
         </View>
 
@@ -487,43 +411,6 @@ export default function DetailedResult() {
 
         <View className="mx-5 mt-4 rounded-2xl border border-[#E6E9ED] bg-white p-4">
           <PersonalityRadar traits={personalityTraits}/>
-
-          <View className="mt-3">
-            {personalityTraits.map((trait) => (
-              <View key={trait.name} className="mb-4">
-                <View className="flex-row items-center justify-between">
-                  <Text className="text-[12px] font-semibold text-[#16202A]">
-                    {trait.name}
-                  </Text>
-
-                  <View className="flex-row items-center">
-                    <Text className="mr-2 text-[11px] font-bold text-[#1A3A5C]">
-                      {trait.score}%
-                    </Text>
-
-                    <View className="rounded-full bg-[#EAF1F7] px-2 py-1">
-                      <Text className="text-[9px] font-bold uppercase text-[#1A3A5C]">
-                        {trait.level}
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-
-                <View className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-[#E6E9ED]">
-                  <View
-                    className="h-full rounded-full bg-[#1A3A5C]"
-                    style={{
-                      width: `${trait.score}%`,
-                    }}
-                  />
-                </View>
-
-                <Text className="mt-2 text-[11px] leading-[17px] text-[#6B7684]">
-                  {trait.description}
-                </Text>
-              </View>
-            ))}
-          </View>
         </View>
 
         {/* ================================================= */}
@@ -584,89 +471,7 @@ export default function DetailedResult() {
         {/* PROFILE CLUSTER */}
         {/* ================================================= */}
 
-        <View className="mt-7 px-5">
-          <Text className="text-[19px] font-bold text-[#16202A]">
-            Profile Cluster & Factor Analysis
-          </Text>
-
-          <Text className="mt-1 text-[13px] leading-5 text-[#6B7684]">
-            A broader view of how your assessment dimensions come together.
-          </Text>
-        </View>
-
-        <View className="mx-5 mt-4 rounded-2xl border border-[#E6E9ED] bg-white p-4">
-          <View className="rounded-xl bg-[#1A3A5C] p-4">
-            <Text className="text-[10px] font-bold uppercase tracking-wider text-[#BFD4E6]">
-              Your Profile Cluster
-            </Text>
-
-            <Text className="mt-1.5 text-[20px] font-bold text-white">
-              Versatile Generalist
-            </Text>
-
-            <Text className="mt-1 text-[11px] leading-[17px] text-[#DCE8F2]">
-              Balanced across multiple aptitudes with the flexibility to explore
-              different career directions.
-            </Text>
-          </View>
-
-          <View className="mt-4">
-            <Text className="text-[12px] font-bold text-[#16202A]">
-              Aligned Career Families
-            </Text>
-
-            <View className="mt-2 flex-row flex-wrap">
-              {[
-                "Technology",
-                "Management",
-                "Entrepreneurship",
-                "Education",
-              ].map((family) => (
-                <View
-                  key={family}
-                  className="mb-2 mr-2 rounded-full bg-[#EAF1F7] px-3 py-1.5"
-                >
-                  <Text className="text-[10px] font-bold text-[#1A3A5C]">
-                    {family}
-                  </Text>
-                </View>
-              ))}
-            </View>
-          </View>
-
-          <View className="mt-5">
-            <Text className="text-[12px] font-bold text-[#16202A]">
-              Core Factor Scores
-            </Text>
-
-            {[
-              { name: "Quantitative", score: 76 },
-              { name: "Verbal", score: 82 },
-              { name: "Spatial", score: 71 },
-            ].map((factor) => (
-              <View key={factor.name} className="mt-3">
-                <View className="flex-row items-center justify-between">
-                  <Text className="text-[11px] font-medium text-[#6B7684]">
-                    {factor.name}
-                  </Text>
-
-                  <Text className="text-[11px] font-bold text-[#1A3A5C]">
-                    {factor.score}
-                  </Text>
-                </View>
-
-                <View className="mt-1.5 h-2 overflow-hidden rounded-full bg-[#E6E9ED]">
-                  <View
-                    className="h-full rounded-full bg-[#1A3A5C]"
-                    style={{
-                      width: `${factor.score}%`,
-                    }}
-                  />
-                </View>
-              </View>
-            ))}
-          </View>
-        </View>
+        <ProfileCluster/>
 
         {/* ================================================= */}
         {/* WHAT YOUR SCORES MEAN */}
@@ -755,225 +560,11 @@ export default function DetailedResult() {
             </View>
           ))}
         </View>
+ 
+ {/* DreamCareerAnalysis  */}
+     <DreamCareerCards/>
 
-        {/* ================================================= */}
-        {/* DREAM CAREER ANALYSIS */}
-        {/* ================================================= */}
-
-        <View className="mt-7 px-5">
-          <Text className="text-[19px] font-bold text-[#16202A]">
-            Dream Career Analysis
-          </Text>
-
-          <Text className="mt-1 text-[13px] leading-5 text-[#6B7684]">
-            Compare your current profile with each selected career goal and
-            understand the next useful step.
-          </Text>
-        </View>
-
-        <View className="mx-5 mt-4">
-          {dreamCareers.map((career) => {
-            const Icon = career.icon;
-
-            return (
-              <View
-                key={career.title}
-                className="mb-3 overflow-hidden rounded-2xl border border-[#E6E9ED] bg-white"
-              >
-                <View className="p-4">
-                  <View className="flex-row items-center">
-                    <View className="h-11 w-11 items-center justify-center rounded-xl bg-[#EAF1F7]">
-                      <Icon size={21} color="#1A3A5C" />
-                    </View>
-
-                    <View className="ml-3 flex-1">
-                      <Text className="text-[15px] font-bold text-[#16202A]">
-                        {career.title}
-                      </Text>
-
-                      <Text className="mt-1 text-[10px] text-[#9AA4AF]">
-                        Assessment needed
-                      </Text>
-                    </View>
-
-                    <View className="rounded-full bg-[#FFF6DF] px-2.5 py-1">
-                      <Text className="text-[9px] font-bold text-[#9A6B00]">
-                        Explore
-                      </Text>
-                    </View>
-                  </View>
-
-                  <View className="mt-4 rounded-xl bg-[#F4F6F8] p-3">
-                    <Text className="text-[11px] font-bold text-[#16202A]">
-                      What this means
-                    </Text>
-
-                    <Text className="mt-1.5 text-[11px] leading-[18px] text-[#6B7684]">
-                      {career.nextStep}
-                    </Text>
-                  </View>
-
-                  <Text className="mt-4 text-[12px] font-bold text-[#16202A]">
-                    Career overview
-                  </Text>
-
-                  <Text className="mt-1.5 text-[11px] leading-[18px] text-[#6B7684]">
-                    {career.description}
-                  </Text>
-
-                  <View className="mt-4">
-                    <View className="mb-3">
-                      <Text className="text-[10px] font-bold text-[#16202A]">
-                        Education or training route
-                      </Text>
-
-                      <Text className="mt-1 text-[10px] leading-[16px] text-[#6B7684]">
-                        {career.education}
-                      </Text>
-                    </View>
-
-                    <View className="mb-3">
-                      <Text className="text-[10px] font-bold text-[#16202A]">
-                        Field outlook
-                      </Text>
-
-                      <Text className="mt-1 text-[10px] leading-[16px] text-[#6B7684]">
-                        {career.outlook}
-                      </Text>
-                    </View>
-
-                    <View>
-                      <Text className="text-[10px] font-bold text-[#16202A]">
-                        Your next focus
-                      </Text>
-
-                      <Text className="mt-1 text-[10px] leading-[16px] text-[#6B7684]">
-                        {career.focus}
-                      </Text>
-                    </View>
-                  </View>
-
-                  <Pressable
-                    onPress={() =>
-                      router.push(
-                        `/student/career-encyclopedia/${encodeURIComponent(
-                          career.title,
-                        )}`,
-                      )
-                    }
-                    className="mt-4 flex-row items-center justify-between rounded-xl border border-[#E2E5E9] px-3 py-2.5"
-                  >
-                    <Text className="text-[11px] font-semibold text-[#1A3A5C]">
-                      Open in Career Encyclopedia
-                    </Text>
-
-                    <ChevronRight size={15} color="#1A3A5C" />
-                  </Pressable>
-                </View>
-              </View>
-            );
-          })}
-        </View>
-
-        {/* ================================================= */}
-        {/* CAREER FIT */}
-        {/* ================================================= */}
-
-        <View className="mt-7 px-5">
-          <View className="flex-row items-center">
-            <View className="h-9 w-9 items-center justify-center rounded-xl bg-[#EAF1F7]">
-              <Compass size={19} color="#1A3A5C" />
-            </View>
-
-            <View className="ml-2.5">
-              <Text className="text-[19px] font-bold text-[#16202A]">
-                Career Fit
-              </Text>
-
-              <Text className="mt-0.5 text-[12px] text-[#6B7684]">
-                Careers that align with your profile
-              </Text>
-            </View>
-          </View>
-        </View>
-
-        <View className="mt-4 px-5">
-          {visibleCareers.map((career) => {
-            const Icon = career.icon;
-
-            return (
-              <Pressable
-                key={career.title}
-                className="mb-3 rounded-2xl border border-[#E6E9ED] bg-white p-4"
-              >
-                <View className="flex-row items-center">
-                  <View className="h-11 w-11 items-center justify-center rounded-xl bg-[#EAF1F7]">
-                    <Icon size={20} color="#1A3A5C" />
-                  </View>
-
-                  <View className="ml-3 flex-1">
-                    <Text className="text-[14px] font-bold text-[#16202A]">
-                      {career.title}
-                    </Text>
-
-                    <Text className="mt-1 text-[11px] text-[#9AA4AF]">
-                      Career compatibility
-                    </Text>
-                  </View>
-
-                  <View className="items-end">
-                    <Text className="text-[19px] font-bold text-[#1A3A5C]">
-                      {career.match}%
-                    </Text>
-
-                    <Text className="text-[10px] text-[#9AA4AF]">match</Text>
-                  </View>
-                </View>
-
-                <View className="mt-3 h-1.5 overflow-hidden rounded-full bg-[#E6E9ED]">
-                  <View
-                    className="h-full rounded-full bg-[#1A3A5C]"
-                    style={{
-                      width: `${career.match}%`,
-                    }}
-                  />
-                </View>
-
-                <View className="mt-3 flex-row items-center justify-end">
-                  <Text className="text-[11px] font-semibold text-[#1A3A5C]">
-                    Explore career
-                  </Text>
-
-                  <ChevronRight size={15} color="#1A3A5C" />
-                </View>
-              </Pressable>
-            );
-          })}
-
-          <Pressable
-            onPress={() => setShowAllCareers((prev) => !prev)}
-            className="flex-row items-center justify-center py-2"
-          >
-            <Text className="text-[12px] font-semibold text-[#1A3A5C]">
-              {showAllCareers
-                ? "Show fewer careers"
-                : "View more career matches"}
-            </Text>
-
-            <ChevronDown
-              size={15}
-              color="#1A3A5C"
-              className="ml-1"
-              style={{
-                transform: [
-                  {
-                    rotate: showAllCareers ? "180deg" : "0deg",
-                  },
-                ],
-              }}
-            />
-          </Pressable>
-        </View>
+      
 
         {/* ================================================= */}
         {/* PERSONALISED INSIGHT */}
@@ -1047,190 +638,12 @@ export default function DetailedResult() {
           </Text>
         </View>
 
-        {/* ================================================= */}
         {/* GROWTH EXPLORER */}
-        {/* ================================================= */}
+     
 
-        <View className="mt-7 px-5">
-          <View className="flex-row items-center">
-            <View className="h-9 w-9 items-center justify-center rounded-xl bg-[#EAF1F7]">
-              <TrendingUp size={19} color="#1A3A5C" />
-            </View>
 
-            <View className="ml-2.5 flex-1">
-              <Text className="text-[19px] font-bold text-[#16202A]">
-                Future Growth Explorer
-              </Text>
-
-              <Text className="mt-0.5 text-[12px] text-[#6B7684]">
-                Explore how improving specific aptitudes could change your
-                career trajectory.
-              </Text>
-            </View>
-          </View>
-        </View>
-
-        <View className="mx-5 mt-4 rounded-2xl border border-[#E6E9ED] bg-white p-4">
-          <Text className="text-[12px] font-bold text-[#16202A]">
-            Select a skill area to improve
-          </Text>
-
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{
-              paddingTop: 12,
-              paddingRight: 10,
-            }}
-          >
-            {dimensions.map((dimension, index) => {
-              const active = selectedGrowthDimension === index;
-
-              return (
-                <Pressable
-                  key={dimension.name}
-                  onPress={() => {
-                    setSelectedGrowthDimension(index);
-                    setImprovementAmount(0);
-                  }}
-                  className={`mr-2 rounded-full border px-3 py-2 ${
-                    active
-                      ? "border-[#1A3A5C] bg-[#EAF1F7]"
-                      : "border-[#D6DBE1] bg-white"
-                  }`}
-                >
-                  <Text
-                    className={`text-[10px] font-semibold ${
-                      active ? "text-[#1A3A5C]" : "text-[#6B7684]"
-                    }`}
-                  >
-                    {dimension.name}
-                  </Text>
-                </Pressable>
-              );
-            })}
-          </ScrollView>
-
-          <View className="mt-4 rounded-xl bg-[#F4F6F8] p-4">
-            {selectedGrowthData ? (
-              <>
-                <View className="flex-row items-center justify-between">
-                  <View className="flex-1 pr-3">
-                    <Text className="text-[14px] font-bold text-[#16202A]">
-                      {selectedGrowthData.name}
-                    </Text>
-
-                    <Text className="mt-1 text-[11px] text-[#6B7684]">
-                      Current score
-                    </Text>
-                  </View>
-
-                  <Text className="text-[24px] font-bold text-[#1A3A5C]">
-                    {selectedGrowthData.score}%
-                  </Text>
-                </View>
-
-                <View className="mt-4 h-2 overflow-hidden rounded-full bg-[#DDE2E7]">
-                  <View
-                    className="h-full rounded-full bg-[#1A3A5C]"
-                    style={{
-                      width: `${selectedGrowthData.score}%`,
-                    }}
-                  />
-                </View>
-
-                <Text className="mt-4 text-[11px] leading-[17px] text-[#6B7684]">
-                  Select an improvement amount to explore how a stronger score
-                  could affect your future career recommendations.
-                </Text>
-
-                <Text className="mt-5 text-[11px] font-bold text-[#16202A]">
-                  Improvement Amount
-                </Text>
-
-                <View className="mt-3 flex-row">
-                  {[10, 20, 30].map((amount) => {
-                    const active = improvementAmount === amount;
-
-                    return (
-                      <Pressable
-                        key={amount}
-                        onPress={() => setImprovementAmount(amount)}
-                        className={`mr-2 rounded-full border px-3 py-2 ${
-                          active
-                            ? "border-[#1A3A5C] bg-[#1A3A5C]"
-                            : "border-[#D6DBE1] bg-white"
-                        }`}
-                      >
-                        <Text
-                          className={`text-[10px] font-bold ${
-                            active ? "text-white" : "text-[#6B7684]"
-                          }`}
-                        >
-                          +{amount}%
-                        </Text>
-                      </Pressable>
-                    );
-                  })}
-                </View>
-              </>
-            ) : (
-              <View className="items-center py-6">
-                <TrendingUp size={24} color="#1A3A5C" />
-
-                <Text className="mt-2 text-[13px] font-bold text-[#16202A]">
-                  Select a skill area
-                </Text>
-
-                <Text className="mt-1 text-center text-[11px] leading-[17px] text-[#6B7684]">
-                  Choose an aptitude above to explore how improvement could
-                  affect your future recommendations.
-                </Text>
-              </View>
-            )}
-          </View>
-
-          <View className="mt-3 rounded-xl border border-[#D6DBE1] bg-[#1A3A5C] p-4">
-            <Text className="text-[10px] font-semibold uppercase tracking-wide text-[#BFD4E6]">
-              Current Top Career Match
-            </Text>
-
-            {selectedGrowthData && improvementAmount > 0 ? (
-              <>
-                <Text className="mt-2 text-[18px] font-bold text-white">
-                  Explore stronger career alignment
-                </Text>
-
-                <Text className="mt-1 text-[11px] leading-[17px] text-[#DCE8F2]">
-                  Projected {selectedGrowthData.name} score: {projectedScore}%
-                </Text>
-
-                <View className="mt-4 rounded-xl bg-white/10 p-3">
-                  <Text className="text-[10px] text-[#BFD4E6]">
-                    This simulation is exploratory and does not predict career
-                    success.
-                  </Text>
-                </View>
-              </>
-            ) : (
-              <>
-                <Text className="mt-2 text-[18px] font-bold text-white">
-                  Complete tests to see
-                </Text>
-
-                <Text className="mt-1 text-[11px] leading-[17px] text-[#DCE8F2]">
-                  Select a skill area and improvement amount to explore your
-                  future career recommendations.
-                </Text>
-              </>
-            )}
-          </View>
-        </View>
-
-        {/* ================================================= */}
         {/* RECOMMENDATION */}
-        {/* ================================================= */}
-
+    
         <View className="mx-5 mt-7 overflow-hidden rounded-2xl border border-[#D6DBE1] bg-[#EAF1F7] p-5">
           <View className="flex-row items-start">
             <View className="h-10 w-10 items-center justify-center rounded-xl bg-white">
@@ -1261,63 +674,9 @@ export default function DetailedResult() {
             </View>
           </View>
         </View>
-
-        {/* ================================================= */}
-        {/* AARO AI */}
-        {/* ================================================= */}
-
-        <View className="mx-5 mt-3.5 rounded-2xl border border-[#E6E9ED] bg-white p-4">
-          <View className="flex-row items-center">
-            <View className="h-10 w-10 items-center justify-center rounded-xl bg-[#EAF1F7]">
-              <Brain size={20} color="#1A3A5C" />
-            </View>
-
-            <View className="ml-3 flex-1">
-              <Text className="text-[14px] font-bold text-[#16202A]">
-                Have questions about your result?
-              </Text>
-
-              <Text className="mt-1 text-[11px] leading-[17px] text-[#6B7684]">
-                Ask AARO AI to explain your strengths, careers or improvement
-                areas.
-              </Text>
-            </View>
-          </View>
-
-          <View className="mt-3">
-            {[
-              "Explain my result in simple words.",
-              "What are my top career matches?",
-              "What should I improve first?",
-              "Which subjects should I focus on now?",
-            ].map((question) => (
-              <Pressable
-                key={question}
-                onPress={() => router.push("/student/ai")}
-                className="mb-2 rounded-xl border border-[#E2E5E9] bg-[#F9FAFB] px-3 py-2.5"
-              >
-                <Text className="text-[11px] font-medium text-[#4F5B68]">
-                  {question}
-                </Text>
-              </Pressable>
-            ))}
-          </View>
-
-          <Pressable
-            onPress={() => router.push("/student/ai")}
-            className="mt-1 flex-row items-center justify-center rounded-xl border border-[#1A3A5C] py-2.5"
-          >
-            <Zap size={15} color="#1A3A5C" fill="#1A3A5C" />
-
-            <Text className="ml-1.5 text-[12px] font-semibold text-[#1A3A5C]">
-              Ask AARO AI
-            </Text>
-          </Pressable>
-        </View>
-
-        {/* ================================================= */}
+      
         {/* FOOTER */}
-        {/* ================================================= */}
+     
 
         <View className="items-center px-8 pb-2 pt-7">
           <Medal size={22} color="#9AA4AF" strokeWidth={1.8} />

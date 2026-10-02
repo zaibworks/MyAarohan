@@ -77,109 +77,193 @@ const DreamCareerCards = () => {
         </Text>
       </View>
 
-      <View className="mx-5 mt-4">
-        {dreamCareers.map((career) => {
-          const Icon = career.icon;
+    <View className="mx-5 mt-4">
+  {dreamCareers.map((career, index) => {
+    const Icon = career.icon;
 
-          return (
-            <View
-              key={career.title}
-              className="mb-3 overflow-hidden rounded-2xl border border-[#E6E9ED] bg-white"
-            >
-              <View className="p-4">
-                <View className="flex-row items-center">
-                  <View className="h-11 w-11 items-center justify-center rounded-xl bg-[#EAF1F7]">
-                    <Icon size={21} color="#1A3A5C" />
-                  </View>
+    return (
+      <View
+        key={career.title}
+        className="mb-4 overflow-hidden rounded-[20px] border border-[#F04444] bg-white"
+      >
+        <View className="px-3 py-3">
+          {/* HEADER */}
 
-                  <View className="ml-3 flex-1">
-                    <Text className="text-[15px] font-bold text-[#16202A]">
-                      {career.title}
-                    </Text>
+          <View className="flex-row items-start justify-between">
+            <View className="flex-1 pr-3">
+              {/* RANK + CHOICE */}
 
-                    <Text className="mt-1 text-[10px] text-[#9AA4AF]">
-                      Assessment needed
-                    </Text>
-                  </View>
-
-                  <View className="rounded-full bg-[#FFF6DF] px-2.5 py-1">
-                    <Text className="text-[9px] font-bold text-[#9A6B00]">
-                      Explore
-                    </Text>
-                  </View>
-                </View>
-
-                <View className="mt-4 rounded-xl bg-[#F4F6F8] p-3">
-                  <Text className="text-[11px] font-bold text-[#16202A]">
-                    What this means
-                  </Text>
-
-                  <Text className="mt-1.5 text-[11px] leading-[18px] text-[#6B7684]">
-                    {career.nextStep}
+              <View className="mb-1.5 flex-row items-center">
+                <View className="mr-1.5 rounded-full bg-[#FDECEC] px-1.5 py-0.5">
+                  <Text className="text-[8px] font-bold text-[#D93636]">
+                    #{index + 1}
                   </Text>
                 </View>
 
-                <Text className="mt-4 text-[12px] font-bold text-[#16202A]">
-                  Career overview
+                <Text className="text-[9px] text-[#7B838C]">
+                  {index === 0
+                    ? "First choice"
+                    : index === 1
+                    ? "Second choice"
+                    : "Third choice"}
+                </Text>
+              </View>
+
+              {/* TITLE */}
+
+              <Text className="text-[16px] font-medium text-[#263746]">
+                {career.title}
+              </Text>
+
+              {/* ASSESSMENT STATUS */}
+
+              <View className="mt-1.5 flex-row items-center">
+                <Text className="mr-1 text-[11px] font-bold text-[#E33B3B]">
+                  ⓘ
                 </Text>
 
-                <Text className="mt-1.5 text-[11px] leading-[18px] text-[#6B7684]">
-                  {career.description}
+                <Text className="text-[9px] font-medium text-[#E33B3B]">
+                  Assessment needed
                 </Text>
-
-                <View className="mt-4">
-                  <View className="mb-3">
-                    <Text className="text-[10px] font-bold text-[#16202A]">
-                      Education or training route
-                    </Text>
-
-                    <Text className="mt-1 text-[10px] leading-[16px] text-[#6B7684]">
-                      {career.education}
-                    </Text>
-                  </View>
-
-                  <View className="mb-3">
-                    <Text className="text-[10px] font-bold text-[#16202A]">
-                      Field outlook
-                    </Text>
-
-                    <Text className="mt-1 text-[10px] leading-[16px] text-[#6B7684]">
-                      {career.outlook}
-                    </Text>
-                  </View>
-
-                  <View>
-                    <Text className="text-[10px] font-bold text-[#16202A]">
-                      Your next focus
-                    </Text>
-
-                    <Text className="mt-1 text-[10px] leading-[16px] text-[#6B7684]">
-                      {career.focus}
-                    </Text>
-                  </View>
-                </View>
-
-                <Pressable
-                  onPress={() =>
-                    router.push(
-                      `/student/career-encyclopedia/${encodeURIComponent(
-                        career.title,
-                      )}`,
-                    )
-                  }
-                  className="mt-4 flex-row items-center justify-between rounded-xl border border-[#E2E5E9] px-3 py-2.5"
-                >
-                  <Text className="text-[11px] font-semibold text-[#1A3A5C]">
-                    Open in Career Encyclopedia
-                  </Text>
-
-                  <ChevronRight size={15} color="#1A3A5C" />
-                </Pressable>
               </View>
             </View>
-          );
-        })}
+
+            {/* PROFILE FIT */}
+
+            <View className="items-center">
+              <View className="h-8 w-8 items-center justify-center rounded-full border border-[#E6E9ED] bg-white">
+                <Icon
+                  size={14}
+                  color="#6B7684"
+                  strokeWidth={1.7}
+                />
+              </View>
+
+              <Text className="mt-1 text-[7px] text-[#6B7684]">
+                Profile fit
+              </Text>
+            </View>
+          </View>
+
+          {/* CAREER DESCRIPTION */}
+
+          <Text className="mt-3 text-[9.5px] leading-[14px] text-[#68737E]">
+            {career.description}
+          </Text>
+
+          {/* WHAT THIS MEANS */}
+
+          <View className="mt-3 flex-row">
+            {/* RED ACCENT LINE */}
+
+            <View className="mr-2.5 w-[3px] rounded-full bg-[#E33B3B]" />
+
+            <View className="flex-1">
+              <Text className="text-[10px] font-semibold text-[#263746]">
+                What this means
+              </Text>
+
+              <Text className="mt-1 text-[9.5px] leading-[14px] text-[#68737E]">
+                {career.nextStep}
+              </Text>
+            </View>
+          </View>
+
+          {/* EDUCATION / TRAINING */}
+
+          <View className="mt-3">
+            <View className="flex-row items-start">
+              <Text className="mr-1.5 text-[12px] text-[#E33B3B]">
+                △
+              </Text>
+
+              <View className="flex-1">
+                <Text className="text-[10px] font-semibold text-[#263746]">
+                  Education or training route
+                </Text>
+
+                <Text className="mt-1 text-[9.5px] leading-[13px] text-[#68737E]">
+                  {career.education}
+                </Text>
+              </View>
+            </View>
+          </View>
+
+          {/* FIELD OUTLOOK */}
+
+          <View className="mt-3">
+            <View className="flex-row items-start">
+              <Text className="mr-1.5 text-[12px] font-bold text-[#E33B3B]">
+                →
+              </Text>
+
+              <View className="flex-1">
+                <Text className="text-[10px] font-semibold text-[#263746]">
+                  Field outlook
+                </Text>
+
+                <Text className="mt-1 text-[9.5px] leading-[13px] text-[#68737E]">
+                  {career.outlook}
+                </Text>
+              </View>
+            </View>
+          </View>
+
+          {/* NEXT FOCUS */}
+
+          <View className="mt-3">
+            <View className="flex-row items-start">
+              <Text className="mr-1.5 text-[12px] font-bold text-[#E33B3B]">
+                ⦿
+              </Text>
+
+              <View className="flex-1">
+                <Text className="text-[10px] font-semibold text-[#263746]">
+                  Your next focus
+                </Text>
+
+                <Text className="mt-1 text-[9.5px] leading-[13px] text-[#68737E]">
+                  {career.focus}
+                </Text>
+              </View>
+            </View>
+          </View>
+
+          {/* CAREER ENCYCLOPEDIA CTA */}
+
+          <Pressable
+            onPress={() =>
+              router.push(
+                `/student/career-encyclopedia/${encodeURIComponent(
+                  career.title,
+                )}`,
+              )
+            }
+            className="mt-3 flex-row items-center justify-between rounded-[13px] border border-[#F5CACA] bg-[#FDECEC] px-2.5 py-2.5"
+          >
+            <View className="flex-row items-center">
+              <View className="mr-2 h-3.5 w-3.5 rounded-[3px] border border-[#E33B3B]" />
+
+              <View>
+                <Text className="text-[9.5px] font-medium text-[#D93636]">
+                  Open in Career Encyclopedia
+                </Text>
+
+                <Text className="mt-0.5 text-[9px] text-[#263746]">
+                  {career.title}
+                </Text>
+              </View>
+            </View>
+
+            <Text className="text-[15px] font-bold text-[#E33B3B]">
+              →
+            </Text>
+          </Pressable>
+        </View>
       </View>
+    );
+  })}
+</View>
     </>
   );
 };

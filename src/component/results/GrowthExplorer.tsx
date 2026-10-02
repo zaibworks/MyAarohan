@@ -1,5 +1,7 @@
 import { View, Text,ScrollView,Pressable } from 'react-native'
 import React from 'react'
+import { useState } from 'react';
+import { TrendingUp } from 'lucide-react-native';
 
 type Dimension = {
   name: string;
@@ -46,6 +48,22 @@ const dimensions: Dimension[] = [
 ];
 
 const GrowthExplorer = () => {
+
+
+    const [selectedGrowthDimension, setSelectedGrowthDimension] = useState<
+    number | null
+  >(null);
+  const [improvementAmount, setImprovementAmount] = useState(0);
+
+  const selectedGrowthData =
+    selectedGrowthDimension !== null
+      ? dimensions[selectedGrowthDimension]
+      : null;
+
+  const projectedScore = selectedGrowthData
+    ? Math.min(selectedGrowthData.score + improvementAmount, 100)
+    : 0;
+
   return (
    <>
    

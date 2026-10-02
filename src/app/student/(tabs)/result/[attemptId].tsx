@@ -26,6 +26,7 @@ import FloatingButton from "@/component/FloatingButton";
 import SummaryCards from "@/component/results/SummaryCards";
 import ProfileCluster from "@/component/results/ProfileCluster";
 import DreamCareerCards from "@/component/results/DreamCareerCards";
+import GrowthExplorer from "@/component/results/GrowthExplorer";
 
 type Dimension = {
   name: string;
@@ -90,6 +91,29 @@ const dimensions: Dimension[] = [
     short: "LAN",
   },
 ];
+
+const weaknesses=[
+            {
+              title: "Verbal Reasoning",
+              text: "Practice reading comprehension and focus on identifying the main point, supporting arguments and important details.",
+            },
+            {
+              title: "Perceptual Aptitude",
+              text: "Spend a few minutes regularly on visual puzzles and pattern-recognition exercises to improve speed and accuracy.",
+            },
+            {
+              title: "Spatial Aptitude",
+              text: "Practice mentally rotating shapes and working with 2D and 3D diagrams to strengthen spatial understanding.",
+            },
+            {
+              title: "Abstract Reasoning",
+              text: "Work through non-verbal reasoning questions and focus on identifying rules, relationships and patterns.",
+            },
+            {
+              title: "Language Aptitude",
+              text: "Build vocabulary consistently and use new words in writing or conversation to improve comprehension and expression.",
+            },
+          ]
 
 const skills: Skill[] = [
   {
@@ -231,19 +255,7 @@ export default function DetailedResult() {
 
   const router = useRouter();
 
-  const [selectedGrowthDimension, setSelectedGrowthDimension] = useState<
-    number | null
-  >(null);
-  const [improvementAmount, setImprovementAmount] = useState(0);
-
-  const selectedGrowthData =
-    selectedGrowthDimension !== null
-      ? dimensions[selectedGrowthDimension]
-      : null;
-
-  const projectedScore = selectedGrowthData
-    ? Math.min(selectedGrowthData.score + improvementAmount, 100)
-    : 0;
+  
 
   return (
     <View className="flex-1 bg-[#F4F6F8]">
@@ -524,28 +536,7 @@ export default function DetailedResult() {
         </View>
 
         <View className="mx-5 mt-4 rounded-2xl border border-[#E6E9ED] bg-white p-4">
-          {[
-            {
-              title: "Verbal Reasoning",
-              text: "Practice reading comprehension and focus on identifying the main point, supporting arguments and important details.",
-            },
-            {
-              title: "Perceptual Aptitude",
-              text: "Spend a few minutes regularly on visual puzzles and pattern-recognition exercises to improve speed and accuracy.",
-            },
-            {
-              title: "Spatial Aptitude",
-              text: "Practice mentally rotating shapes and working with 2D and 3D diagrams to strengthen spatial understanding.",
-            },
-            {
-              title: "Abstract Reasoning",
-              text: "Work through non-verbal reasoning questions and focus on identifying rules, relationships and patterns.",
-            },
-            {
-              title: "Language Aptitude",
-              text: "Build vocabulary consistently and use new words in writing or conversation to improve comprehension and expression.",
-            },
-          ].map((item) => (
+          {weaknesses.map((item) => (
             <View
               key={item.title}
               className="mb-4 border-b border-[#EEF1F4] pb-4 last:mb-0 last:border-b-0 last:pb-0"
@@ -639,7 +630,7 @@ export default function DetailedResult() {
         </View>
 
         {/* GROWTH EXPLORER */}
-     
+                <GrowthExplorer/>
 
 
         {/* RECOMMENDATION */}

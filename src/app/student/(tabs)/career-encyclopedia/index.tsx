@@ -256,41 +256,48 @@ export default function CareerEncyclopedia() {
             </Text>
           </View>
 
-          {careerFields.map((field) => (
-            <Pressable
-              key={field.title}
-              onPress={() => {
-                router.push("/student/(tabs)/career-encyclopedia/career-cards");
-                setActiveCategory(field.category);
-                setSearch("");
-              }}
-              className="mb-3.5 overflow-hidden rounded-[20px] active:opacity-90"
-            >
-              <ImageBackground
-                source={{ uri: field.image }}
-                resizeMode="cover"
-                className="h-[190px] w-full"
+          <View className="flex-row flex-wrap justify-between">
+            {careerFields.map((field) => (
+              <Pressable
+                key={field.title}
+                onPress={() => {
+                  router.push(
+                    "/student/(tabs)/career-encyclopedia/career-cards",
+                  );
+                  setActiveCategory(field.category);
+                  setSearch("");
+                }}
+                className="mb-3.5 w-[48.5%] overflow-hidden rounded-[20px] active:opacity-90"
               >
-                {/* Dark overlay */}
-                <View className="absolute inset-0 bg-black/40" />
+                <ImageBackground
+                  source={{ uri: field.image }}
+                  resizeMode="cover"
+                  className="h-[190px] w-full"
+                >
+                  {/* Dark overlay */}
+                  <View className="absolute inset-0 bg-black/40" />
 
-                {/* Content */}
-                <View className="absolute inset-x-0 bottom-0 p-4">
-                  <Text className="text-[20px] font-extrabold leading-[25px] text-white">
-                    {field.title}
-                  </Text>
+                  {/* Content */}
+                  <View className="absolute inset-x-0 bottom-0 p-3">
+                    <Text className="text-[16px] font-extrabold leading-[20px] text-white">
+                      {field.title}
+                    </Text>
 
-                  <Text className="mt-1 text-[13px] leading-[18px] text-white/85">
-                    {field.description}
-                  </Text>
+                    <Text
+                      numberOfLines={3}
+                      className="mt-1 text-[11px] leading-[15px] text-white/85"
+                    >
+                      {field.description}
+                    </Text>
 
-                  <Text className="mt-4 text-[12px] font-extrabold tracking-[0.8px] text-white">
-                    EXPLORE
-                  </Text>
-                </View>
-              </ImageBackground>
-            </Pressable>
-          ))}
+                    <Text className="mt-3 text-[10px] font-extrabold tracking-[0.8px] text-white">
+                      EXPLORE
+                    </Text>
+                  </View>
+                </ImageBackground>
+              </Pressable>
+            ))}
+          </View>
         </View>
       </ScrollView>
     </View>

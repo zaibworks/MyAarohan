@@ -98,21 +98,29 @@ export default function DimensionRadar({
 
         {/* AXIS LINES */}
 
-        {dimensionsOrder.map((_, index) => {
-          const [x, y] = getPoint(index, RADIUS);
+       {dimensionsOrder.map((name, index) => {
+  const score = scoreMap[name] ?? 0;
 
-          return (
-            <Line
-              key={index}
-              x1={CENTER}
-              y1={CENTER}
-              x2={x}
-              y2={y}
-              stroke="#D6E3EB"
-              strokeWidth={1}
-            />
-          );
-        })}
+  const [x, y] = getPoint(
+    index,
+    (RADIUS * score) / 100
+  );
+
+  return (
+    <SvgText
+      key={`score-${name}`}
+      x={x}
+      y={y - 8}
+      fill="#1F2937"
+      fontSize={11}
+      fontWeight="700"
+      textAnchor="middle"
+      alignmentBaseline="middle"
+    >
+      {score}%
+    </SvgText>
+  );
+})}
 
         {/* SCORE AREA */}
 

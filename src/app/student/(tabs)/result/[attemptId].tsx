@@ -376,16 +376,12 @@ export default function DetailedResult() {
             </View>
           </View>
         </View>
-
-        {/* ================================================= */}
         {/* Summary Cards */}
-        {/* ================================================= */}
+       
               <SummaryCards/>
-      
 
-        {/* ================================================= */}
+      
         {/* APTITUDE PROFILE */}
-        {/* ================================================= */}
 
         <View className="mt-7 px-5">
           <Text className="text-[19px] font-bold text-[#16202A]">
@@ -399,36 +395,10 @@ export default function DetailedResult() {
 
         <View className="mx-5 mt-4 rounded-2xl border border-[#E6E9ED] bg-white p-4">
           <AptitudeRadar dimensions={dimensions}/>
-
-          <View className="mt-2">
-            {dimensions.map((dimension) => (
-              <View key={dimension.name} className="mb-3">
-                <View className="flex-row items-center justify-between">
-                  <Text className="text-[12px] font-medium text-[#16202A]">
-                    {dimension.name}
-                  </Text>
-
-                  <Text className="text-[12px] font-bold text-[#1A3A5C]">
-                    {dimension.score}%
-                  </Text>
-                </View>
-
-                <View className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-[#E6E9ED]">
-                  <View
-                    className="h-full rounded-full bg-[#1A3A5C]"
-                    style={{
-                      width: `${dimension.score}%`,
-                    }}
-                  />
-                </View>
-              </View>
-            ))}
-          </View>
         </View>
 
-        {/* ================================================= */}
         {/* STRENGTHS + IMPROVEMENTS */}
-        {/* ================================================= */}
+        
 
         <View className="mt-7 px-5">
           <Text className="text-[19px] font-bold text-[#16202A]">
@@ -502,9 +472,7 @@ export default function DetailedResult() {
           </View>
         </View>
 
-        {/* ================================================= */}
         {/* PERSONALITY TRAIT */}
-        {/* ================================================= */}
 
         <View className="mt-7 px-5">
           <Text className="text-[19px] font-bold text-[#16202A]">

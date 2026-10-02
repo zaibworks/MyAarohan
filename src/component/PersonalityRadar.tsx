@@ -2,6 +2,7 @@ import Svg, {
   Circle,
   Line,
   Polygon,
+  Text as SvgText,
 } from "react-native-svg";
 import { Text, View } from "react-native";
 
@@ -24,13 +25,19 @@ const traitsOrder = [
   "Neuroticism",
 ];
 
-export default function PersonalityRadar({ traits }: Props) {
-  const size = 280;
-  const center = 140;
-  const radius = 108;
+export default function PersonalityRadar({
+  traits,
+}: Props) {
+  const size = 290;
+  const center = 145;
+  const radius = 105;
 
-  const getPoint = (index: number, value: number) => {
-    const angle = (-90 + index * 72) * (Math.PI / 180);
+  const getPoint = (
+    index: number,
+    value: number
+  ) => {
+    const angle =
+      (-90 + index * 72) * (Math.PI / 180);
 
     const r = radius * (value / 100);
 
@@ -40,10 +47,15 @@ export default function PersonalityRadar({ traits }: Props) {
     };
   };
 
-  const getGridPoints = (percentage: number) => {
+  const getGridPoints = (
+    percentage: number
+  ) => {
     return traitsOrder
       .map((_, index) => {
-        const point = getPoint(index, percentage);
+        const point = getPoint(
+          index,
+          percentage
+        );
 
         return `${point.x},${point.y}`;
       })
@@ -52,68 +64,51 @@ export default function PersonalityRadar({ traits }: Props) {
 
   const traitPoints = traitsOrder
     .map((name, index) => {
-      const trait = traits.find((item) => item.name === name);
+      const trait = traits.find(
+        (item) => item.name === name
+      );
 
-      const score = trait?.score ?? 0;
-
-      const point = getPoint(index, score);
+      const point = getPoint(
+        index,
+        trait?.score ?? 0
+      );
 
       return `${point.x},${point.y}`;
     })
     .join(" ");
 
   return (
-    <View className="items-center py-3">
-      <View className="relative h-[280px] w-[280px]">
-
-        {/* RADAR CHART */}
+    <View className="items-center">
+      <View className="relative h-[290px] w-[290px]">
 
         <Svg
           width={size}
           height={size}
           viewBox={`0 0 ${size} ${size}`}
         >
-          {/* Outer pentagon */}
+          {/* OUTER GRID */}
+
           <Polygon
             points={getGridPoints(100)}
             fill="none"
-            stroke="#CBDCE7"
+            stroke="#D9E2EA"
             strokeWidth="2"
           />
 
-          {/* 80% ring */}
-          <Polygon
-            points={getGridPoints(80)}
-            fill="none"
-            stroke="#D8E4EB"
-            strokeWidth="1.5"
-          />
+          {/* GRID RINGS */}
 
-          {/* 60% ring */}
-          <Polygon
-            points={getGridPoints(60)}
-            fill="none"
-            stroke="#D8E4EB"
-            strokeWidth="1.5"
-          />
+          {[80, 60, 40, 20].map((level) => (
+            <Polygon
+              key={level}
+              points={getGridPoints(level)}
+              fill="none"
+              stroke="#D9E2EA"
+              strokeWidth="1.4"
+            />
+          ))}
 
-          {/* 40% ring */}
-          <Polygon
-            points={getGridPoints(40)}
-            fill="none"
-            stroke="#D8E4EB"
-            strokeWidth="1.5"
-          />
+          {/* AXIS */}
 
-          {/* 20% ring */}
-          <Polygon
-            points={getGridPoints(20)}
-            fill="none"
-            stroke="#D8E4EB"
-            strokeWidth="1.5"
-          />
-
-          {/* Axis lines */}
           {traitsOrder.map((_, index) => {
             const point = getPoint(index, 100);
 
@@ -124,25 +119,29 @@ export default function PersonalityRadar({ traits }: Props) {
                 y1={center}
                 x2={point.x}
                 y2={point.y}
-                stroke="#CBDCE7"
-                strokeWidth="1.5"
+                stroke="#D9E2EA"
+                strokeWidth="1.3"
               />
             );
           })}
 
-          {/* User score polygon */}
+          {/* SCORE AREA */}
+
           <Polygon
             points={traitPoints}
-            fill="#7C5CDB"
-            fillOpacity="0.10"
-            stroke="#7C5CDB"
+            fill="#8B63D9"
+            fillOpacity="0.16"
+            stroke="#8B63D9"
             strokeWidth="3"
             strokeLinejoin="round"
           />
 
-          {/* Score points */}
+          {/* SCORE POINTS */}
+
           {traitsOrder.map((name, index) => {
-            const trait = traits.find((item) => item.name === name);
+            const trait = traits.find(
+              (item) => item.name === name
+            );
 
             const point = getPoint(
               index,
@@ -154,37 +153,72 @@ export default function PersonalityRadar({ traits }: Props) {
                 key={name}
                 cx={point.x}
                 cy={point.y}
-                r="5"
-                fill="#7C5CDB"
-                stroke="white"
+                r="4"
+                fill="#8B63D9"
+                stroke="#FFFFFF"
                 strokeWidth="2"
               />
             );
           })}
+
+          {/* SCORE % */}
+
+          {traitsOrder.map((name, index) => {
+            const trait = traits.find(
+              (item) => item.name === name
+            );
+
+            const score = trait?.score ?? 0;
+
+            const point = getPoint(
+              index,
+              Math.max(score - 9, 0)
+            );
+
+            return (
+              <SvgText
+                key={`score-${name}`}
+                x={point.x}
+                y={point.y}
+                fill="#1F2937"
+                fontSize="10"
+                fontWeight="700"
+                textAnchor="middle"
+                alignmentBaseline="middle"
+              >
+                {score}%
+              </SvgText>
+            );
+          })}
         </Svg>
 
-        {/* TOP */}
-        <Text className="absolute left-[97px] top-[-2px] text-[12px] font-extrabold text-[#34445A]">
+        {/* OPENNESS */}
+
+        <Text className="absolute left-[108px] top-[16px] text-[12px] text-[#34445A]">
           Openness
         </Text>
 
-        {/* TOP RIGHT */}
-        <Text className="absolute right-[-8px] top-[65px] text-[12px] font-extrabold text-[#34445A]">
+        {/* CONSCIENTIOUSNESS */}
+
+        <Text className="absolute right-[-42px] top-[92px] text-[12px] text-[#34445A]">
           Conscientiousness
         </Text>
 
-        {/* BOTTOM RIGHT */}
-        <Text className="absolute bottom-[25px] right-[0px] text-[12px] font-extrabold text-[#34445A]">
+        {/* EXTRAVERSION */}
+
+        <Text className="absolute bottom-[37px] right-[2px] text-[12px] text-[#34445A]">
           Extraversion
         </Text>
 
-        {/* BOTTOM LEFT */}
-        <Text className="absolute bottom-[25px] left-[5px] text-[12px] font-extrabold text-[#34445A]">
+        {/* AGREEABLENESS */}
+
+        <Text className="absolute bottom-[37px] left-[8px] text-[12px] text-[#34445A]">
           Agreeableness
         </Text>
 
-        {/* TOP LEFT */}
-        <Text className="absolute left-[-3px] top-[65px] text-[12px] font-extrabold text-[#34445A]">
+        {/* NEUROTICISM */}
+
+        <Text className="absolute left-[-10px] top-[92px] text-[12px] text-[#34445A]">
           Neuroticism
         </Text>
       </View>

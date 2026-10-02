@@ -8,6 +8,7 @@
     "@react-navigation/bottom-tabs": "^7.18.18",
     "babel-preset-expo": "^57.0.10",
     "expo": "~57.0.24",
+    "expo-blur": "~57.0.3",
     "expo-constants": "~57.0.17",
     "expo-device": "~57.0.2",
     "expo-document-picker": "~57.0.2",

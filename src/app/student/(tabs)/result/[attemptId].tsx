@@ -22,6 +22,8 @@ import { useMemo, useState } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
 import AptitudeRadar from "@/component/AptitudeRadar";
 import PersonalityRadar from "@/component/PersonalityRadar";
+import FloatingButton from "@/component/FloatingButton";
+import SummaryCards from "@/component/results/SummaryCards";
 
 type Dimension = {
   name: string;
@@ -322,6 +324,7 @@ export default function DetailedResult() {
   return (
     <View className="flex-1 bg-[#F4F6F8]">
       <Navbar />
+           <FloatingButton/>
 
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -375,68 +378,10 @@ export default function DetailedResult() {
         </View>
 
         {/* ================================================= */}
-        {/* OVERALL SCORE */}
+        {/* Summary Cards */}
         {/* ================================================= */}
-
-        <View className="mx-5 mt-5 overflow-hidden rounded-2xl border border-[#D6DBE1] bg-white">
-          <View className="px-5 py-5">
-            <View className="flex-row items-center justify-between">
-              <View>
-                <Text className="text-[12px] font-semibold uppercase tracking-wide text-[#9AA4AF]">
-                  Overall Performance
-                </Text>
-
-                <Text className="mt-1 text-[15px] font-bold text-[#16202A]">
-                  Strong performance
-                </Text>
-              </View>
-
-              <View className="h-10 w-10 items-center justify-center rounded-xl bg-[#E6F7EE]">
-                <Trophy size={20} color="#1B8354" strokeWidth={2} />
-              </View>
-            </View>
-
-            <View className="mt-5 flex-row items-end">
-              <Text className="text-[48px] font-bold leading-[50px] text-[#1A3A5C]">
-                78
-              </Text>
-
-              <Text className="mb-1.5 ml-1 text-[18px] font-semibold text-[#6B7684]">
-                %
-              </Text>
-
-              <View className="mb-1.5 ml-3 rounded-full bg-[#E6F7EE] px-2.5 py-1">
-                <Text className="text-[11px] font-semibold text-[#1B8354]">
-                  Above Average
-                </Text>
-              </View>
-            </View>
-
-            <View className="mt-4 h-2 overflow-hidden rounded-full bg-[#E6E9ED]">
-              <View
-                className="h-full rounded-full bg-[#1A3A5C]"
-                style={{ width: "78%" }}
-              />
-            </View>
-
-            <View className="mt-3 flex-row justify-between">
-              <Text className="text-[11px] text-[#9AA4AF]">
-                Assessment Score
-              </Text>
-
-              <Text className="text-[11px] font-semibold text-[#1A3A5C]">
-                78 / 100
-              </Text>
-            </View>
-          </View>
-
-          <View className="border-t border-[#E6E9ED] bg-[#F9FAFB] px-5 py-3.5">
-            <Text className="text-[12px] leading-[18px] text-[#6B7684]">
-              Your results indicate strong reasoning ability and good potential
-              across several career-oriented skill areas.
-            </Text>
-          </View>
-        </View>
+              <SummaryCards/>
+      
 
         {/* ================================================= */}
         {/* APTITUDE PROFILE */}

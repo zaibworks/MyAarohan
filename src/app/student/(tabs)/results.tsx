@@ -3,6 +3,7 @@ import { router, useNavigation } from "expo-router";
 import {
   ArrowRight,
   BarChart3,
+  Bot,
   Brain,
   CalendarDays,
   CheckCircle2,
@@ -18,6 +19,7 @@ import {
 } from "lucide-react-native";
 import { useState } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
+import FloatingButton from "@/component/FloatingButton";
 
 type FilterType = "all" | "aptitude" | "personality";
 
@@ -118,7 +120,7 @@ export default function Results() {
 
   const navigate = useNavigation() as any;
   return (
-    <View className="flex-1 bg-[#F4F6F8]">
+    <View className="flex-1 bg-[#F4F6F8] relative">
       {/* Existing app top bar goes here */}
 
       <Navbar />
@@ -127,6 +129,7 @@ export default function Results() {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 32 }}
       >
+   
         {/* Header */}
         <View className="px-5 pt-5">
           <View className="flex-row items-center justify-between">

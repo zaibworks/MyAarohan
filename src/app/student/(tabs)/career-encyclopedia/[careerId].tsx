@@ -1,6 +1,7 @@
 import { useMemo, useRef, useState } from "react";
-import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
+import { Pressable, ScrollView, Text, View } from "react-native";
 
+import FloatingButton from "@/component/FloatingButton";
 import { router, useLocalSearchParams } from "expo-router";
 import {
   ArrowLeft,
@@ -8,8 +9,6 @@ import {
   Check,
   CircleDollarSign,
   Landmark,
-  Send,
-  Sparkles,
 } from "lucide-react-native";
 
 import InstituteCard from "@/component/careerEncylo/InstituteCard";
@@ -239,9 +238,6 @@ export default function CareerDetail() {
     "all" | "government" | "private"
   >("all");
 
-  const [aiInput, setAiInput] = useState("");
-  const [aiReply, setAiReply] = useState("");
-
   const career = useMemo(
     () => careerDetails[careerId ?? ""] ?? careerDetails.bacteriologist,
     [careerId],
@@ -257,18 +253,6 @@ export default function CareerDetail() {
       y: offset,
       animated: true,
     });
-  };
-
-  const askAI = () => {
-    const question = aiInput.trim();
-
-    if (!question) return;
-
-    setAiReply(
-      `M.A.R.C.O.S: For ${career.name}, start by understanding the career pathway, build practical skills and gain relevant experience. In the real app, this response would be personalized using your assessment and profile.`,
-    );
-
-    setAiInput("");
   };
 
   return (
@@ -293,6 +277,8 @@ export default function CareerDetail() {
           </Text>
         </View>
       </View>
+
+      <FloatingButton />
 
       <ScrollView
         ref={scrollRef}
@@ -369,20 +355,6 @@ export default function CareerDetail() {
         </View>
 
         <View className="px-4">
-          {/* OVERVIEW */}
-
-          <View className="mt-5">
-            <Text className="mb-2.5 text-[17px] font-extrabold tracking-[-0.25px] text-[#2A211C]">
-              Career overview
-            </Text>
-
-            <SectionCard>
-              <Text className="text-[12px] leading-[20px] text-[#75675E]">
-                {career.overview}
-              </Text>
-            </SectionCard>
-          </View>
-
           {/* WORK ENVIRONMENT */}
 
           <View className="mt-6">
@@ -395,18 +367,20 @@ export default function CareerDetail() {
                 Places of work
               </Text>
 
-              <View className="flex-row flex-wrap">
-                {career.places.map((place: string) => (
-                  <View
-                    key={place}
-                    className="mb-1.5 mr-1.5 rounded-[9px] border border-[#F0D8C7] bg-[#FFFAF6] px-2.5 py-2"
-                  >
-                    <Text className="text-[10px] font-bold text-[#54473F]">
-                      {place}
-                    </Text>
-                  </View>
-                ))}
-              </View>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                <View className="flex-row">
+                  {career.places.map((place: string) => (
+                    <View
+                      key={place}
+                      className="mb-1.5 mr-1.5 rounded-[9px] border border-[#F0D8C7] bg-[#FFFAF6] px-2.5 py-2"
+                    >
+                      <Text className="text-[10px] font-bold text-[#54473F]">
+                        {place}
+                      </Text>
+                    </View>
+                  ))}
+                </View>
+              </ScrollView>
 
               <View className="mt-2.5">
                 <Text className="mb-2 text-[10px] font-extrabold uppercase tracking-[0.8px] text-[#C65D1E]">
@@ -499,35 +473,38 @@ export default function CareerDetail() {
                 Technical skills
               </Text>
 
-              <View className="flex-row flex-wrap">
-                {career.technicalSkills.map((skill: string) => (
-                  <View
-                    key={skill}
-                    className="mb-1.5 mr-1.5 rounded-[9px] border border-[#F0D8C7] bg-[#FFFAF6] px-2.5 py-2"
-                  >
-                    <Text className="text-[10px] font-bold text-[#54473F]">
-                      {skill}
-                    </Text>
-                  </View>
-                ))}
-              </View>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                <View className="flex-row">
+                  {career.technicalSkills.map((skill: string) => (
+                    <View
+                      key={skill}
+                      className="mb-1.5 mr-1.5 rounded-[9px] border border-[#F0D8C7] bg-[#FFFAF6] px-2.5 py-2"
+                    >
+                      <Text className="text-[10px] font-bold text-[#54473F]">
+                        {skill}
+                      </Text>
+                    </View>
+                  ))}
+                </View>
+              </ScrollView>
 
               <Text className="mb-2 mt-3 text-[10px] font-extrabold uppercase tracking-[0.8px] text-[#C65D1E]">
                 Soft skills
               </Text>
-
-              <View className="flex-row flex-wrap">
-                {career.softSkills.map((skill: string) => (
-                  <View
-                    key={skill}
-                    className="mb-1.5 mr-1.5 rounded-[9px] border border-[#F0D8C7] bg-[#FFFAF6] px-2.5 py-2"
-                  >
-                    <Text className="text-[10px] font-bold text-[#54473F]">
-                      {skill}
-                    </Text>
-                  </View>
-                ))}
-              </View>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                <View className="flex-row">
+                  {career.softSkills.map((skill: string) => (
+                    <View
+                      key={skill}
+                      className="mb-1.5 mr-1.5 rounded-[9px] border border-[#F0D8C7] bg-[#FFFAF6] px-2.5 py-2"
+                    >
+                      <Text className="text-[10px] font-bold text-[#54473F]">
+                        {skill}
+                      </Text>
+                    </View>
+                  ))}
+                </View>
+              </ScrollView>
             </SectionCard>
           </View>
 
@@ -542,7 +519,7 @@ export default function CareerDetail() {
               {career.archetypes.map((archetype: any) => (
                 <View
                   key={archetype.name}
-                  className="mr-2.5 w-[245px] rounded-2xl border border-[#F0D8C7] bg-white p-3"
+                  className="mr-2.5 w-[200px] rounded-2xl border border-[#F0D8C7] bg-white p-3"
                 >
                   <Text className="text-[9px] font-black tracking-[1px] text-[#C65D1E]">
                     {archetype.group}
@@ -555,27 +532,6 @@ export default function CareerDetail() {
                   <Text className="mt-1.5 text-[11px] leading-[17px] text-[#75675E]">
                     {archetype.description}
                   </Text>
-
-                  <View className="mt-3">
-                    {archetype.values.map(([label, value]: string[]) => (
-                      <View key={label} className="mb-2 flex-row items-center">
-                        <Text className="w-[72px] text-[9px] text-[#75675E]">
-                          {label}
-                        </Text>
-
-                        <View className="h-[5px] flex-1 overflow-hidden rounded-full bg-[#F6E5D9]">
-                          <View
-                            style={{
-                              width: value as `${number}%`,
-                              height: "100%",
-                              backgroundColor: "#D9783A",
-                            }}
-                            className="rounded-full"
-                          />
-                        </View>
-                      </View>
-                    ))}
-                  </View>
                 </View>
               ))}
             </ScrollView>
@@ -616,16 +572,9 @@ export default function CareerDetail() {
             </Text>
 
             <SectionCard>
-              <Text className="text-[10px] font-extrabold uppercase tracking-[0.8px] text-[#C65D1E]">
+              <Text className="mb-4 text-[10px] font-extrabold uppercase tracking-[0.8px] text-[#C65D1E]">
                 Stream
               </Text>
-
-              <Text className="mb-4 mt-2 text-[12px] leading-[19px] text-[#75675E]">
-                Complete 10+2 in any stream. Humanities, Commerce and Science
-                can all lead into relevant degree, business or art-market
-                pathways.
-              </Text>
-
               {career.academicPath.map((item: string[]) => (
                 <View key={item[0]} className="flex-row pb-4">
                   <View className="mr-2.5 h-[33px] w-[33px] items-center justify-center rounded-full border border-[#E8B99A] bg-[#FFF0E4]">
@@ -685,24 +634,26 @@ export default function CareerDetail() {
             </Text>
 
             <SectionCard>
-              <View className="flex-row flex-wrap">
-                {career.certifications.map((item: string) => (
-                  <View
-                    key={item}
-                    className="mb-1.5 mr-1.5 rounded-[9px] border border-[#F0D8C7] bg-[#FFFAF6] px-2.5 py-2"
-                  >
-                    <Text className="text-[10px] font-bold text-[#54473F]">
-                      {item}
-                    </Text>
-                  </View>
-                ))}
-              </View>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                <View className="flex-row">
+                  {career.certifications.map((item: string) => (
+                    <View
+                      key={item}
+                      className="mb-1.5 mr-1.5 rounded-[9px] border border-[#F0D8C7] bg-[#FFFAF6] px-2.5 py-2"
+                    >
+                      <Text className="text-[10px] font-bold text-[#54473F]">
+                        {item}
+                      </Text>
+                    </View>
+                  ))}
+                </View>
+              </ScrollView>
             </SectionCard>
           </View>
 
           {/* SCHOLARSHIPS */}
 
-          <View className="mt-6">
+          <View className="mt-6 mb-6">
             <View className="rounded-[15px] border border-[#F1D2BD] bg-[#FFF6EF] p-3">
               <View className="flex-row items-center">
                 <View className="h-[34px] w-[34px] items-center justify-center rounded-[10px] bg-[#FFE4D0]">
@@ -759,102 +710,108 @@ export default function CareerDetail() {
             </View>
           </View>
 
-          {/* INSTITUTES */}
+          {/* INSTITUTES And Universities */}
 
-          <View className="mt-6" nativeID="institutes">
-            <Text className="mb-2.5 text-[17px] font-extrabold text-[#2A211C]">
-              Where can you study?
-            </Text>
+          <SectionCard>
+            <View className="mt-2" nativeID="institutes">
+              <Text className="mb-2.5 text-[17px] font-extrabold text-[#2A211C]">
+                Where can you study?
+              </Text>
 
-            <View className="mb-2.5 flex-row">
-              {(["all", "government", "private"] as const).map((type) => {
-                const active = instituteFilter === type;
+              <View className="mb-2.5 flex-row">
+                {(["all", "government", "private"] as const).map((type) => {
+                  const active = instituteFilter === type;
 
-                return (
-                  <Pressable
-                    key={type}
-                    onPress={() => setInstituteFilter(type)}
-                    className={`mr-2 rounded-[9px] border px-2.5 py-2 ${
-                      active
-                        ? "border-[#C65D1E] bg-[#C65D1E]"
-                        : "border-[#F0D8C7] bg-white"
-                    }`}
-                  >
-                    <Text
-                      className={`text-[10px] font-extrabold capitalize ${
-                        active ? "text-white" : "text-[#75675E]"
+                  return (
+                    <Pressable
+                      key={type}
+                      onPress={() => setInstituteFilter(type)}
+                      className={`mr-2 rounded-[9px] border px-2.5 py-2 ${
+                        active
+                          ? "border-[#C65D1E] bg-[#C65D1E]"
+                          : "border-[#F0D8C7] bg-white"
                       }`}
                     >
-                      {type}
-                    </Text>
-                  </Pressable>
-                );
-              })}
+                      <Text
+                        className={`text-[10px] font-extrabold capitalize ${
+                          active ? "text-white" : "text-[#75675E]"
+                        }`}
+                      >
+                        {type}
+                      </Text>
+                    </Pressable>
+                  );
+                })}
+              </View>
+
+              {/* Illustrative map */}
+              <View className="relative h-[205px] overflow-hidden rounded-2xl border border-[#E5CBBB] bg-[#FFF1E5]">
+                <View className="absolute left-[20%] top-[23%]">
+                  <Text className="text-[8px] font-extrabold text-[#9B806D]">
+                    Rajasthan
+                  </Text>
+                </View>
+
+                <View className="absolute left-[55%] top-[19%]">
+                  <Text className="text-[8px] font-extrabold text-[#9B806D]">
+                    Uttar Pradesh
+                  </Text>
+                </View>
+
+                <View className="absolute left-[66%] top-[57%]">
+                  <Text className="text-[8px] font-extrabold text-[#9B806D]">
+                    West Bengal
+                  </Text>
+                </View>
+
+                <View className="absolute left-[34%] top-[77%]">
+                  <Text className="text-[8px] font-extrabold text-[#9B806D]">
+                    Gujarat
+                  </Text>
+                </View>
+
+                <View className="absolute left-[60%] top-[82%]">
+                  <Text className="text-[8px] font-extrabold text-[#9B806D]">
+                    Karnataka
+                  </Text>
+                </View>
+
+                {[
+                  ["48%", "31%"],
+                  ["60%", "55%"],
+                  ["35%", "66%"],
+                  ["72%", "72%"],
+                  ["43%", "46%"],
+                ].map(([left, top], index) => (
+                  <View
+                    key={index}
+                    style={{
+                      left: left as any,
+                      top: top as any,
+                      transform: [{ rotate: "-45deg" }],
+                    }}
+                    className="absolute h-[18px] w-[18px] rounded-full rounded-bl-[2px] bg-[#C65D1E]"
+                  />
+                ))}
+
+                <View className="absolute bottom-2.5 left-2.5 rounded-lg border border-[#E5D5CA] bg-white px-2 py-1.5">
+                  <Text className="text-[8px] text-[#75675E]">
+                    Illustrative locations • Tap institute for details
+                  </Text>
+                </View>
+              </View>
+
+              <ScrollView
+                nestedScrollEnabled
+                showsVerticalScrollIndicator
+                className="mt-2.5 max-h-[300px]"
+              >
+                {filteredInstitutes.map((institute: any) => (
+                  <InstituteCard key={institute.name} {...institute} />
+                ))}
+              </ScrollView>
             </View>
-
-            {/* Illustrative map */}
-            <View className="relative h-[205px] overflow-hidden rounded-2xl border border-[#E5CBBB] bg-[#FFF1E5]">
-              <View className="absolute left-[20%] top-[23%]">
-                <Text className="text-[8px] font-extrabold text-[#9B806D]">
-                  Rajasthan
-                </Text>
-              </View>
-
-              <View className="absolute left-[55%] top-[19%]">
-                <Text className="text-[8px] font-extrabold text-[#9B806D]">
-                  Uttar Pradesh
-                </Text>
-              </View>
-
-              <View className="absolute left-[66%] top-[57%]">
-                <Text className="text-[8px] font-extrabold text-[#9B806D]">
-                  West Bengal
-                </Text>
-              </View>
-
-              <View className="absolute left-[34%] top-[77%]">
-                <Text className="text-[8px] font-extrabold text-[#9B806D]">
-                  Gujarat
-                </Text>
-              </View>
-
-              <View className="absolute left-[60%] top-[82%]">
-                <Text className="text-[8px] font-extrabold text-[#9B806D]">
-                  Karnataka
-                </Text>
-              </View>
-
-              {[
-                ["48%", "31%"],
-                ["60%", "55%"],
-                ["35%", "66%"],
-                ["72%", "72%"],
-                ["43%", "46%"],
-              ].map(([left, top], index) => (
-                <View
-                  key={index}
-                  style={{
-                    left: left as any,
-                    top: top as any,
-                    transform: [{ rotate: "-45deg" }],
-                  }}
-                  className="absolute h-[18px] w-[18px] rounded-full rounded-bl-[2px] bg-[#C65D1E]"
-                />
-              ))}
-
-              <View className="absolute bottom-2.5 left-2.5 rounded-lg border border-[#E5D5CA] bg-white px-2 py-1.5">
-                <Text className="text-[8px] text-[#75675E]">
-                  Illustrative locations • Tap institute for details
-                </Text>
-              </View>
-            </View>
-
-            <View className="mt-2.5">
-              {filteredInstitutes.map((institute: any) => (
-                <InstituteCard key={institute.name} {...institute} />
-              ))}
-            </View>
-          </View>
+          </SectionCard>
 
           {/* INVESTMENT */}
 
@@ -949,80 +906,6 @@ export default function CareerDetail() {
                 </View>
               ))}
             </ScrollView>
-          </View>
-
-          {/* AI */}
-
-          <View className="mb-4 mt-6 rounded-[18px] border border-[#F0D1BC] bg-[#FFF6EE] p-3.5">
-            <View className="flex-row items-center">
-              <View className="h-[39px] w-[39px] items-center justify-center rounded-xl bg-[#FFE7D5]">
-                <Sparkles size={20} color="#C65D1E" />
-              </View>
-
-              <View className="ml-2.5 flex-1">
-                <Text className="text-[14px] font-black text-[#2A211C]">
-                  AI Career Assistant
-                </Text>
-
-                <Text className="mt-0.5 text-[9px] font-extrabold text-[#C65D1E]">
-                  Powered by M.A.R.C.O.S — AARO AI
-                </Text>
-              </View>
-            </View>
-
-            <Text className="mt-2 text-[10.5px] leading-[16px] text-[#75675E]">
-              Ask anything about this career — exams, skills, salary, education,
-              institutes or your next step. The assistant already knows you are
-              exploring <Text className="font-extrabold">{career.name}</Text>.
-            </Text>
-
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              className="my-2.5"
-            >
-              {[
-                "What should I study after 12th?",
-                "What skills should I build first?",
-                "Is this career a good fit for me?",
-              ].map((suggestion) => (
-                <Pressable
-                  key={suggestion}
-                  onPress={() => setAiInput(suggestion)}
-                  className="mr-1.5 rounded-[9px] border border-[#F0D8C7] bg-white px-2 py-1.5"
-                >
-                  <Text className="text-[9px] font-bold text-[#8F4B25]">
-                    {suggestion}
-                  </Text>
-                </Pressable>
-              ))}
-            </ScrollView>
-
-            <View className="flex-row items-center rounded-xl border border-[#E8CDBA] bg-white p-1.5">
-              <TextInput
-                value={aiInput}
-                onChangeText={setAiInput}
-                placeholder="Ask anything about this career..."
-                placeholderTextColor="#A79A91"
-                className="flex-1 px-1.5 text-[10px] text-[#2A211C]"
-                onSubmitEditing={askAI}
-              />
-
-              <Pressable
-                onPress={askAI}
-                className="h-[31px] w-[31px] items-center justify-center rounded-[9px] bg-[#C65D1E]"
-              >
-                <Send size={15} color="white" />
-              </Pressable>
-            </View>
-
-            {aiReply ? (
-              <View className="mt-2 rounded-[11px] border border-[#F0D8C7] bg-white p-2.5">
-                <Text className="text-[10px] leading-[15px] text-[#65564D]">
-                  {aiReply}
-                </Text>
-              </View>
-            ) : null}
           </View>
         </View>
       </ScrollView>

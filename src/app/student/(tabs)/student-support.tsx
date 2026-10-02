@@ -4,6 +4,7 @@ import {
   CalendarDays,
   Check,
   CheckCircle2,
+  ChevronDown,
   ChevronLeft,
   Clock3,
   CreditCard,
@@ -21,7 +22,6 @@ import {
   TextInput,
   View,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 type Category = {
   id: string;
@@ -144,6 +144,97 @@ function OptionCard({
   );
 }
 
+function Dropdown({
+  placeholder,
+  value,
+  options,
+  onSelect,
+}: {
+  placeholder: string;
+  value: string | null;
+  options: {
+    id: string;
+    title: string;
+    description: string;
+  }[];
+  onSelect: (id: string) => void;
+}) {
+  const [open, setOpen] = useState(false);
+
+  const selectedOption = options.find((option) => option.id === value);
+
+  return (
+    <View className="relative">
+      <Pressable
+        onPress={() => setOpen((prev) => !prev)}
+        className={`min-h-[48px] flex-row items-center justify-between rounded-[11px] border bg-white px-3.5 ${
+          open ? "border-[#1A3A5C]" : "border-[#E2E5E9]"
+        }`}
+      >
+        <View className="flex-1">
+          <Text
+            className={`text-[13px] font-semibold ${
+              selectedOption ? "text-[#16202A]" : "text-[#9AA4AF]"
+            }`}
+          >
+            {selectedOption?.title ?? placeholder}
+          </Text>
+
+          {selectedOption && (
+            <Text
+              numberOfLines={1}
+              className="mt-0.5 text-[10.5px] text-[#6B7684]"
+            >
+              {selectedOption.description}
+            </Text>
+          )}
+        </View>
+
+        <ChevronDown size={17} color="#6B7684" strokeWidth={2} />
+      </Pressable>
+
+      {open && (
+        <View className="mt-1.5 overflow-hidden rounded-[11px] border border-[#E2E5E9] bg-white">
+          {options.map((option, index) => {
+            const selected = option.id === value;
+
+            return (
+              <Pressable
+                key={option.id}
+                onPress={() => {
+                  onSelect(option.id);
+                  setOpen(false);
+                }}
+                className={`flex-row items-center px-3.5 py-3 ${
+                  index !== options.length - 1
+                    ? "border-b border-[#E2E5E9]"
+                    : ""
+                } ${selected ? "bg-[#EAF1F7]" : "bg-white"}`}
+              >
+                <View className="flex-1">
+                  <Text className="text-[13px] font-bold text-[#16202A]">
+                    {option.title}
+                  </Text>
+
+                  <Text className="mt-0.5 text-[10.5px] leading-[15px] text-[#6B7684]">
+                    {option.description}
+                  </Text>
+                </View>
+
+                {selected && (
+                  <View className="ml-2 h-[19px] w-[19px] items-center justify-center rounded-full bg-[#1A3A5C]">
+                    <Check size={11} color="#FFFFFF" strokeWidth={3} />
+                  </View>
+                )}
+              </Pressable>
+            );
+          })}
+        </View>
+      )}
+    </View>
+  );
+}
+
 export default function StudentSupport() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
@@ -179,8 +270,7 @@ export default function StudentSupport() {
   };
 
   return (
-    <View 
-    className="flex-1 bg-[#F4F6F8] ">
+    <View className="flex-1 bg-[#F4F6F8] ">
       {/* Top Bar */}
       <View className="flex-row items-center gap-3 bg-[#F4F6F8] px-4 pb-2 pt-14">
         <Pressable
@@ -188,7 +278,7 @@ export default function StudentSupport() {
           className="h-[34px] w-[34px] items-center justify-center rounded-[10px] border border-[#E2E5E9] bg-white"
         >
           {/* lucide-react-native back icon */}
-        <ChevronLeft size={18} color="#6B7684" />
+          <ChevronLeft size={18} color="#6B7684" />
         </Pressable>
         <Text className="text-[1.6rem] font-bold text-[#16202A]">
           Student Support
@@ -215,18 +305,16 @@ export default function StudentSupport() {
             Category <Text className="text-[#E74C3C]">*</Text>
           </Text>
 
-          <View className="gap-2">
-            {categories.map((category) => (
-              <OptionCard
-                key={category.id}
-                title={category.title}
-                description={category.description}
-                Icon={category.icon}
-                selected={selectedCategory === category.id}
-                onPress={() => setSelectedCategory(category.id)}
-              />
-            ))}
-          </View>
+          <Dropdown
+            placeholder="Select a support category"
+            value={selectedCategory}
+            options={categories.map((category) => ({
+              id: category.id,
+              title: category.title,
+              description: category.description,
+            }))}
+            onSelect={setSelectedCategory}
+          />
 
           {/* Response time */}
           {selectedCategoryData && (
@@ -246,17 +334,12 @@ export default function StudentSupport() {
             Urgency <Text className="text-[#E74C3C]">*</Text>
           </Text>
 
-          <View className="gap-2">
-            {urgencyOptions.map((option) => (
-              <OptionCard
-                key={option.id}
-                title={option.title}
-                description={option.description}
-                selected={selectedUrgency === option.id}
-                onPress={() => setSelectedUrgency(option.id)}
-              />
-            ))}
-          </View>
+          <Dropdown
+            placeholder="Select urgency"
+            value={selectedUrgency}
+            options={urgencyOptions}
+            onSelect={setSelectedUrgency}
+          />
         </View>
 
         {/* Subject */}

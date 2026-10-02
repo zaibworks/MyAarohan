@@ -5,7 +5,8 @@ import {
     Compass,
     Sparkles
 } from "lucide-react-native";
-import { Pressable, Text, View } from "react-native";
+
+import { Pressable, Text, View,ScrollView } from "react-native";
 
 type DreamCareer = {
   title: string;
@@ -76,15 +77,22 @@ const DreamCareerCards = () => {
           understand the next useful step.
         </Text>
       </View>
-
-    <View className="mx-5 mt-4">
+         <ScrollView 
+        horizontal
+      showsHorizontalScrollIndicator={false}
+      contentContainerStyle={{
+        gap:10,
+        marginTop:18
+      }}
+      className="mx-4"
+      >
   {dreamCareers.map((career, index) => {
     const Icon = career.icon;
 
     return (
       <View
         key={career.title}
-        className="mb-4 overflow-hidden rounded-[20px] border border-[#F04444] bg-white"
+        className="w-full max-w-[300px] overflow-hidden rounded-[20px] border border-[#F04444] bg-white"
       >
         <View className="px-3 py-3">
           {/* HEADER */}
@@ -263,7 +271,7 @@ const DreamCareerCards = () => {
       </View>
     );
   })}
-</View>
+   </ScrollView>
     </>
   );
 };
